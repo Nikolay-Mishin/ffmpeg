@@ -1,0 +1,67 @@
+ffmpeg started on 2025-06-27 at 15:06:09
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "E:\\YandexDisk\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xd1\xf2\xe0\xeb\xfc\xed\xe0\xff \xf2\xf0\xe5\xe2\xee\xe3\xe0!\\\xd2\xc2-2\\Full Metal Panic! The Second Raid [Opening & Ending]\\Full Metal Panic! The Second Raid Creditless ED [AAC 2CH]_HEVC_HEVC.mkv" -i "E:\\YandexDisk\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xd1\xf2\xe0\xeb\xfc\xed\xe0\xff \xf2\xf0\xe5\xe2\xee\xe3\xe0!\\\xd2\xc2-2\\Full Metal Panic! The Second Raid [Opening & Ending]\\Full Metal Panic! The Second Raid Creditless ED [AAC 2CH]_HEVC.mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:1080:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:1080:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'E:\YandexDisk\Аниме\[Топ]\Стальная тревога!\ТВ-2\Full Metal Panic! The Second Raid [Opening & Ending]\Full Metal Panic! The Second Raid Creditless ED [AAC 2CH]_HEVC_HEVC.mkv':
+  Metadata:
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:32.05, start: -0.021000, bitrate: 1076 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 882545
+        DURATION        : 00:01:32.008708333
+        NUMBER_OF_FRAMES: 2206
+        NUMBER_OF_BYTES : 10150154
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 12:00:26
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Japanese
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 190322
+        DURATION        : 00:01:32.032000000
+        NUMBER_OF_FRAMES: 4315
+        NUMBER_OF_BYTES : 2189472
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 12:00:26
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'E:\YandexDisk\Аниме\[Топ]\Стальная тревога!\ТВ-2\Full Metal Panic! The Second Raid [Opening & Ending]\Full Metal Panic! The Second Raid Creditless ED [AAC 2CH]_HEVC.mkv':
+  Metadata:
+    creation_time   : 2024-12-08T14:54:16.000000Z
+    ENCODER         : Lavf61.1.100
+  Duration: 00:01:32.05, start: 0.000000, bitrate: 1385 kb/s
+  Stream #1:0: Video: hevc (Main 10), yuv420p10le(tv, bt709), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        DURATION        : 00:01:32.009000000
+  Stream #1:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Japanese
+        DURATION        : 00:01:32.052000000
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (hevc) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        title           : Japanese
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 190322
+        DURATION        : 00:01:32.032000000
+        NUMBER_OF_FRAMES: 4315
+        NUMBER_OF_BYTES : 2189472
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 12:00:26
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  198 fps=0.0 q=-0.0 size=N/A time=00:00:08.25 bitrate=N/A speed=15.7x    frame=  430 fps=417 q=-0.0 size=N/A time=00:00:17.93 bitrate=N/A speed=17.4x    frame=  691 fps=444 q=-0.0 size=N/A time=00:00:28.82 bitrate=N/A speed=18.5x    frame=  960 fps=463 q=-0.0 size=N/A time=00:00:40.04 bitrate=N/A speed=19.3x    frame= 1194 fps=462 q=-0.0 size=N/A time=00:00:49.79 bitrate=N/A speed=19.2x    frame= 1425 fps=461 q=-0.0 size=N/A time=00:00:59.43 bitrate=N/A speed=19.2x    frame= 1671 fps=462 q=-0.0 size=N/A time=00:01:09.69 bitrate=N/A speed=19.3x    frame= 1944 fps=470 q=-0.0 size=N/A time=00:01:21.08 bitrate=N/A speed=19.6x    frame= 2175 fps=468 q=-0.0 size=N/A time=00:01:30.71 bitrate=N/A speed=19.5x    [Parsed_psnr_10 @ 0000016ae480db40] PSNR y:50.605903 u:51.443931 v:51.324510 average:50.850044 min:46.441579 max:inf
+[out#0/null @ 0000016ae2701580] video:948KiB audio:17260KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2206 fps=472 q=-0.0 Lsize=N/A time=00:01:32.00 bitrate=N/A speed=19.7x    

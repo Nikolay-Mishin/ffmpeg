@@ -1,0 +1,83 @@
+ffmpeg started on 2025-07-23 at 12:48:28
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\\xce\xed\xe3\xee\xe8\xed\xe3\xe8\\!_11_\xcb\xe5\xf2\xee_2018\\\xc4\xe0\xe2\xe0\xe9\xf2\xe5 \xf1\xfb\xe3\xf0\xe0\xe5\xec\\[AniDub]_Asobi_Asobase_[SP1]_[720p_x264_Aac]_[Sergei_Vasya_DreamySleep]_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\\xce\xed\xe3\xee\xe8\xed\xe3\xe8\\!_11_\xcb\xe5\xf2\xee_2018\\\xc4\xe0\xe2\xe0\xe9\xf2\xe5 \xf1\xfb\xe3\xf0\xe0\xe5\xec\\[AniDub]_Asobi_Asobase_[SP1]_[720p_x264_Aac]_[Sergei_Vasya_DreamySleep].mp4" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p,fps=24000/1001,scale=1280:720:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\Онгоинги\!_11_Лето_2018\Давайте сыграем\[AniDub]_Asobi_Asobase_[SP1]_[720p_x264_Aac]_[Sergei_Vasya_DreamySleep]_HEVC.mkv':
+  Metadata:
+    COMPATIBLE_BRANDS: isomavc1
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 1
+    ENCODER         : Lavf61.7.100
+  Duration: 00:06:40.26, start: -0.021000, bitrate: 657 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        HANDLER_NAME    : GPAC ISO Video Handler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 459731
+        DURATION        : 00:06:39.941708333
+        NUMBER_OF_FRAMES: 9589
+        NUMBER_OF_BYTES : 22983187
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-07-23 09:42:03
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(eng): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        HANDLER_NAME    : GPAC ISO Audio Handler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 194205
+        DURATION        : 00:06:40.234000000
+        NUMBER_OF_FRAMES: 18762
+        NUMBER_OF_BYTES : 9715958
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-07-23 09:42:03
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from 'G:\Аниме\Онгоинги\!_11_Лето_2018\Давайте сыграем\[AniDub]_Asobi_Asobase_[SP1]_[720p_x264_Aac]_[Sergei_Vasya_DreamySleep].mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 1
+    compatible_brands: isomavc1
+    creation_time   : 2019-01-07T14:20:21.000000Z
+    encoder         : Yamb 2.1.0.0 [http://yamb.unite-video.com]
+  Duration: 00:06:40.23, start: 0.000000, bitrate: 1308 kb/s
+  Stream #1:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown, progressive), 1280x720, 1113 kb/s, 23.98 fps, 23.98 tbr, 24k tbn (default)
+      Metadata:
+        creation_time   : 2019-01-07T14:20:21.000000Z
+        handler_name    : GPAC ISO Video Handler
+        vendor_id       : [0][0][0][0]
+  Stream #1:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)
+      Metadata:
+        creation_time   : 2019-01-07T14:20:22.000000Z
+        handler_name    : GPAC ISO Audio Handler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    COMPATIBLE_BRANDS: isomavc1
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 1
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(eng): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        HANDLER_NAME    : GPAC ISO Audio Handler
+        VENDOR_ID       : [0][0][0][0]
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 194205
+        DURATION        : 00:06:40.234000000
+        NUMBER_OF_FRAMES: 18762
+        NUMBER_OF_BYTES : 9715958
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-07-23 09:42:03
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  505 fps=0.0 q=-0.0 size=N/A time=00:00:21.06 bitrate=N/A speed=40.6x    frame= 1052 fps=1023 q=-0.0 size=N/A time=00:00:43.91 bitrate=N/A speed=42.7x    frame= 1574 fps=1022 q=-0.0 size=N/A time=00:01:05.64 bitrate=N/A speed=42.6x    frame= 2086 fps=1010 q=-0.0 size=N/A time=00:01:27.00 bitrate=N/A speed=42.1x    frame= 2550 fps=990 q=-0.0 size=N/A time=00:01:46.35 bitrate=N/A speed=41.3x    frame= 2956 fps=958 q=-0.0 size=N/A time=00:02:03.28 bitrate=N/A speed=39.9x    frame= 3433 fps=950 q=-0.0 size=N/A time=00:02:23.18 bitrate=N/A speed=39.6x    frame= 4052 fps=978 q=-0.0 size=N/A time=00:02:49.00 bitrate=N/A speed=40.8x    frame= 4576 fps=983 q=-0.0 size=N/A time=00:03:10.85 bitrate=N/A speed=  41x    frame= 5082 fps=984 q=-0.0 size=N/A time=00:03:31.96 bitrate=N/A speed=41.1x    frame= 5699 fps=1002 q=-0.0 size=N/A time=00:03:57.69 bitrate=N/A speed=41.8x    frame= 6302 fps=1016 q=-0.0 size=N/A time=00:04:22.84 bitrate=N/A speed=42.4x    frame= 6850 fps=1019 q=-0.0 size=N/A time=00:04:45.70 bitrate=N/A speed=42.5x    frame= 7437 fps=1028 q=-0.0 size=N/A time=00:05:10.18 bitrate=N/A speed=42.9x    frame= 8019 fps=1034 q=-0.0 size=N/A time=00:05:34.45 bitrate=N/A speed=43.1x    frame= 8650 fps=1047 q=-0.0 size=N/A time=00:06:00.77 bitrate=N/A speed=43.7x    frame= 9152 fps=1043 q=-0.0 size=N/A time=00:06:21.71 bitrate=N/A speed=43.5x    [Parsed_psnr_10 @ 0000013045325740] PSNR y:47.262575 u:49.130969 v:48.888664 average:47.770255 min:42.656778 max:inf
+[out#0/null @ 00000130392d4ec0] video:4120KiB audio:75048KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 9589 fps=1048 q=-0.0 Lsize=N/A time=00:06:39.94 bitrate=N/A speed=43.7x    

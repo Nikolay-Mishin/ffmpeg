@@ -1,0 +1,92 @@
+ffmpeg started on 2025-03-25 at 16:05:41
+Report written to "D:\Convert\FFMetrics\reports\vmaf_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -r 24000/1001 -i "G:\\\xc0\xed\xe8\xec\xe5\\\xce\xed\xe3\xee\xe8\xed\xe3\xe8\\!_35_\xcb\xe5\xf2\xee_2024\\DreamCast\\\xc0\xeb\xff \xe8\xed\xee\xe3\xe4\xe0 \xea\xee\xea\xe5\xf2\xed\xe8\xf7\xe0\xe5\xf2 \xf1\xee \xec\xed\xee\xe9 \xef\xee-\xf0\xf3\xf1\xf1\xea\xe8\\[DC] Roshidere - 12_Telegram_HEVC.mkv" -r 24000/1001 -i "G:\\\xc0\xed\xe8\xec\xe5\\\xce\xed\xe3\xee\xe8\xed\xe3\xe8\\!_35_\xcb\xe5\xf2\xee_2024\\DreamCast\\\xc0\xeb\xff \xe8\xed\xee\xe3\xe4\xe0 \xea\xee\xea\xe5\xf2\xed\xe8\xf7\xe0\xe5\xf2 \xf1\xee \xec\xed\xee\xe9 \xef\xee-\xf0\xf3\xf1\xf1\xea\xe8\\[DC] Roshidere - 12_Telegram.mp4" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:1080:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p,fps=24000/1001,scale=1920:1080:flags=bicubic[ref];[main][ref]libvmaf=eof_action=endall:log_path='D\\:/Convert/FFMetrics/logs/vmaf_logfile-6.txt':n_threads=32:pool=Mean:model=version=vmaf_v0.6.1" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 12_Telegram_HEVC.mkv':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    ENCODER         : Lavf61.7.100
+  Duration: 00:25:17.57, start: -0.021000, bitrate: 734 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        HANDLER_NAME    : VideoHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 536334
+        DURATION        : 00:25:16.514708333
+        NUMBER_OF_FRAMES: 36360
+        NUMBER_OF_BYTES : 101669922
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-03-11 12:05:32
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1: Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 194164
+        DURATION        : 00:25:17.568000000
+        NUMBER_OF_FRAMES: 71137
+        NUMBER_OF_BYTES : 36832140
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-03-11 12:05:32
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from 'G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 12_Telegram.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf61.1.100
+  Duration: 00:25:17.51, start: 0.000000, bitrate: 3686 kb/s
+  Stream #1:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 3540 kb/s, 23.98 fps, 23.98 tbr, 24k tbn (default)
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.3.100 h264_qsv
+  Stream #1:1[0x2](und): Audio: aac (HE-AACv2) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 144 kb/s (default)
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  libvmaf:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1: Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 194164
+        DURATION        : 00:25:17.568000000
+        NUMBER_OF_FRAMES: 71137
+        NUMBER_OF_BYTES : 36832140
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-03-11 12:05:32
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=   38 fps=0.0 q=-0.0 size=N/A time=00:00:01.58 bitrate=N/A speed=3.07x    frame=   84 fps= 82 q=-0.0 size=N/A time=00:00:03.50 bitrate=N/A speed=3.41x    frame=  130 fps= 85 q=-0.0 size=N/A time=00:00:05.42 bitrate=N/A speed=3.53x    frame=  175 fps= 85 q=-0.0 size=N/A time=00:00:07.29 bitrate=N/A speed=3.53x    frame=  217 fps= 84 q=-0.0 size=N/A time=00:00:09.05 bitrate=N/A speed=3.51x    frame=  261 fps= 85 q=-0.0 size=N/A time=00:00:10.88 bitrate=N/A speed=3.53x    frame=  304 fps= 84 q=-0.0 size=N/A time=00:00:12.67 bitrate=N/A speed=3.51x    frame=  350 fps= 85 q=-0.0 size=N/A time=00:00:14.59 bitrate=N/A speed=3.54x    frame=  396 fps= 85 q=-0.0 size=N/A time=00:00:16.51 bitrate=N/A speed=3.56x    frame=  443 fps= 86 q=-0.0 size=N/A time=00:00:18.47 bitrate=N/A speed=3.59x    frame=  488 fps= 86 q=-0.0 size=N/A time=00:00:20.35 bitrate=N/A speed=3.59x    frame=  533 fps= 86 q=-0.0 size=N/A time=00:00:22.23 bitrate=N/A speed= 3.6x    frame=  575 fps= 86 q=-0.0 size=N/A time=00:00:23.98 bitrate=N/A speed=3.58x    frame=  622 fps= 86 q=-0.0 size=N/A time=00:00:25.94 bitrate=N/A speed=3.59x    frame=  665 fps= 86 q=-0.0 size=N/A time=00:00:27.73 bitrate=N/A speed=3.59x    frame=  711 fps= 86 q=-0.0 size=N/A time=00:00:29.65 bitrate=N/A speed= 3.6x    frame=  757 fps= 86 q=-0.0 size=N/A time=00:00:31.57 bitrate=N/A speed= 3.6x    frame=  802 fps= 86 q=-0.0 size=N/A time=00:00:33.45 bitrate=N/A speed= 3.6x    frame=  845 fps= 86 q=-0.0 size=N/A time=00:00:35.24 bitrate=N/A speed= 3.6x    frame=  890 fps= 86 q=-0.0 size=N/A time=00:00:37.12 bitrate=N/A speed= 3.6x    frame=  935 fps= 86 q=-0.0 size=N/A time=00:00:38.99 bitrate=N/A speed= 3.6x    frame=  980 fps= 86 q=-0.0 size=N/A time=00:00:40.87 bitrate=N/A speed=3.61x    frame= 1024 fps= 86 q=-0.0 size=N/A time=00:00:42.70 bitrate=N/A speed= 3.6x    frame= 1071 fps= 87 q=-0.0 size=N/A time=00:00:44.66 bitrate=N/A speed=3.61x    frame= 1115 fps= 87 q=-0.0 size=N/A time=00:00:46.50 bitrate=N/A speed=3.61x    frame= 1161 fps= 87 q=-0.0 size=N/A time=00:00:48.42 bitrate=N/A speed=3.61x    frame= 1206 fps= 87 q=-0.0 size=N/A time=00:00:50.30 bitrate=N/A speed=3.61x    frame= 1251 fps= 87 q=-0.0 size=N/A time=00:00:52.17 bitrate=N/A speed=3.62x    frame= 1296 fps= 87 q=-0.0 size=N/A time=00:00:54.05 bitrate=N/A speed=3.62x    frame= 1343 fps= 87 q=-0.0 size=N/A time=00:00:56.01 bitrate=N/A speed=3.62x    frame= 1389 fps= 87 q=-0.0 size=N/A time=00:00:57.93 bitrate=N/A speed=3.62x    frame= 1434 fps= 87 q=-0.0 size=N/A time=00:00:59.80 bitrate=N/A speed=3.63x    frame= 1479 fps= 87 q=-0.0 size=N/A time=00:01:01.68 bitrate=N/A speed=3.62x    frame= 1525 fps= 87 q=-0.0 size=N/A time=00:01:03.60 bitrate=N/A speed=3.63x    frame= 1570 fps= 87 q=-0.0 size=N/A time=00:01:05.48 bitrate=N/A speed=3.63x    frame= 1616 fps= 87 q=-0.0 size=N/A time=00:01:07.40 bitrate=N/A speed=3.63x    frame= 1661 fps= 87 q=-0.0 size=N/A time=00:01:09.27 bitrate=N/A speed=3.63x    frame= 1707 fps= 87 q=-0.0 size=N/A time=00:01:11.19 bitrate=N/A speed=3.63x    frame= 1753 fps= 87 q=-0.0 size=N/A time=00:01:13.11 bitrate=N/A speed=3.64x    frame= 1799 fps= 87 q=-0.0 size=N/A time=00:01:15.03 bitrate=N/A speed=3.64x    frame= 1846 fps= 87 q=-0.0 size=N/A time=00:01:16.99 bitrate=N/A speed=3.64x    frame= 1891 fps= 87 q=-0.0 size=N/A time=00:01:18.87 bitrate=N/A speed=3.64x    frame= 1938 fps= 87 q=-0.0 size=N/A time=00:01:20.83 bitrate=N/A speed=3.65x    frame= 1983 fps= 87 q=-0.0 size=N/A time=00:01:22.70 bitrate=N/A speed=3.65x    frame= 2029 fps= 87 q=-0.0 size=N/A time=00:01:24.62 bitrate=N/A speed=3.65x    frame= 2075 fps= 87 q=-0.0 size=N/A time=00:01:26.54 bitrate=N/A speed=3.65x    frame= 2122 fps= 88 q=-0.0 size=N/A time=00:01:28.50 bitrate=N/A speed=3.65x    frame= 2167 fps= 88 q=-0.0 size=N/A time=00:01:30.38 bitrate=N/A speed=3.65x    frame= 2212 fps= 88 q=-0.0 size=N/A time=00:01:32.25 bitrate=N/A speed=3.65x    frame= 2258 fps= 88 q=-0.0 size=N/A time=00:01:34.17 bitrate=N/A speed=3.65x    frame= 2303 fps= 88 q=-0.0 size=N/A time=00:01:36.05 bitrate=N/A speed=3.65x    frame= 2348 fps= 88 q=-0.0 size=N/A time=00:01:37.93 bitrate=N/A speed=3.65x    frame= 2392 fps= 88 q=-0.0 size=N/A time=00:01:39.76 bitrate=N/A speed=3.65x    frame= 2435 fps= 87 q=-0.0 size=N/A time=00:01:41.55 bitrate=N/A speed=3.65x    frame= 2482 fps= 88 q=-0.0 size=N/A time=00:01:43.52 bitrate=N/A speed=3.65x    [mov,mp4,m4a,3gp,3g2,mj2 @ 0000028426050200] Packet corrupt (stream = 0, dts = 2535533).
+[h264 @ 0000028426649400] Invalid NAL unit size (23956 > 5732).
+[h264 @ 0000028426649400] missing picture in access unit with size 5751
+[in#1/mov,mp4,m4a,3gp,3g2,mj2 @ 0000028425c82100] corrupt input packet in stream 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0000028426050200] stream 0, offset 0x33d8bf9: partial file
+[in#1/mov,mp4,m4a,3gp,3g2,mj2 @ 0000028425c82100] Error during demuxing: Immediate exit requested
+[in#0/matroska,webm @ 0000028425c6a400] Error during demuxing: Immediate exit requested
+[h264 @ 0000028426ba5280] Invalid NAL unit size (23956 > 5732).
+[h264 @ 0000028426ba5280] Error splitting the input into NAL units.
+[vist#1:0/h264 @ 0000028425cb2780] [dec:h264 @ 0000028426163f00] Decoding error: Invalid data found when processing input
+[Parsed_libvmaf_10 @ 0000028426ba0a80] VMAF score: 95.362035
+[out#0/null @ 0000028425cb3280] video:1084KiB audio:19712KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2523 fps= 87 q=-0.0 Lsize=N/A time=00:01:45.13 bitrate=N/A speed=3.61x    
+Exiting normally, received signal 15.

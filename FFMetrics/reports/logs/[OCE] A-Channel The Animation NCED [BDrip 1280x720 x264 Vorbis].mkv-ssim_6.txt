@@ -1,0 +1,60 @@
+ffmpeg started on 2025-06-27 at 12:00:11
+Report written to "D:\Convert\FFMetrics\reports\ssim_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xca\xe0\xed\xe0\xeb \xc0\\NC\\[OCE] A-Channel The Animation NCED [BDrip 1280x720 x264 Vorbis]_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xca\xe0\xed\xe0\xeb \xc0\\NC\\[OCE] A-Channel The Animation NCED [BDrip 1280x720 x264 Vorbis].mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[ref];[main][ref]ssim=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\[Топ]\Канал А\NC\[OCE] A-Channel The Animation NCED [BDrip 1280x720 x264 Vorbis]_HEVC.mkv':
+  Metadata:
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:32.03, start: -0.019000, bitrate: 867 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 674367
+        DURATION        : 00:01:32.008708333
+        NUMBER_OF_FRAMES: 2206
+        NUMBER_OF_BYTES : 7755903
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:18:58
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 189450
+        DURATION        : 00:01:32.031000000
+        NUMBER_OF_FRAMES: 4315
+        NUMBER_OF_BYTES : 2179410
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:18:58
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'G:\Аниме\[Топ]\Канал А\NC\[OCE] A-Channel The Animation NCED [BDrip 1280x720 x264 Vorbis].mkv':
+  Metadata:
+    encoder         : libebml v0.7.7 + libmatroska v0.8.1
+    creation_time   : 2011-12-03T15:02:19.000000Z
+  Duration: 00:01:32.01, start: 0.000000, bitrate: 3705 kb/s
+  Stream #1:0: Video: h264 (High 10), yuv420p10le(progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+  Stream #1:1(jpn): Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  ssim:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 189450
+        DURATION        : 00:01:32.031000000
+        NUMBER_OF_FRAMES: 4315
+        NUMBER_OF_BYTES : 2179410
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:18:58
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=   40 fps=0.0 q=-0.0 size=N/A time=00:00:01.66 bitrate=N/A speed=3.26x    frame=   87 fps= 85 q=-0.0 size=N/A time=00:00:03.62 bitrate=N/A speed=3.55x    frame=  127 fps= 82 q=-0.0 size=N/A time=00:00:05.29 bitrate=N/A speed=3.43x    frame=  183 fps= 89 q=-0.0 size=N/A time=00:00:07.63 bitrate=N/A speed=3.72x    frame=  232 fps= 90 q=-0.0 size=N/A time=00:00:09.67 bitrate=N/A speed=3.75x    frame=  277 fps= 90 q=-0.0 size=N/A time=00:00:11.55 bitrate=N/A speed=3.74x    frame=  329 fps= 91 q=-0.0 size=N/A time=00:00:13.72 bitrate=N/A speed= 3.8x    frame=  377 fps= 91 q=-0.0 size=N/A time=00:00:15.72 bitrate=N/A speed=3.81x    frame=  421 fps= 90 q=-0.0 size=N/A time=00:00:17.55 bitrate=N/A speed=3.77x    frame=  460 fps= 89 q=-0.0 size=N/A time=00:00:19.18 bitrate=N/A speed=3.72x    frame=  521 fps= 92 q=-0.0 size=N/A time=00:00:21.73 bitrate=N/A speed=3.82x    frame=  571 fps= 92 q=-0.0 size=N/A time=00:00:23.81 bitrate=N/A speed=3.84x    frame=  613 fps= 91 q=-0.0 size=N/A time=00:00:25.56 bitrate=N/A speed=3.81x    frame=  667 fps= 92 q=-0.0 size=N/A time=00:00:27.81 bitrate=N/A speed=3.84x    frame=  716 fps= 92 q=-0.0 size=N/A time=00:00:29.86 bitrate=N/A speed=3.85x    frame=  765 fps= 93 q=-0.0 size=N/A time=00:00:31.90 bitrate=N/A speed=3.86x    frame=  814 fps= 93 q=-0.0 size=N/A time=00:00:33.95 bitrate=N/A speed=3.87x    frame=  866 fps= 93 q=-0.0 size=N/A time=00:00:36.11 bitrate=N/A speed=3.89x    frame=  915 fps= 93 q=-0.0 size=N/A time=00:00:38.16 bitrate=N/A speed=3.89x    frame=  966 fps= 94 q=-0.0 size=N/A time=00:00:40.29 bitrate=N/A speed= 3.9x    frame= 1003 fps= 93 q=-0.0 size=N/A time=00:00:41.83 bitrate=N/A speed=3.86x    frame= 1068 fps= 94 q=-0.0 size=N/A time=00:00:44.54 bitrate=N/A speed=3.92x    frame= 1118 fps= 94 q=-0.0 size=N/A time=00:00:46.62 bitrate=N/A speed=3.93x    frame= 1160 fps= 94 q=-0.0 size=N/A time=00:00:48.38 bitrate=N/A speed=3.91x    frame= 1219 fps= 94 q=-0.0 size=N/A time=00:00:50.84 bitrate=N/A speed=3.94x    frame= 1270 fps= 95 q=-0.0 size=N/A time=00:00:52.96 bitrate=N/A speed=3.95x    frame= 1312 fps= 94 q=-0.0 size=N/A time=00:00:54.72 bitrate=N/A speed=3.93x    frame= 1369 fps= 95 q=-0.0 size=N/A time=00:00:57.09 bitrate=N/A speed=3.95x    frame= 1421 fps= 95 q=-0.0 size=N/A time=00:00:59.26 bitrate=N/A speed=3.96x    frame= 1460 fps= 94 q=-0.0 size=N/A time=00:01:00.89 bitrate=N/A speed=3.93x    frame= 1523 fps= 95 q=-0.0 size=N/A time=00:01:03.52 bitrate=N/A speed=3.97x    frame= 1565 fps= 95 q=-0.0 size=N/A time=00:01:05.27 bitrate=N/A speed=3.95x    frame= 1623 fps= 95 q=-0.0 size=N/A time=00:01:07.69 bitrate=N/A speed=3.98x    frame= 1674 fps= 95 q=-0.0 size=N/A time=00:01:09.81 bitrate=N/A speed=3.98x    frame= 1725 fps= 95 q=-0.0 size=N/A time=00:01:11.94 bitrate=N/A speed=3.98x    frame= 1775 fps= 96 q=-0.0 size=N/A time=00:01:14.03 bitrate=N/A speed=3.99x    frame= 1815 fps= 95 q=-0.0 size=N/A time=00:01:15.70 bitrate=N/A speed=3.97x    frame= 1875 fps= 96 q=-0.0 size=N/A time=00:01:18.20 bitrate=N/A speed=3.99x    frame= 1926 fps= 96 q=-0.0 size=N/A time=00:01:20.33 bitrate=N/A speed=3.99x    frame= 1976 fps= 96 q=-0.0 size=N/A time=00:01:22.41 bitrate=N/A speed=3.99x    frame= 2020 fps= 96 q=-0.0 size=N/A time=00:01:24.25 bitrate=N/A speed=3.98x    frame= 2074 fps= 96 q=-0.0 size=N/A time=00:01:26.50 bitrate=N/A speed=3.99x    frame= 2126 fps= 96 q=-0.0 size=N/A time=00:01:28.67 bitrate=N/A speed=   4x    frame= 2178 fps= 96 q=-0.0 size=N/A time=00:01:30.84 bitrate=N/A speed=   4x    [Parsed_ssim_10 @ 0000016d581d9080] SSIM Y:0.990137 (20.059842) U:0.993755 (22.044819) V:0.993700 (22.006509) All:0.991334 (20.621686)
+[out#0/null @ 0000016d4bcdd300] video:948KiB audio:17260KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2206 fps= 96 q=-0.0 Lsize=N/A time=00:01:32.00 bitrate=N/A speed=   4x    

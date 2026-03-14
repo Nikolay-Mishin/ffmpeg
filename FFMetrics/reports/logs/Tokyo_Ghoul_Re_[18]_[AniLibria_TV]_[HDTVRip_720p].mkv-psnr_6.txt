@@ -1,0 +1,495 @@
+ffmpeg started on 2025-06-27 at 10:26:17
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef-4]\\\xd2\xee\xea\xe8\xe9\xf1\xea\xe8\xe9 \xc3\xf3\xeb\xfc\\\xd2\xc2-4\\Tokyo_Ghoul_Re_[18]_[AniLibria_TV]_[HDTVRip_720p]_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef-4]\\\xd2\xee\xea\xe8\xe9\xf1\xea\xe8\xe9 \xc3\xf3\xeb\xfc\\\xd2\xc2-4\\Tokyo_Ghoul_Re_[18]_[AniLibria_TV]_[HDTVRip_720p].mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p,fps=24000/1001,scale=1280:720:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\[Топ-4]\Токийский Гуль\ТВ-4\Tokyo_Ghoul_Re_[18]_[AniLibria_TV]_[HDTVRip_720p]_HEVC.mkv':
+  Metadata:
+    ENCODER         : Lavf61.7.100
+  Duration: 00:24:30.10, start: -0.021000, bitrate: 605 kb/s
+  Stream #0:0(jpn): Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 406776
+        DURATION        : 00:24:29.968708333
+        NUMBER_OF_FRAMES: 35244
+        NUMBER_OF_BYTES : 74743490
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-26 15:55:03
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(rus): Audio: aac (LC), 48000 Hz, stereo, fltp (default) (forced)
+      Metadata:
+        title           : AniLibria.TV
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 194636
+        DURATION        : 00:24:30.080000000
+        NUMBER_OF_FRAMES: 68911
+        NUMBER_OF_BYTES : 35766400
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-26 15:55:03
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:2(rus): Subtitle: ass (ssa) (default) (forced)
+      Metadata:
+        title           : Надписи
+        BPS             : 34
+        DURATION        : 00:23:36.540000000
+        NUMBER_OF_FRAMES: 38
+        NUMBER_OF_BYTES : 6053
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-26 15:55:03
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:3(rus): Subtitle: ass (ssa)
+      Metadata:
+        title           : Полные
+        BPS             : 125
+        DURATION        : 00:23:36.540000000
+        NUMBER_OF_FRAMES: 283
+        NUMBER_OF_BYTES : 22294
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-26 15:55:03
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+[matroska,webm @ 000001d37367a680] Could not find codec parameters for stream 15 (Attachment: none): unknown codec
+Consider increasing the value for the 'analyzeduration' (0) and 'probesize' (5000000) options
+[matroska,webm @ 000001d37367a680] Could not find codec parameters for stream 38 (Attachment: none): unknown codec
+Consider increasing the value for the 'analyzeduration' (0) and 'probesize' (5000000) options
+[matroska,webm @ 000001d37367a680] Could not find codec parameters for stream 62 (Attachment: none): unknown codec
+Consider increasing the value for the 'analyzeduration' (0) and 'probesize' (5000000) options
+[matroska,webm @ 000001d37367a680] Could not find codec parameters for stream 86 (Attachment: none): unknown codec
+Consider increasing the value for the 'analyzeduration' (0) and 'probesize' (5000000) options
+Input #1, matroska,webm, from 'G:\Аниме\[Топ-4]\Токийский Гуль\ТВ-4\Tokyo_Ghoul_Re_[18]_[AniLibria_TV]_[HDTVRip_720p].mkv':
+  Metadata:
+    encoder         : libebml v1.4.2 + libmatroska v1.6.4
+    creation_time   : 2024-12-27T09:49:22.000000Z
+  Duration: 00:24:30.08, start: 0.000000, bitrate: 1863 kb/s
+  Stream #1:0(jpn): Video: h264 (Main), yuv420p(tv, bt709, progressive), 1280x720, SAR 1:1 DAR 16:9, 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        BPS             : 1623107
+        DURATION        : 00:24:29.969000000
+        NUMBER_OF_FRAMES: 35244
+        NUMBER_OF_BYTES : 298239797
+        _STATISTICS_WRITING_APP: mkvmerge v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2024-12-27 09:49:22
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #1:1(rus): Audio: aac (LC), 48000 Hz, stereo, fltp (default) (forced)
+      Metadata:
+        title           : AniLibria.TV
+        BPS             : 192092
+        DURATION        : 00:24:30.080000000
+        NUMBER_OF_FRAMES: 68910
+        NUMBER_OF_BYTES : 35298908
+        _STATISTICS_WRITING_APP: mkvmerge v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2024-12-27 09:49:22
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #1:2(rus): Subtitle: ass (ssa) (default) (forced)
+      Metadata:
+        title           : Надписи
+        BPS             : 34
+        DURATION        : 00:23:36.540000000
+        NUMBER_OF_FRAMES: 38
+        NUMBER_OF_BYTES : 6053
+        _STATISTICS_WRITING_APP: mkvmerge v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2024-12-27 09:49:22
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #1:3(rus): Subtitle: ass (ssa)
+      Metadata:
+        title           : Полные
+        BPS             : 125
+        DURATION        : 00:23:36.540000000
+        NUMBER_OF_FRAMES: 283
+        NUMBER_OF_BYTES : 22294
+        _STATISTICS_WRITING_APP: mkvmerge v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2024-12-27 09:49:22
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #1:4: Attachment: ttf
+      Metadata:
+        filename        : 10322__2.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:5: Attachment: ttf
+      Metadata:
+        filename        : 10352__0.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:6: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Bold Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:7: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Bold.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:8: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:9: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Light Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:10: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Light.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:11: Attachment: ttf
+      Metadata:
+        filename        : Aero_Matics_Display_Regular.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:12: Attachment: ttf
+      Metadata:
+        filename        : BenchNine-Regular.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:13: Attachment: ttf
+      Metadata:
+        filename        : OpenSanA.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:14: Attachment: ttf
+      Metadata:
+        filename        : REDOCTOB.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:15: Attachment: none
+      Metadata:
+        filename        : simsun_0.ttc
+        mimetype        : application/octet-stream
+  Stream #1:16: Attachment: ttf
+      Metadata:
+        filename        : Snowstorm.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:17: Attachment: ttf
+      Metadata:
+        filename        : TEMPSITC.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:18: Attachment: ttf
+      Metadata:
+        filename        : TrajanPro3-Bold.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:19: Attachment: ttf
+      Metadata:
+        filename        : TrajanPro3-Regular.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:20: Attachment: ttf
+      Metadata:
+        filename        : v_CCTimSale_v1.11.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:21: Attachment: ttf
+      Metadata:
+        filename        : v_HolyMackerelli_v1.9.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:22: Attachment: ttf
+      Metadata:
+        filename        : v_StraightJacketBB_v1.1.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:23: Attachment: ttf
+      Metadata:
+        filename        : XENI.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:24: Attachment: ttf
+      Metadata:
+        filename        : 10322__2.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:25: Attachment: ttf
+      Metadata:
+        filename        : 10352__0.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:26: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Bold Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:27: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Bold.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:28: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:29: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Light Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:30: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Light.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:31: Attachment: ttf
+      Metadata:
+        filename        : Aero_Matics_Display_Regular.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:32: Attachment: ttf
+      Metadata:
+        filename        : BenchNine-Regular.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:33: Attachment: ttf
+      Metadata:
+        filename        : ObelixPro (Regular).ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:34: Attachment: ttf
+      Metadata:
+        filename        : OHCRBRG.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:35: Attachment: ttf
+      Metadata:
+        filename        : OpenSanA.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:36: Attachment: ttf
+      Metadata:
+        filename        : Passing Notes.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:37: Attachment: ttf
+      Metadata:
+        filename        : REDOCTOB.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:38: Attachment: none
+      Metadata:
+        filename        : simsun_0.ttc
+        mimetype        : application/octet-stream
+  Stream #1:39: Attachment: ttf
+      Metadata:
+        filename        : Snowstorm.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:40: Attachment: ttf
+      Metadata:
+        filename        : TEMPSITC.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:41: Attachment: ttf
+      Metadata:
+        filename        : TrajanPro3-Bold.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:42: Attachment: ttf
+      Metadata:
+        filename        : TrajanPro3-Regular.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:43: Attachment: ttf
+      Metadata:
+        filename        : v_BloodyMurder BB_v1.0.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:44: Attachment: ttf
+      Metadata:
+        filename        : v_CCTimSale_v1.11.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:45: Attachment: ttf
+      Metadata:
+        filename        : v_HolyMackerelli_v1.9.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:46: Attachment: ttf
+      Metadata:
+        filename        : v_StraightJacketBB_v1.1.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:47: Attachment: ttf
+      Metadata:
+        filename        : XENI.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:48: Attachment: ttf
+      Metadata:
+        filename        : 10322__2.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:49: Attachment: ttf
+      Metadata:
+        filename        : 10352__0.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:50: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Bold Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:51: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Bold.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:52: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:53: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Light Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:54: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Light.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:55: Attachment: ttf
+      Metadata:
+        filename        : Aero_Matics_Display_Regular.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:56: Attachment: ttf
+      Metadata:
+        filename        : BenchNine-Regular.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:57: Attachment: ttf
+      Metadata:
+        filename        : ObelixPro (Regular).ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:58: Attachment: ttf
+      Metadata:
+        filename        : OHCRBRG.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:59: Attachment: ttf
+      Metadata:
+        filename        : OpenSanA.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:60: Attachment: ttf
+      Metadata:
+        filename        : Passing Notes.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:61: Attachment: ttf
+      Metadata:
+        filename        : REDOCTOB.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:62: Attachment: none
+      Metadata:
+        filename        : simsun_0.ttc
+        mimetype        : application/octet-stream
+  Stream #1:63: Attachment: ttf
+      Metadata:
+        filename        : Snowstorm.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:64: Attachment: ttf
+      Metadata:
+        filename        : TEMPSITC.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:65: Attachment: ttf
+      Metadata:
+        filename        : TrajanPro3-Bold.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:66: Attachment: ttf
+      Metadata:
+        filename        : TrajanPro3-Regular.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:67: Attachment: ttf
+      Metadata:
+        filename        : v_BloodyMurder BB_v1.0.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:68: Attachment: ttf
+      Metadata:
+        filename        : v_CCTimSale_v1.11.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:69: Attachment: ttf
+      Metadata:
+        filename        : v_HolyMackerelli_v1.9.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:70: Attachment: ttf
+      Metadata:
+        filename        : v_StraightJacketBB_v1.1.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:71: Attachment: ttf
+      Metadata:
+        filename        : XENI.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:72: Attachment: ttf
+      Metadata:
+        filename        : 10322__2.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:73: Attachment: ttf
+      Metadata:
+        filename        : 10352__0.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:74: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Bold Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:75: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Bold.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:76: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:77: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Light Italic.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:78: Attachment: ttf
+      Metadata:
+        filename        : Aero Matics Display Light.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:79: Attachment: ttf
+      Metadata:
+        filename        : Aero_Matics_Display_Regular.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:80: Attachment: ttf
+      Metadata:
+        filename        : BenchNine-Regular.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:81: Attachment: ttf
+      Metadata:
+        filename        : ObelixPro (Regular).ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:82: Attachment: ttf
+      Metadata:
+        filename        : OHCRBRG.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:83: Attachment: ttf
+      Metadata:
+        filename        : OpenSanA.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:84: Attachment: ttf
+      Metadata:
+        filename        : Passing Notes.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:85: Attachment: ttf
+      Metadata:
+        filename        : REDOCTOB.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:86: Attachment: none
+      Metadata:
+        filename        : simsun_0.ttc
+        mimetype        : application/octet-stream
+  Stream #1:87: Attachment: ttf
+      Metadata:
+        filename        : Snowstorm.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:88: Attachment: ttf
+      Metadata:
+        filename        : TEMPSITC.TTF
+        mimetype        : application/x-truetype-font
+  Stream #1:89: Attachment: ttf
+      Metadata:
+        filename        : TrajanPro3-Bold.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:90: Attachment: ttf
+      Metadata:
+        filename        : TrajanPro3-Regular.otf
+        mimetype        : application/x-truetype-font
+  Stream #1:91: Attachment: ttf
+      Metadata:
+        filename        : v_BloodyMurder BB_v1.0.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:92: Attachment: ttf
+      Metadata:
+        filename        : v_CCTimSale_v1.11.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:93: Attachment: ttf
+      Metadata:
+        filename        : v_HolyMackerelli_v1.9.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:94: Attachment: ttf
+      Metadata:
+        filename        : v_StraightJacketBB_v1.1.ttf
+        mimetype        : application/x-truetype-font
+  Stream #1:95: Attachment: ttf
+      Metadata:
+        filename        : XENI.TTF
+        mimetype        : application/x-truetype-font
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(rus): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default) (forced)
+      Metadata:
+        title           : AniLibria.TV
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 194636
+        DURATION        : 00:24:30.080000000
+        NUMBER_OF_FRAMES: 68911
+        NUMBER_OF_BYTES : 35766400
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-26 15:55:03
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  494 fps=0.0 q=-0.0 size=N/A time=00:00:20.60 bitrate=N/A speed=39.1x    frame=  971 fps=937 q=-0.0 size=N/A time=00:00:40.49 bitrate=N/A speed=39.1x    frame= 1401 fps=899 q=-0.0 size=N/A time=00:00:58.43 bitrate=N/A speed=37.5x    frame= 1705 fps=825 q=-0.0 size=N/A time=00:01:11.11 bitrate=N/A speed=34.4x    frame= 2146 fps=828 q=-0.0 size=N/A time=00:01:29.50 bitrate=N/A speed=34.5x    frame= 2587 fps=835 q=-0.0 size=N/A time=00:01:47.89 bitrate=N/A speed=34.8x    frame= 3102 fps=859 q=-0.0 size=N/A time=00:02:09.37 bitrate=N/A speed=35.8x    frame= 3614 fps=874 q=-0.0 size=N/A time=00:02:30.73 bitrate=N/A speed=36.4x    frame= 4151 fps=893 q=-0.0 size=N/A time=00:02:53.13 bitrate=N/A speed=37.3x    frame= 4714 fps=914 q=-0.0 size=N/A time=00:03:16.61 bitrate=N/A speed=38.1x    frame= 5253 fps=924 q=-0.0 size=N/A time=00:03:39.09 bitrate=N/A speed=38.5x    frame= 5808 fps=938 q=-0.0 size=N/A time=00:04:02.24 bitrate=N/A speed=39.1x    frame= 6382 fps=952 q=-0.0 size=N/A time=00:04:26.18 bitrate=N/A speed=39.7x    frame= 6884 fps=952 q=-0.0 size=N/A time=00:04:47.12 bitrate=N/A speed=39.7x    frame= 7442 fps=962 q=-0.0 size=N/A time=00:05:10.39 bitrate=N/A speed=40.1x    frame= 8007 fps=970 q=-0.0 size=N/A time=00:05:33.95 bitrate=N/A speed=40.5x    frame= 8570 fps=976 q=-0.0 size=N/A time=00:05:57.44 bitrate=N/A speed=40.7x    frame= 9104 fps=980 q=-0.0 size=N/A time=00:06:19.71 bitrate=N/A speed=40.9x    frame= 9632 fps=983 q=-0.0 size=N/A time=00:06:41.73 bitrate=N/A speed=  41x    frame=10197 fps=988 q=-0.0 size=N/A time=00:07:05.29 bitrate=N/A speed=41.2x    frame=10664 fps=985 q=-0.0 size=N/A time=00:07:24.77 bitrate=N/A speed=41.1x    frame=11126 fps=980 q=-0.0 size=N/A time=00:07:44.04 bitrate=N/A speed=40.9x    frame=11463 fps=966 q=-0.0 size=N/A time=00:07:58.10 bitrate=N/A speed=40.3x    frame=11950 fps=965 q=-0.0 size=N/A time=00:08:18.41 bitrate=N/A speed=40.3x    frame=12473 fps=967 q=-0.0 size=N/A time=00:08:40.22 bitrate=N/A speed=40.3x    frame=12934 fps=964 q=-0.0 size=N/A time=00:08:59.45 bitrate=N/A speed=40.2x    frame=13422 fps=964 q=-0.0 size=N/A time=00:09:19.80 bitrate=N/A speed=40.2x    frame=13911 fps=963 q=-0.0 size=N/A time=00:09:40.20 bitrate=N/A speed=40.2x    frame=14366 fps=961 q=-0.0 size=N/A time=00:09:59.18 bitrate=N/A speed=40.1x    frame=14906 fps=963 q=-0.0 size=N/A time=00:10:21.70 bitrate=N/A speed=40.2x    frame=15461 fps=967 q=-0.0 size=N/A time=00:10:44.85 bitrate=N/A speed=40.3x    frame=16015 fps=970 q=-0.0 size=N/A time=00:11:07.95 bitrate=N/A speed=40.4x    frame=16484 fps=968 q=-0.0 size=N/A time=00:11:27.52 bitrate=N/A speed=40.4x    frame=17045 fps=972 q=-0.0 size=N/A time=00:11:50.91 bitrate=N/A speed=40.5x    frame=17543 fps=971 q=-0.0 size=N/A time=00:12:11.68 bitrate=N/A speed=40.5x    frame=18079 fps=974 q=-0.0 size=N/A time=00:12:34.04 bitrate=N/A speed=40.6x    frame=18612 fps=976 q=-0.0 size=N/A time=00:12:56.27 bitrate=N/A speed=40.7x    frame=19251 fps=982 q=-0.0 size=N/A time=00:13:22.92 bitrate=N/A speed=  41x    frame=19733 fps=981 q=-0.0 size=N/A time=00:13:43.03 bitrate=N/A speed=40.9x    frame=20317 fps=985 q=-0.0 size=N/A time=00:14:07.38 bitrate=N/A speed=41.1x    frame=20885 fps=987 q=-0.0 size=N/A time=00:14:31.07 bitrate=N/A speed=41.2x    frame=21347 fps=986 q=-0.0 size=N/A time=00:14:50.34 bitrate=N/A speed=41.1x    frame=21885 fps=987 q=-0.0 size=N/A time=00:15:12.78 bitrate=N/A speed=41.2x    frame=22349 fps=985 q=-0.0 size=N/A time=00:15:32.13 bitrate=N/A speed=41.1x    frame=22786 fps=982 q=-0.0 size=N/A time=00:15:50.36 bitrate=N/A speed=  41x    frame=23184 fps=977 q=-0.0 size=N/A time=00:16:06.96 bitrate=N/A speed=40.8x    frame=23657 fps=976 q=-0.0 size=N/A time=00:16:26.69 bitrate=N/A speed=40.7x    frame=24218 fps=978 q=-0.0 size=N/A time=00:16:50.09 bitrate=N/A speed=40.8x    frame=24715 fps=978 q=-0.0 size=N/A time=00:17:10.82 bitrate=N/A speed=40.8x    frame=25009 fps=970 q=-0.0 size=N/A time=00:17:23.08 bitrate=N/A speed=40.5x    frame=25400 fps=966 q=-0.0 size=N/A time=00:17:39.39 bitrate=N/A speed=40.3x    frame=25900 fps=965 q=-0.0 size=N/A time=00:18:00.24 bitrate=N/A speed=40.3x    frame=26412 fps=966 q=-0.0 size=N/A time=00:18:21.60 bitrate=N/A speed=40.3x    frame=26836 fps=963 q=-0.0 size=N/A time=00:18:39.28 bitrate=N/A speed=40.2x    frame=27355 fps=964 q=-0.0 size=N/A time=00:19:00.93 bitrate=N/A speed=40.2x    frame=27823 fps=963 q=-0.0 size=N/A time=00:19:20.45 bitrate=N/A speed=40.2x    frame=28334 fps=963 q=-0.0 size=N/A time=00:19:41.76 bitrate=N/A speed=40.2x    frame=28877 fps=965 q=-0.0 size=N/A time=00:20:04.41 bitrate=N/A speed=40.2x    frame=29391 fps=965 q=-0.0 size=N/A time=00:20:25.84 bitrate=N/A speed=40.3x    frame=29890 fps=965 q=-0.0 size=N/A time=00:20:46.66 bitrate=N/A speed=40.3x    frame=30381 fps=965 q=-0.0 size=N/A time=00:21:07.14 bitrate=N/A speed=40.3x    frame=30866 fps=965 q=-0.0 size=N/A time=00:21:27.36 bitrate=N/A speed=40.2x    frame=31366 fps=965 q=-0.0 size=N/A time=00:21:48.22 bitrate=N/A speed=40.2x    frame=31856 fps=965 q=-0.0 size=N/A time=00:22:08.66 bitrate=N/A speed=40.2x    frame=32300 fps=963 q=-0.0 size=N/A time=00:22:27.17 bitrate=N/A speed=40.2x    frame=32748 fps=962 q=-0.0 size=N/A time=00:22:45.86 bitrate=N/A speed=40.1x    frame=33120 fps=958 q=-0.0 size=N/A time=00:23:01.38 bitrate=N/A speed=  40x    frame=33504 fps=955 q=-0.0 size=N/A time=00:23:17.39 bitrate=N/A speed=39.8x    frame=33911 fps=952 q=-0.0 size=N/A time=00:23:34.37 bitrate=N/A speed=39.7x    frame=34374 fps=952 q=-0.0 size=N/A time=00:23:53.68 bitrate=N/A speed=39.7x    frame=34930 fps=954 q=-0.0 size=N/A time=00:24:16.87 bitrate=N/A speed=39.8x    [Parsed_psnr_10 @ 000001d379ffcdc0] PSNR y:48.199073 u:51.105596 v:51.107937 average:48.970170 min:36.696838 max:54.992921
+[out#0/null @ 000001d3742d3940] video:15144KiB audio:275644KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame=35244 fps=955 q=-0.0 Lsize=N/A time=00:24:29.96 bitrate=N/A speed=39.8x    

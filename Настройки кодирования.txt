@@ -1,0 +1,2204 @@
+Фильтры
+- Удаление гребенки: Off
+- Обнаружение интерлесинга: По умолчанию
+- Деинтерлесинг: Decomb - Default
+
+- Шумоподавление: Выкл
+- Chroma Smooth: Medium - Small
+- Резкозть: LapSharp - Ultralight - Animation
+- Деблокинг: Off
+- Colourspace: Off
+
+TL; Краткое описание DR для настроек кодирования x265
+Установите preset=slow. Затем выберите 1 из следующих параметров, чтобы изменить настройки по умолчанию. Это мои рекомендуемые настройки, не стесняйтесь их изменять.
+
+1 Установка управлять ими всеми:
+* crf=19, 
+limit-sao:bframes=8:psy-rd=1:aq-mode=3 (более высокий битрейт)
+* crf=20-23, 
+bframes=8:psy-rd=1:aq-mode=3 (больше сжатия)
+
+Плоское, медленное аниме (кусочек жизни, все хорошо освещено):
+* crf=19-22, 
+bframes=8:psy-rd=1:aq-mode=3:aq-strength=0.8:deblock=1,1
+
+Какая-нибудь мрачная сцена, какая-нибудь батальная сцена (сенэн, историческая и т.д.):
+* crf=18-20 (движение + необычные и детальные эффекты), 
+limit-sao:bframes=8:psy-rd=1.5:psy-rdoq=2:aq-mode=3
+* crf=19-22 (несложная, только двигательная альтернатива), 
+bframes=8:psy-rd=1:psy-rdoq=1:aq-mode=3:qcomp=0.8
+
+Тёмная сцена кинематографического уровня, сложная зернистость/детализация и B-кадры с динамической зернистостью:
+* crf=16-18, 
+no-sao:bframes=8:psy-rd=1.5:psy-rdoq=<2-5>:aq-mode=3:ref=6 (rdoq от 2 до 5 в зависимости от содержания)
+
+У меня есть бесконечное хранилище, суперкомпьютер, и мне нужны подробности:
+* preset=veryslow, crf=14, 
+no-sao:no-strong-intra-smoothing:bframes=8:psy-rd=2:psy-rdoq=<1-5>:aq-mode=3:deblock=-1,-1:ref=6 (rdoq от 1 до 5 в зависимости от содержания)
+
+Я обнаружил, что 
+psy-rd=1.57:psy-rdoq=0.00:rdoq-level=2 - отлично подходит для аниме. 
+* Обеспечивает исключительную детализацию при использовании 
+no-strong-intra-smoothing:no-deblock:no-sao
+
+x265 меняется с годами, и теперь я считаю, что 
+aq-mode=3:aq-strength=2.0 — идеальное решение для устранения полос и микрополос. 
+
+Однако если это контент на основе фильма с зернистостью, то 
+aq-mode=0:aq-strength=0.0 гораздо лучше подходит для сохранения зернистости.
+
+Для общего использования или когда скорость имеет приоритет: хорошим выбором будет Bicubic.
+Для максимального качества и сохранения деталей, особенно для контента с высоким разрешением или при уменьшении масштаба, 
+обычно предпочтительнее использовать Ланцоша.
+
+ffmpeg -i input.mp4 -vf "scale=1280:-1:flags=bicubic" output_bicubic.mp4
+ffmpeg -i input.mp4 -vf "scale=1280:-1:flags=lanczos" output_lanczos.mp4
+
+-------------------------------------------------
+
+-tune
+
+x265 поддерживает следующие -tuneпараметры: psnr, ssim, grain, zerolatency, fastdecode
+
+film – использовать для высококачественного видеоконтента; снижает деблокирование
+animation – хорошо подходит для мультфильмов; использует более высокий уровень деблокирования и больше опорных кадров
+grain – сохраняет зернистую структуру старого зернистого пленочного материала
+stillimage – хорошо подходит для контента в виде слайд-шоу
+fastdecode – позволяет ускорить декодирование за счет отключения определенных фильтров
+zerolatency – хорошо подходит для быстрого кодирования и потоковой передачи с малой задержкой
+psnr – игнорируйте это, так как оно используется только для разработки кодеков
+ssim – игнорируйте это, так как оно используется только для разработки кодеков
+
+-------------------------------------------------
+
+* H.265 NVEnc 1080p (10-bit) - slow, 29.5 CQ; Decomb
+* H.265 NVEnc 720p (10-bit) - slow, 29.5 CQ; Decomb
+* H.265 NVEnc 576p (10-bit) - slow, 29.5 CQ; Decomb
+tier=high:rc-lookahead=60:aq-strength=1.0:subq=8:no-deblock:qcomp=0.60
+* H.265 NVEnc 1080p (10-bit no-sao) - slowest
+tier=high:rc-lookahead=60:aq-strength=1.0:subq=10:no-strong-intra-smoothing:no-deblock:no-sao:qcomp=0.60:trellis=2:no-fast-pskip
+
+* H.265 1080p (10-bit) - slow, 23 RF; Decomb
+log-level=2:high-tier=1:frame-threads=5:min-keyint=23:keyint=250:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=1.50:rdoq-level=2:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 720p (10-bit) - slow, 23 RF; Decomb
+log-level=2:high-tier=1:frame-threads=5:min-keyint=23:keyint=250:rc-lookahead=20:lookahead-slices=4:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=1.50:rdoq-level=2:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 576p (10-bit) - slow, 23 RF; Decomb
+log-level=2:high-tier=1:frame-threads=5:min-keyint=23:keyint=250:rc-lookahead=20:lookahead-slices=0:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=1.50:rdoq-level=2:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+
+* H.265 1080p (10-bit no-anamorf) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit deblock) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=1:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit limit-sao) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=1:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit no-intra) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=2:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=0:b-intra=0:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit no-sao) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=2:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=0:b-intra=0:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=0:selective-sao=0:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+
+* H.265 1080p (10-bit psy-rd=1.5) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit psy-rd=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=2.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit aq=0.8) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.8:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit aq=1) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=1.0:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit aq=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=2.0:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit rc=20) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit rc=60) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=60:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit me=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=60:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=2:subme=2:merange=24:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit me=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=60:lookahead-slices=6:rect=0:amp=0:rd=4:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=3:subme=2:merange=24:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+
+-------------------------------------------------
+[FFMPEG]
+
+FFREPORT=file='D\:/Convert/FFMetrics/ffreport.txt':level=32 \
+ffmpeg \
+	-i "E:/test.mkv" \
+	-map 0:v:0 -map 0:a:0 \
+	-c:v copy \
+	-c:a copy \
+	-y "E:/test.mp4"
+
+FFREPORT=file='D\:/Convert/FFMetrics/ffreport.txt':level=32 \
+ffmpeg \
+	-i "G:/test.mkv" \
+	-map 0:v:0 -map 0:a:0 \
+	-c:v copy \
+	-c:a copy \
+	-y "G:/test.mp4"
+
+FFREPORT=file='D\:/Convert/FFMetrics/ffreport.txt':level=32 \
+ffmpeg \
+	-i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-map 0:v:0 -map 0:a:0 -map 0:s \
+	-c:v libx265 -vtag hvc1 \
+	-pix_fmts yuv420p10 \
+	-sar 1/1 -aspect 16:9 \
+	-fps_mode cfr \
+	-vf "format=yuv420p10:color_spaces=tv:color_ranges=bt709,fps=ntsc_film,scale=-1:1080:flags=bicubic,setsar=1/1,setdar=1920/1080*(1/1)" \
+	-crf 23 \
+	-preset slow -profile:v main10 -level:v 5.1 -tune animation \
+	-x265-params "level=5.1:log-level=2:high-tier=1" \
+        -t 1 \
+	-c:a aac -b:a 192k \
+	-c:s copy \
+	-y "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv"
+
+ffmpeg -i "E:/Convert/files-0/JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p.mp4" -f rawvideo -pix_fmt yuv420p "E:/Convert/files/JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p-2.yuv"
+ffmpeg -i "E:/Convert/files-0/JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p.mp4" -c:v rawvideo -pix_fmt yuv420p "E:/Convert/files/JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p-2.yuv"
+ffmpeg \
+	-i "E:/Convert/files-0/JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p.mp4" \
+	-c:v rawvideo \
+	-pix_fmt yuv420p \
+	"E:/Convert/files/JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p.yuv"
+
+-------------------------------------------------
+
+// Если вы столкнулись с проблемами, например, первое изображение пропускается/отображается для 1 кадра
+// используйте видеофильтр fps вместо -r для выходной частоты кадров.
+
+ffmpeg -r 1/5 -i img%03d.png -c:v libx264 -vf fps=25 -pix_fmt yuv420p out.mp4
+
+%02d - gym01.jpg
+%03d - img001.jpg
+%05d - gym00001.jpg
+
+// Можно добавить фильтр формата видео в цепочку фильтров для замены -pix_fmt yuv420p, 
+// например "fps=25,format=yuv420p". 
+// Преимущество этого метода в том, что вы можете контролировать, какой фильтр идет первым
+
+ffmpeg -r 1/5 -i "D:\Work\Itorum\TDEMD\Big Arts\ICN-055BA266B667C2E6D7F5125D0302B429.jpg" -c:v libx264 -vf "fps=25,format=yuv420p" -y "E:\Convert\badFrames\out.mp4"
+ffmpeg -r 1/5 -i "C:\Users\Владелец Super PC\AppData\Local\Temp\DMC\graphics\ICN-055BA266B667C2E6D7F5125D0302B429.jpg" -c:v libx264 -vf "fps=25,format=yuv420p" -y "E:\Convert\badFrames\out-2.mp4"
+
+ffmpeg -r 1/5 -i "D:\Work\Itorum\TDEMD\Big Arts\ICN-8F7C7D4FB0A667EDED8575278163D756.jpg" -c:v libx264 -vf "fps=25,format=yuv420p" -y "E:\Convert\out.mp4"
+ffmpeg -r 1/5 -i "D:\Work\Itorum\TDEMD\Big Arts\ICN-6F3AEC357FF9FFC45290DD7F9E3AAD89.jpeg" -c:v libx264 -vf "fps=25,format=yuv420p" -y "E:\Convert\out.mp4"
+
+создание видео из изображений, размещенных в разных папках
+
+Сначала добавьте пути к изображениям в imagepaths.txt , как показано ниже.
+
+file 'E:\images\png\images__%3d.jpg'
+file 'E:\images\jpg\images__%3d.jpg'
+
+ffmpeg -y -r 1/5 -f concat -safe 0 -i "E:\images\imagepaths.txt" -c:v libx264 -vf "fps=25,format=yuv420p" "e:\out.mp4"
+
+-------------------------------------------------
+
+-loglevel error
+-i input file
+-threads 32
+-map 0 выбрать все потоки - Чтобы избежать потери метаданных (а также не потерять другие дорожки, аудио или субтитры)
+-map 0:v:0 -map 0:a:0 -map 0:s 1st video, 1st audio, all subtitles
+-map_chapters 0
+-metadata[:<spec>] <key=value> add metadata
+-c:v libx265 -tag:v hvc1
+-pix_fmt yuv420p10
+-sar 1/1 -aspect 16:9
+-colour_range tv -colourspace bt709 -colour_primaries bt709 -colour_trc bt709 -chroma_sample_location left
+-r 24000/1001 -fps_mode cfr // 23.976, cfr/vfr, -vsync => fps_mode
+// Точные значения для 23.976, 29.97 и 59.94 — 24000/1001, 30000/1001 и 60000/1001
+-filter:v fps=fps=source_fps
+-vf "fps=24000/1001,scale=1920:1080:flags=bicubic,setsar=1/1,setdar=1920/1080"
+-vf "scale=out_range=tv:out_color_matrix=bt709:out_primaries=bt709:out_transfer=bt709:out_chroma_loc=left"
+-bsf:v hevc_mp4toannexb
+-bsf:v hevc_metadata=video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1
+-filter_complex "[0:v]hue=h=80:s=1[main];[1:v]crop=w=382:h=304:x=289:y=227[train];[main][train]overlay=x=200:y=200,vignette=PI/4[video];[2:a]volume=1.5,aecho=0.8:0.9:100:0.3[speech];[0:a][speech]amix=duration=shortest,asplit[audio1][audio2]"
+-crf 23
+-qp 26.5 NVEnc
+-b:v битрейт
+-preset slow -profile:v main10 -level:v 5.1 -tune animation \
+-x265-params "fps=24000/1001"
+-t 1 длина выходного файла
+-c:a aac -b:a 192k
+-c:s copy
+-c:s mov_text -metadata:s:s:0 language=rus -disposition:s:0 default
+-y для перезаписи выходных файлов без запроса
+
+-report генерирует отчет
+
+-r 24000/1001 = установить постоянную частоту кадров 24000/1001 для файла AVI, https://ffmpeg.org/ffmpeg.html#Video-Options
+
+-bsf:v hevc_mp4toannexb = настройка организации потока hevc, https://ffmpeg.org/ffmpeg-bitstream-filters.html#hevc_005fmp4toannexb
+
+-vtag hevc = установить fourcc (идентификатор кодека) AVI на hevc, https://ffmpeg.org/ffmpeg.html#Advanced-Video-options и https://docs.microsoft.com/en-us/windows/win32/directshow/avi-riff-file-reference
+
+-loglevel error = показывать только сообщение об ошибке, в противном случае множество предупреждающих сообщений о неустановленных временных метках замедлят обработку, https://ffmpeg.org/ffmpeg.html#Generic-options
+
+-------------------------------------------------
+
+ffmpeg-7.1-full_build/bin/ffmpeg.exe -i input.mkv -c:v libx265 -vtag hvc1 -vf scale=-1:1080 -crf 23 -r 24000/1001 -c:a copy output.mkv
+
+-i имя файла или путь к файлу
+
+-c:v libx265 -tag:v hvc1 сжатие. По умолчанию libx264
+
+-vf scale=1920:1080 указание выходного разрешения
+-vf scale=-1:1080 чтобы сохранить соотношение сторон
+
+-c:a copy копировать аудио как есть, без сжатия
+-c:a aac -b:a 192k используется аудио AAC на 192 кбит/с
+
+-preset slow попросить алгоритм сжатия занять больше времени и поискать больше областей для сжатия. По умолчанию medium. Другие варианты faster, fast, medium, slow,slower
+
+-crf 20 Качество сжатия
+
+-crf 0 высокое качество, низкая степень сжатия, большой файл
+
+-crf 23 по умолчанию
+
+-crf 51 низкое качество, высокая степень сжатия, небольшой файл
+
+-vtag hvc1 использовать кодек hvc1(он же HEVC или h.265) во время конвертации.
+-tag:v hvc1 Чтобы сделать ваш файл совместимым с «отраслевым стандартом» Apple H.265
+Если -vtag не указано, то будет использован кодек, указанный в файле src.
+
+-r 60 задаёт значение FPS (кадров в секунду) видео.
+-r 24000/1001 Если вам необходимо установить классические киношные 23.976 FPS
+
+-vf "crop=1120:280:400:400" Кадрирование (обрезка) видео. 
+Задаётся в формате: ширина:высота:x:y. 
+X и Y — координаты верхнего левого угла обрезанной области относительно исходного видео. 
+В данном примере мы обрезаем видео в разрешении 1920:1080 на 400 пикселей сверху, снизу и справа.
+
+ffmpeg -i in.mp4 -vf cropdetect -f null -
+// [Parsed_cropdetect_0 @ 00000000003d4740] x1:0 x2:399 y1:17 y2:232 w:400 h:208 x:0 y:22 pts:127488 t:9.960000 crop=400:208:0:22
+ffmpeg -i in.mp4 -vf crop=400:208:0:22 out.mp4
+
+-------------------------------------------------
+
+// Фильтр масштаба
+// -vf и -filter:v то же самое, но -filter:v fps является предпочтительным вместо -r
+
+-vf fps=24000/1001,scale=1920x1080:flags=bicubic,setsar=1/1,setdar=1920/1080*(1/1)
+flags=lanczos // default scaling algorithm is bicubic
+scale=-1:1080 // сохранить соотношение сторон
+
+// Sample/Display Aspect ratio
+
+-sar 1/1 // sample aspect ratio
+-aspect 16:9 // display aspect ratio of 16:9 = (iw / ih) * sar
+
+setsar=sar=1/1
+setdar=dar=1920/1080*1
+setdar=aspect=1920/1080*1
+
+// Set Color - add black frames
+
+-vf "color=c=black:sar=1/1:r=24000/1001:s=1920x1080:d=10"
+
+// Convert the video to BT.709 "TV range" (Limited range) - ‘mpeg/limited/tv’
+// задать цветовой диапазон для кодировщика и контейнера
+
+-colour_range tv -colourspace bt709 -colour_primaries bt709 -colour_trc bt709 -chroma_sample_location left
+-colour_range 1 -colourspace 1 -colour_primaries 1 -colour_trc 1 -chroma_sample_location 1
+
+// Convert the video to BT.709 "TV range" (Limited range) using scale filter
+
+-vf scale=in_range=limited:out_range=tv:out_color_matrix=bt709:out_primaries=bt709:out_transfer=bt709:out_chroma_loc=left
+-vf scale=in_range=limited:in_color_matrix=bt709:in_primaries=bt709:in_transfer=bt709:in_chroma_loc=left
+
+-vf scale=in_range=limited:out_range=full // ограниченный диапазон => полный диапазон
+
+-movflags +write_colr -movflags +faststart // если записываете в MP4 
+
+// Mark the video as BT.709 "TV range" (Limited range) using bsf filter
+
+-bsf:v hevc_metadata=video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1
+
+// H264 / H265 => h264_metadata / hevc_metadata
+
+-bsf:v h264_metadata=level=5.1:sample_aspect_ratio=1/1
+
+// Ремуксинг
+
+-c:v copy -bsf:v h264_metadata=video_full_range_flag=0 
+-color_range 1 // для ограниченного диапазона
+-color_range 2 // полный диапазон
+
+// PTS: (old rate)/(new rate)
+
+-vf "setpts=1.25*PTS"
+
+setpts=0.5*PTS // Чтобы увеличить скорость видео вдвое
+setpts=2.0*PTS // Чтобы замедлить видео: 
+
+// если я проверю файл закодированный с помощью yuv420p я получу YMIN=0 и YMAX=255
+
+-------------------------------------------------
+
+// Advanced Video options
+
+-pix_fmt[:stream_specifier] format (input/output,per-stream)
+Set pixel format. Use -pix_fmts to show all the supported pixel formats. If the selected pixel format can not be selected, ffmpeg will print a warning and select the best pixel format supported by the encoder. If pix_fmt is prefixed by a +, ffmpeg will exit with an error if the requested pixel format can not be selected, and automatic conversions inside filtergraphs are disabled. If pix_fmt is a single +, ffmpeg selects the same pixel format as the input (or graph output) and automatic conversions are disabled.
+
+-sws_flags flags (input/output)
+Set default flags for the libswscale library. These flags are used by automatically inserted scale filters and those within simple filtergraphs, if not overridden within the filtergraph definition.
+
+See the (ffmpeg-scaler)ffmpeg-scaler manual for a list of scaler options.
+
+-rc_override[:stream_specifier] override (output,per-stream)
+Rate control override for specific intervals, formatted as "int,int,int" list separated with slashes. Two first values are the beginning and end frame numbers, last one is quantizer to use if positive, or quality factor if negative.
+
+-vstats
+Dump video coding statistics to vstats_HHMMSS.log. See the vstats file format section for the format description.
+
+-vstats_file file
+Dump video coding statistics to file. See the vstats file format section for the format description.
+
+-vstats_version file
+Specify which version of the vstats format to use. Default is 2. See the vstats file format section for the format description.
+
+-vtag fourcc/tag (output)
+Force video tag/fourcc. This is an alias for -tag:v.
+
+-deinterlace — удаление «гребенки».
+
+-ar — устанавливает частоту дискретизации звука. По умолчанию: 44100Гц (-ar 22050).
+
+x264 --fullhelp
+
+x265 --help
+
+vvencapp --fullhelp
+
+vvenc-params
+Set vvenc options using a list of key=value couples separated by ":".
+
+-------------------------------------------------
+
+// Advanced Filter options
+
+- vf "format=pix_fmts=yuv420p10:color_spaces=tv:color_ranges=bt709,fps=fps=ntsc_film"
+
+// format
+// Convert the input video to one of the specified pixel formats. 
+// Libavfilter will try to pick one that is suitable as input to the next filter.
+
+pix_fmts // A ’|’-separated list of pixel format names, such as "pix_fmts=yuv420p|monow|rgb24".
+color_ranges // A ’|’-separated list of color range names, such as "color_spaces=tv|pc".
+color_spaces // A ’|’-separated list of color space names, such as "color_spaces=bt709|bt470bg|bt2020nc".
+
+// fps
+// The desired output frame rate.
+
+fps=fps=25
+fps=fps=film:round=near
+
+‘source_fps’ // The input’s frame rate
+‘ntsc’ // NTSC frame rate of 30000/1001
+‘pal’ PAL frame rate of 25.0
+‘film’ Film frame rate of 24.0
+‘ntsc_film’ NTSC-film frame rate of 24000/1001
+
+The default is 25.
+
+start_time
+// Assume the first PTS should be the given value, in seconds. 
+// This allows for padding/trimming at the start of stream. 
+// By default, no assumption is made about the first frame’s expected PTS, so no padding or trimming is done. 
+// For example, this could be set to 0 to pad the beginning with duplicates of the first frame 
+// if a video stream starts after the audio stream or to trim any frames with a negative PTS.
+
+round 
+// Timestamp (PTS) rounding method.
+// The default is near.
+
+zero // round towards 0
+inf // round away from 0
+down // round towards -infinity
+up // round towards +infinity
+near // round to nearest
+
+eof_action 
+// Action performed when reading the last frame.
+// The default is round.
+
+round // Use same timestamp rounding method as used for other frames.
+pass // Pass through last frame if input duration has not been reached yet.
+
+scale AVOptions:
+   flags             <string>     ..FV....... Flags to pass to libswscale (default "")
+   interl            <boolean>    ..FV....... set interlacing (default false)
+
+SWScaler AVOptions:
+  -sws_flags         <flags>      E..V....... scaler flags (default bicubic)
+     fast_bilinear                E..V....... fast bilinear
+     bilinear                     E..V....... bilinear
+     bicubic                      E..V....... bicubic
+     experimental                 E..V....... experimental
+     neighbor                     E..V....... nearest neighbor
+     area                         E..V....... averaging area
+     bicublin                     E..V....... luma bicubic, chroma bilinear
+     gauss                        E..V....... Gaussian
+     sinc                         E..V....... sinc
+     lanczos                      E..V....... Lanczos
+     spline                       E..V....... natural bicubic spline
+     print_info                   E..V....... print info
+     accurate_rnd                 E..V....... accurate rounding
+     full_chroma_int              E..V....... full chroma interpolation
+     full_chroma_inp              E..V....... full chroma input
+     bitexact                     E..V.......
+     error_diffusion              E..V....... error diffusion dither
+  -srcw              <int>        E..V....... source width (from 1 to INT_MAX) (default 16)
+  -srch              <int>        E..V....... source height (from 1 to INT_MAX) (default 16)
+  -dstw              <int>        E..V....... destination width (from 1 to INT_MAX) (default 16)
+  -dsth              <int>        E..V....... destination height (from 1 to INT_MAX) (default 16)
+  -src_format        <pix_fmt>    E..V....... source format (default yuv420p)
+  -dst_format        <pix_fmt>    E..V....... destination format (default yuv420p)
+  -src_range         <boolean>    E..V....... source is full range (default false)
+  -dst_range         <boolean>    E..V....... destination is full range (default false)
+  -param0            <double>     E..V....... scaler param 0 (from INT_MIN to INT_MAX) (default 123456)
+  -param1            <double>     E..V....... scaler param 1 (from INT_MIN to INT_MAX) (default 123456)
+  -src_v_chr_pos     <int>        E..V....... source vertical chroma position in luma grid/256 (from -513 to 1024) (default -513)
+  -src_h_chr_pos     <int>        E..V....... source horizontal chroma position in luma grid/256 (from -513 to 1024) (default -513)
+  -dst_v_chr_pos     <int>        E..V....... destination vertical chroma position in luma grid/256 (from -513 to 1024) (default -513)
+  -dst_h_chr_pos     <int>        E..V....... destination horizontal chroma position in luma grid/256 (from -513 to 1024) (default -513)
+  -sws_dither        <int>        E..V....... set dithering algorithm (from 0 to 6) (default auto)
+     auto            1            E..V....... leave choice to sws
+     bayer           2            E..V....... bayer dither
+     ed              3            E..V....... error diffusion
+     a_dither        4            E..V....... arithmetic addition dither
+     x_dither        5            E..V....... arithmetic xor dither
+  -gamma             <boolean>    E..V....... gamma correct scaling (default false)
+  -alphablend        <int>        E..V....... mode for alpha -> non alpha (from 0 to 2) (default none)
+     none            0            E..V....... ignore alpha
+     uniform_color   1            E..V....... blend onto a uniform color
+     checkerboard    2            E..V....... blend onto a checkerboard
+  -threads           <int>        E..V....... number of threads (from 0 to INT_MAX) (default 1)
+     auto	     0
+-------------------------------------------------
+
+// Scaler Options - libswscale
+
+ffmpeg -v verbose -i input.mp4 -vf format=yuv420p,scale=800x600 -an -f null -
+ffmpeg -v verbose -i input.mp4 -vf scale=1920x1080:flags=lanczos
+
+-sws_flags bicubic -src_range 0 -dst_range 0
+
+‘fast_bilinear’ Select fast bilinear scaling algorithm.
+‘bilinear’ Select bilinear scaling algorithm.
+‘bicubic’ Select bicubic scaling algorithm.
+‘experimental’ Select experimental scaling algorithm.
+‘neighbor’ Select nearest neighbor rescaling algorithm.
+‘area’ Select averaging area rescaling algorithm.
+‘bicublin’ Select bicubic scaling algorithm for the luma component, bilinear for chroma components.
+‘gauss’ Select Gaussian rescaling algorithm.
+‘sinc’ Select sinc rescaling algorithm.
+‘lanczos’ Select Lanczos rescaling algorithm. The default width (alpha) is 3 and can be changed by setting param0.
+‘spline’ Select natural bicubic spline rescaling algorithm.
+‘print_info’ Enable printing/debug logging.
+‘accurate_rnd’ Enable accurate rounding.
+‘full_chroma_int’ Enable full chroma interpolation.
+‘full_chroma_inp’ Select full chroma input.
+‘bitexact’ Enable bitexact output.
+
+srcw (API only) Set source width.
+srch (API only) Set source height.
+dstw (API only) Set destination width.
+dsth (API only) Set destination height.
+src_format (API only) Set source pixel format (must be expressed as an integer).
+dst_format (API only) Set destination pixel format (must be expressed as an integer).
+src_range (boolean) If value is set to 1, indicates source is full range. Default value is 0, which indicates source is limited range.
+dst_range (boolean) If value is set to 1, enable full range for destination. Default value is 0, which enables limited range.
+param0, param1 Set scaling algorithm parameters. The specified values are specific of some scaling algorithms and ignored by others. The specified values are floating point number values.
+
+-------------------------------------------------
+[colorspace]
+
+Convert colorspace, transfer characteristics or color primaries. Input video needs to have an even size.
+
+range - Specify output color range.
+
+‘tv’ - TV (restricted) range
+‘mpeg’ - MPEG (restricted) range
+‘pc’ - PC (full) range
+‘jpeg’ - JPEG (full) range
+
+all - Specify all color properties at once.
+
+‘bt470m’ - BT.470M
+‘bt470bg’ - BT.470BG
+‘bt601-6-525’ - BT.601-6 525
+‘bt601-6-625’ - BT.601-6 625
+‘bt709’ - BT.709
+‘smpte170m’ - SMPTE-170M
+‘smpte240m’ - SMPTE-240M
+‘bt2020’ - BT.2020
+
+space - Specify output colorspace.
+
+‘bt709’ - BT.709
+‘fcc’ - FCC
+‘bt470bg’ - BT.470BG or BT.601-6 625
+‘smpte170m’ - SMPTE-170M or BT.601-6 525
+‘smpte240m’ - SMPTE-240M
+‘ycgco’ - YCgCo
+‘bt2020ncl’ - BT.2020 with non-constant luminance
+
+trc - Specify output transfer characteristics.
+
+‘bt709’ - BT.709
+‘bt470m’ - BT.470M
+‘bt470bg’ - BT.470BG
+‘gamma22’ - Constant gamma of 2.2
+‘gamma28’ - Constant gamma of 2.8
+‘smpte170m’ - SMPTE-170M, BT.601-6 625 or BT.601-6 525
+‘smpte240m’ - SMPTE-240M
+‘srgb’ - SRGB
+‘iec61966-2-1’ - iec61966-2-1
+‘iec61966-2-4’ - iec61966-2-4
+‘xvycc’ - xvycc
+‘bt2020-10’ - BT.2020 for 10-bits content
+‘bt2020-12’ - BT.2020 for 12-bits content
+
+primaries - Specify output color primaries.
+
+‘bt709’ - BT.709
+‘bt470m’ - BT.470M
+‘bt470bg’ - BT.470BG or BT.601-6 625
+‘smpte170m’ - SMPTE-170M or BT.601-6 525
+‘smpte240m’ - SMPTE-240M
+‘film’ - film
+‘smpte431’ - SMPTE-431
+‘smpte432’ - SMPTE-432
+‘bt2020’ - BT.2020
+‘jedec-p22’ - JEDEC P22 phosphors
+
+fast
+Do a fast conversion, which skips gamma/primary correction. This will take significantly less CPU, but will be mathematically incorrect. To get output compatible with that produced by the colormatrix filter, use fast=1.
+
+irange - Override input color range. Same accepted values as range.
+iall - Override all input properties at once. Same accepted values as all.
+ispace - Override input colorspace. Same accepted values as space.
+iprimaries - Override input color primaries. Same accepted values as primaries.
+itrc - Override input transfer characteristics. Same accepted values as trc.
+
+format - Specify output color format.
+
+‘yuv420p’ - YUV 4:2:0 planar 8-bits
+‘yuv420p10’ - YUV 4:2:0 planar 10-bits
+‘yuv420p12’ - YUV 4:2:0 planar 12-bits
+‘yuv422p’ - YUV 4:2:2 planar 8-bits
+‘yuv422p10’ - YUV 4:2:2 planar 10-bits
+‘yuv422p12’ - YUV 4:2:2 planar 12-bits
+‘yuv444p’ - YUV 4:4:4 planar 8-bits
+‘yuv444p10’ - YUV 4:4:4 planar 10-bits
+‘yuv444p12’ - YUV 4:4:4 planar 12-bits
+
+-------------------------------------------------
+
+H.264 MKV 1080p30: x264
+H.264 MKV 1080p30 (10-bit): x264_10bit
+H.264 NVENC 1080p: nvenc_h264
+
+// libx264 NVEnc - h264_nvenc / nvenc_h264
+
+ffmpeg -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v h264_nvenc -rgb_mode yuv420 -qp 26.5 -preset slow -profile:v high -level:v 5.1 -tune hq \
+        -t 1 -c:a aac -b:a 192k -c:s copy \
+	-y "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv"
+
+ffmpeg -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v h264_nvenc -pix_fmt yuv420p -b:v 1500 -preset slow -profile:v high -level:v 5.1 -tune hq \
+        -t 1 -c:a aac -b:a 192k -c:s copy \
+	-y "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv"
+
+-tune hq // high quality
+-rc constqp/cbr/vbr
+
+// libx264 - h264 / x264 | x264_10bit
+
+ffmpeg -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v libx264 -pix_fmt yuv420p -crf 23 -preset slow -profile:v high -level:v 5.1 -tune animation \
+        -t 1 -c:a aac -b:a 192k -c:s copy \
+	-y "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv"
+
+ffmpeg -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v libx264 -pix_fmt yuv420p10 -crf 23 -preset slow -profile:v high10 -level:v 5.1 -tune animation \
+        -t 1 -c:a aac -b:a 192k -c:s copy \
+	-y "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv"
+
+ffmpeg -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v libx264 -pix_fmt yuv420p10 -b:v 1500 -preset slow -profile:v high10 -level:v 5.1 -tune animation \
+        -t 1 -c:a aac -b:a 192k -c:s copy \
+	-y "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv"
+
+-x264-params "me_method=hex" -b:v 1M -minrate 1M -maxrate 1M -bufsize 2M
+-x264-params "nal-hrd=cbr" -b:v 1M -minrate 1M -maxrate 1M -bufsize 2M
+-x264-params "nal-hrd=vbr" -b:v -maxrate 1M -bufsize 2M
+
+-------------------------------------------------
+
+H.265 MKV 1080p30 (8-bit): x265
+H.265 1080p (10-bit): x265_10bit
+H.265 NVENC 1080p: nvenc_h265
+H.265 NVEnc 1080p (10-bit): nvenc_h265_10bit
+
+// hevc_nvenc (libx265 NVEnc) - nvenc_h265 | nvenc_h265_10bit
+
+FFREPORT="file='D:\Convert\FFMetrics\ffreport.txt':level=32" \
+ffmpeg -i "G:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v hevc_nvenc -pix_fmt p010le -cq 29.5 -preset slow -profile:v main10 -level:v 5.1 -tier high -tune auto \
+	-x265-params "level=5.1:tier=high:rc-lookahead=60:aq-strength=1.0:subq=8:no-deblock:qcomp=0.60" \
+        -c:a aac -b:a 192k -c:s copy \
+	-y "G:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(NV-0).mkv"
+
+ffmpeg -i "G:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v hevc_nvenc -pix_fmt p010le -cq 29.5 -preset slow -profile:v main10 -level:v 5.1 -tier high -tune hq \
+	-x265-params "level=5.1:tier=high:rc-lookahead=60:aq-strength=1.0:subq=8:no-deblock:qcomp=0.60" \
+        -c:a aac -b:a 192k -c:s copy \
+	-y "G:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(NV).mkv"
+
+ffmpeg -i "G:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v hevc_nvenc -pix_fmt p010le -cq 29.5 -preset p7 -profile:v main10 -level:v 5.1 -tier high -tune hq \
+	-x265-params "tier=high:rc-lookahead=60:aq-strength=1.0:subq=10:no-deblock:qcomp=0.60:trellis=2:no-fast-pskip" \
+        -c:a aac -b:a 192k -c:s copy \
+	-y "G:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(NV).mkv"
+
+// libx265 / hevc - x265 | x265_10bit
+
+FFREPORT="file='D:\Convert\FFMetrics\ffreport.txt':level=32" \
+ffmpeg -i "G:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v libx265 -pix_fmt yuv420p10 -crf 23 -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "level=5.1" \
+        -t 1 -c:a aac -b:a 192k -c:s copy \
+	-y "G:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(NV).mkv"
+
+ffmpeg -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v libx265 -pix_fmt yuv420p10 -crf 23 -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -t 1 -c:a aac -b:a 192k -c:s copy \
+	-y "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv"
+
+ffmpeg -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-c:v libx265 -pix_fmt yuv420p10 -b:v 1500 -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -t 1 -c:a aac -b:a 192k -c:s copy \
+	-y "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv"
+
+-------------------------------------------------
+
+ffmpeg -f lavfi -i color=c=black:s=450x800:r=30:d=1 out.mp4
+
+ffmpeg -h
+ffmpeg -h full
+
+ffmpeg -h filter=scale
+
+ffmpeg -version            show version
+ffmpeg -muxers             show available muxers
+ffmpeg -demuxers           show available demuxers
+ffmpeg -devices            show available devices
+ffmpeg -decoders           show available decoders
+ffmpeg -encoders           show available encoders
+ffmpeg -filters            show available filters
+ffmpeg -pix_fmts           show available pixel formats
+ffmpeg -layouts            show standard channel layouts
+ffmpeg -sample_fmts        show available audio sample formats
+
+-------------------------------------------------
+
+// 0-7, 13-24
+// 20, 19, 15
+
+// encoded 34577 frames | 34579
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode vfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC.mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(0).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fpsmax 24000/1001 \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(1).mkv"
+
+// encoded 34579 frames / 34578
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode passthrough \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(2).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode auto \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(3).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode vfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(4).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(5).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode auto \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(6).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(7).mkv"
+
+// encoded 34577 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode passthrough \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(8).mkv"
+
+// encoded 34577 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode auto \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(9).mkv"
+
+// encoded 34577 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(10).mkv"
+
+// encoded 34577 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode auto \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(11).mkv"
+
+// encoded 34577 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(12).mkv"
+
+// encoded 34577 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(12).mkv"
+
+// encoded 34578 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode vfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(13).mkv"
+
+// encoded 34578 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(14).mkv"
+
+// encoded 34578 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode passthrough \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(15).mkv"
+
+// encoded 34578 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode auto \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(16).mkv"
+
+// encoded 34578 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(17).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(18).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(19).mkv"
+
+// encoded 34578 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(20).mkv"
+
+// encoded 34578 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=23.976,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(21).mkv"
+
+// encoded 34578 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 23.976 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 23.976 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=23.976,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(22).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(23).mkv"
+
+// encoded 34579 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\13\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode passthrough \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Поднятие уровня в одиночку\ТВ-2\13\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p_HEVC(24).mkv"
+
+-------------------------------------------------
+
+// 0, 6, 4, 1
+
+// encoded 34046 frames | 34047
+// 10
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv"
+
+// encoded 34047 frames
+// 7
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(0).mkv"
+
+// encoded 34046 frames / FR_O: 23.976
+// 14
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(1).mkv"
+
+// encoded 34047 frames
+// 23
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(2).mkv"
+
+// encoded 34047 frames
+// 19
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(3).mkv"
+
+// encoded 34046 frames / 34047 / FR_O: 23.976
+// 15
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode passthrough \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(4).mkv"
+
+// encoded 34046 frames / 34047 / FR_O: 23.976
+// 20
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(5).mkv"
+
+// encoded 34047 frames
+// 24
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode passthrough \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "E:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(6).mkv"
+
+-------------------------------------------------
+
+// 5, 1 = 4, 0
+
+// encoded 35639 frames | 35640
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram_HEVC.mkv"
+
+// encoded 35640 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -i "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram_HEVC(0).mkv"
+
+// encoded 35639 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram_HEVC(1).mkv"
+
+// encoded 35640 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram_HEVC(2).mkv"
+
+// encoded 35640 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram_HEVC(3).mkv"
+
+// encoded 35639 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode passthrough \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram_HEVC(4).mkv"
+
+// encoded 35639 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -r 24000/1001 -fps_mode cfr \
+        -vf "format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram_HEVC(5).mkv"
+
+// encoded 35640 frames
+
+file='D:\Convert\FFMetrics\ffreport.txt':level=32 \
+ffmpeg \
+        -r 24000/1001 \
+        -i "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram.mp4" \
+        -map 0:v:0 -map 0:a:0 -map_chapters 0 \
+        -c:v libx265 -tag:v hvc1 \
+        -pix_fmt yuv420p10 \
+        -sar 1/1 -aspect 16:9 \
+        -fps_mode passthrough \
+        -vf "format=pix_fmts=yuv420p10,scale=1920:-1:flags=bicubic:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left" \
+        -bsf:v "hevc_metadata=level=5.1:sample_aspect_ratio=1/1:video_full_range_flag=0:matrix_coefficients=1:colour_primaries=1:transfer_characteristics=1:chroma_sample_loc_type=1" \
+        -crf 23 \
+        -preset slow -profile:v main10 -level:v 5.1 -tune animation \
+        -x265-params "log-level=2:level=5.1:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0" \
+        -c:a aac -b:a 192k -ar 48000 \
+        -c:s copy \
+        -y "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram_HEVC(6).mkv"
+
+-------------------------------------------------
+
+* slow
+rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=8:b-adapt=2:me=2:ref=6:subq=8:merange=57:direct=auto:deblock=1,1
+* slower
+rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=8:b-adapt=2:me=2:ref=8:subq=9:merange=57:direct=auto:analyse=all:trellis=2:deblock=1,1
+* veryslow
+rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=8:b-adapt=2:me=2:ref=16:subq=10:merange=24:direct=auto:analyse=all:trellis=2:deblock=1,1
+* placebo
+rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=16:b-adapt=2:me=tesa:ref=16:subq=10:merange=24:direct=auto:analyse=all:trellis=2:no-fast-pskip:deblock=1,1
+
+-------------------------------------------------
+
+* H.265 1080p (10-bit rd=4) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=4:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit rdoq-lvl=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=4:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=2:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit rskip=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=4:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=2:rskip=2:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=0:aq-motion=0
+
+* H.265 1080p (10-bit c-intra) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=1:hevc-aq=0:aq-motion=0
+* H.265 1080p (10-bit hevc-aq) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=1:aq-motion=0
+* H.265 1080p (10-bit aq-motion) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=0:hevc-aq=1:aq-motion=1
+* H.265 1080p (10-bit hevc-aq:intra) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=1:hevc-aq=1:aq-motion=0
+* H.265 1080p (10-bit aq-motion:intra) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:constrained-intra=1:hevc-aq=1:aq-motion=1
+
+* H.265 1080p (10-bit base) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 1080p (10-bit default) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=25:lookahead-slices=4:rect=1:amp=0:rd=4:psy-rd=0.40:psy-rdoq=2.00:rdoq-level=1:rskip=1:aq-mode=3:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=4:me=3:subme=3:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=1:qcomp=0.60:limit-refs=3:limit-modes=1:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=0
+* H.265 1080p (10-bit max) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=60:lookahead-slices=6:rect=0:amp=0:rd=4:psy-rd=1.50:psy-rdoq=2.00:rdoq-level=2:rskip=2:aq-mode=3:aq-strength=2.0:bframes=8:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=2:subme=7:merange=57:strong-intra-smoothing=0:b-intra=0:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=1:sao=0:selective-sao=0:sao-non-deblock=0:limit-sao=0:early-skip=0
+* H.265 1080p (10-bit max:c-intra) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=60:lookahead-slices=6:rect=0:amp=0:rd=4:psy-rd=1.50:psy-rdoq=2.00:rdoq-level=2:rskip=2:aq-mode=3:aq-strength=2.0:bframes=8:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=2:subme=7:merange=57:strong-intra-smoothing=0:b-intra=0:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=1:sao=0:selective-sao=0:sao-non-deblock=0:limit-sao=0:early-skip=0:constrained-intra=1:hevc-aq=0:aq-motion=0
+
+* H.265 1080p (10-bit limit-sao) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=1:early-skip=1
+* H.265 1080p (10-bit no-sao) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=0:b-intra=0:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=0:selective-sao=0:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 1080p (10-bit no-intra) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=0:b-intra=0:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 1080p (10-bit deblock) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=1:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit limit-refs=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit limit-modes) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=1:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit no-early-skip) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=0
+* H.265 (10-bit keyint=23) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:min-keyint=23:keyint=250
+* H.265 (10-bit keyint=24) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1:min-keyint=24:keyint=240
+* H.265 (10-bit rect=1) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=1:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit amp=1) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=1:amp=1:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit amp=1; limit-modes) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=1:amp=1:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=1:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 (10-bit lslices=4) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=4:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=4:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 (10-bit b=6) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit b=8) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=8:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit merange=24) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=24:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit merange=16) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=16:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit subme=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=3:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit subme=4) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=4:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit ref=4) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=4:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit ref=8) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit ref=8:limit-refs=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit ref=8:intra) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 (10-bit me=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=2:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=2:b=8) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=8:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=2:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=2:merange=24) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=2:subme=2:merange=24:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=2:subme=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=2:subme=3:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=2:ref=8:limit-refs=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=2:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=2:ref=8:intra) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=2:subme=2:merange=24:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 (10-bit me=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=3:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=3:b=8) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=8:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=3:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=3:merange=24) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=3:subme=2:merange=24:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=3:subme=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=3:subme=3:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=3:ref=8:limit-refs=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=3:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit me=3:ref=8:intra) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=10:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=8:me=3:subme=2:merange=24:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 (10-bit aq=0.6) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.6:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit aq=0.8) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.8:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit aq=1) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=1.0:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit aq=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=2.0:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit aq-mode=3) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=3:aq-strength=2.0:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 (10-bit psy-rd=0.6) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.60:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit psy-rd=0.8) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.80:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit psy-rd=1) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit psy-rd=1.5) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit psy-rd=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=2.00:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 (10-bit rdoq=0.4) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.40:rdoq-level=1:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit rdoq=0.6) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.60:rdoq-level=1:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit rdoq=0.8) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=0.80:rdoq-level=1:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit rdoq=1) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=1.00:rdoq-level=1:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit rdoq=1.5) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=1.50:rdoq-level=1:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit rdoq=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=2.00:rdoq-level=1:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 1080p (10-bit rdoq-lvl=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=2.00:rdoq-level=2:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 1080p (10-bit rskip=2) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=2.00:rdoq-level=2:rskip=2:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 1080p (10-bit rd=4) - slow
+log-level=2:high-tier=1:frame-threads=5:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=2.00:rdoq-level=2:rskip=2:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+* H.265 (10-bit threads=0) - slow
+log-level=2:high-tier=1:frame-threads=0:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit threads=8) - slow
+log-level=2:high-tier=1:frame-threads=8:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit threads=12) - slow
+log-level=2:high-tier=1:frame-threads=12:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit threads=16) - slow
+log-level=2:high-tier=1:frame-threads=16:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit threads=4) - slow
+log-level=2:high-tier=1:frame-threads=4:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit threads=3) - slow
+log-level=2:high-tier=1:frame-threads=3:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit threads=2) - slow
+log-level=2:high-tier=1:frame-threads=2:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+* H.265 (10-bit threads=1) - slow
+log-level=2:high-tier=1:frame-threads=1:rc-lookahead=20:lookahead-slices=6:rect=0:amp=0:rd=3:psy-rd=0.40:psy-rdoq=0.00:rdoq-level=0:rskip=1:aq-mode=2:aq-strength=0.4:bframes=6:b-adapt=2:b-pyramid=1:bframe-bias=0:ref=6:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=1:limit-modes=0:sao=1:selective-sao=4:sao-non-deblock=0:limit-sao=0:early-skip=1
+
+-------------------------------------------------
+
+* Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC - 1,37 ГБ (23:40)
+- H.265 NVEnc (10-bit rd=2 S) - 20,5 CQ, slow; Decomb
+- 43,568%; 2:08 (272 fps) - 614,813 МБ
+* Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(1)
+- H.265 NVEnc (10-bit rd=2 S) - 16,5 CQ (720p), slow; Decomb
+- 36,914%; 1:35 (369 fps) - 520,92 МБ
+* Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(2)
+- H.265 (10-bit rd=2 S) - 23 RF, slow; Decomb
+- 42,598%; 23:49 (24 fps) - 601,121 МБ
+* Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC(3)
+- H.265 (10-bit rd=2 S) - 19 RF (720p), slow; Decomb
+- 37,233%; 17:09 (33 fps) - 525,412 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_01_1080p_HEVC(1) - 705 МБ (24:08)
+- H.265 NVEnc (10-bit rd=2) - 27 CQ, slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 47,190%; 5:30 (106 fps) - 332,865 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_01_1080p_HEVC(2)
+- H.265 NVEnc (10-bit rd=2) - 27,5 CQ, slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 44,567%; 5:25 (108 fps) - 314,361 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_01_1080p_HEVC(3)
+- H.265 NVEnc (10-bit rd=2) - 28 CQ, slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 42,160%; 5:29 (107 fps) - 297,379 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(4)
+- H.265 NVEnc (10-bit rd=2 S) - 26,5 CQ, slow; Decomb
+- 43,369%; 2:05 (284 fps) - 305,909 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_12_1080p_HEVC(1) - 796 МБ
+- H.265 NVEnc (10-bit rd=2) - 27 CQ, slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 47,868%; 5:27 (107 fps) - 381,217 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_12_1080p_HEVC(2)
+- H.265 NVEnc (10-bit rd=2) - 27,5 CQ, slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 45,052%; 5:27 (107 fps) - 358,788 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_12_1080p_HEVC(3)
+- H.265 NVEnc (10-bit rd=2) - 28 CQ, slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 42,273%; 5:32 (106 fps) - 336,656 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(4)
+- H.265 NVEnc (10-bit rd=2 S) - 26,5 CQ, slow; Decomb
+- 44,399%; 2:05 (285 fps) - 353,589 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(1)
+- H.265 NVEnc (10-bit rd=2) - 27 CQ, slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 45,975%; 5:24 (108 fps) - 413,839 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(2)
+- H.265 NVEnc (10-bit rd=2) - 27,5 CQ, slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 43,337%; 5:24 (108 fps) - 390,097 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(3)
+- H.265 NVEnc (10-bit rd=2) - 28 CQ, slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 40,721%; 5:31 (106 fps) - 366,551 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(0) - 900 МБ
+- H.265 NVEnc (10-bit rd=2 P) - 27 CQ, placebo; Decomb, LapSharp, Deblock, Chroma Smooth
+- 45,975%; 5:32 (106 fps) - 413,839 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(0-1)
+- H.265 NVEnc (10-bit rd=2 P) - 27 CQ, placebo; Decomb, LapSharp, Deblock, Chroma Smooth
+- 45,975%; 5:31 (106 fps) - 413,839 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(4)
+- H.265 NVEnc (10-bit rd=2) - 27 CQ (1080p), slowest; Decomb, LapSharp, Deblock, Chroma Smooth
+- 45,975%; 5:31 (106 fps) - 413,839 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(5)
+- H.265 NVEnc (10-bit rd=2) - 27 CQ, slowest; Decomb, LapSharp, Deblock
+- 47,042%; 5:22 (109 fps) - 423,446 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(6)
+- H.265 NVEnc (10-bit rd=2) - 27 CQ, slowest; Decomb, Deblock
+- 46,071%; 4:45 (122 fps) - 414,643 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(7)
+- H.265 NVEnc (10-bit rd=2) - 27 CQ, slowest; Decomb
+- 41,694%; 3:49 (153 fps) - 375,308 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(8)
+- H.265 NVEnc (10-bit rd=2) - 27 CQ, slowest; Decomb; deblock=0
+- 41,694%; 3:48 (154 fps) - 375,308 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(9)
+- H.265 NVEnc (10-bit rd=2 S) - 27 CQ, slow; Decomb, LapSharp, Deblock, Chroma Smooth
+- 46,553%; 5:31 (106 fps) - 419,042 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(10)
+- H.265 NVEnc (10-bit rd=2 S) - 27 CQ, slow; Decomb, LapSharp, Deblock
+- 47,656%; 5:19 (110 fps) - 428,976 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(11)
+- H.265 NVEnc (10-bit rd=2 S) - 27 CQ, slow; Decomb, Deblock
+- 46,680%; 4:47 (122 fps) - 420,183 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(12)
+- H.265 NVEnc (10-bit rd=2 S) - 27 CQ, slow; Decomb
+- 42,425%; 2:05 (284 fps) - 381,885 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(13)
+- H.265 NVEnc (10-bit rd=2 S) - 27 CQ, slow; Decomb; deblock=0
+- 42,425%; 2:06 (282 fps) - 381,885 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(14)
+- H.265 (10-bit rd=2) - 30 RF, slow; Decomb
+- 45,605%; 24:07 (24 fps) - 410,515 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(15)
+- H.265 NVEnc (10-bit rd=2 S) - 26,5 CQ, slow; Decomb
+- 44,810%; 2:05 (284 fps) - 403,354 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(16)
+- H.265 NVEnc (10-bit rd=2 S) - 23 CQ, slow; Decomb
+- 69,637%; 2:07 (280 fps) - 626,835 МБ
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC(17)
+- H.265 NVEnc (10-bit rd=2 S) - 20 CQ, slow; Decomb
+- 102,297%; 2:07 (279 fps) - 920,816 МБ
+
+-------------------------------------------------
+
+1. Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]
+* H.265 1080p (10-bit) - slow, 23 CQ; Decomb
+- 12,677%; 10:14 (56 fps) - 178,892 МБ
+* H.265 720p (10-bit) - slow, 23 CQ; Decomb
+- 29,626%; 26:48 (22 fps) - 266,674 МБ
+
+2. JamClub_Tsue_to_Tsurugi_no_Wistoria_01_1080p (705 МБ)
+* H.265 1080p (10-bit) - slow, 23 CQ; Decomb
+- 27,990%; 11:20 (51 fps) - 197,432 МБ
+
+3. JamClub_Tsue_to_Tsurugi_no_Wistoria_12_1080p (796 МБ)
+* H.265 1080p (10-bit) - slow, 23 CQ; Decomb
+- 28,851%; 11:23 (51 fps) - 229,765 МБ
+
+-------------------------------------------------
+
+4. JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p (900 МБ)
+* H.265 1080p (10-bit max) - slow
+- 116,215%; 39:57 (15 fps) - 1046,102 МБ (0)
+
+* H.265 1080p (10-bit max:aq-motion:intra) - slow
+- 36,958%; 37:13 (16 fps) - 326,958 МБ (0)
+* H.265 1080p (10-bit max:aq-motion) - slow
+- 35,428%; 37:04 (16 fps) - 318,899 МБ (0)
+* H.265 1080p (10-bit max:hevc-aq) - slow
+- 35,720%; 38:24 (15 fps) - 321,53 МБ (0)
+* H.265 1080p (10-bit max:c-intra) - slow
+- 117,923%; 41:18 (14 fps) - 1061,481 МБ (0)
+
+* H.265 1080p (10-bit) - slow, 23 CQ; Decomb
+- 29,448%; 13:36 (43 fps) - 265,071 МБ (1)
+* H.265 720p (10-bit) - slow
+- 22,621%; 8:54 (65 fps) - 203,618 МБ (2)
+* H.265 576p (10-bit) - slow
+- 18,024%; 6:1 (94 fps) - 162,243 МБ (3)
+
+* H.265 1080p (10-bit no-anamorf) - slow
+- 29,447%; 13:29 (43 fps) - 265,069 МБ (4)
+* H.265 1080p (10-bit deblock) - slow
+- 29,455%; 13:09 (44 fps) - 265,134 МБ (5)
+* H.265 1080p (10-bit limit-sao) - slow
+- 29,433%; 12:40 (46 fps) - 264,939 МБ (6)
+* H.265 1080p (10-bit no-intra) - slow
+- 30,009%; 15:14 (38 fps) - 270,126 МБ (7)
+* H.265 1080p (10-bit no-sao) - slow
+- 29,979%; 14:57 (39 fps) - 269,857 МБ (8)
+
+* H.265 1080p (10-bit psy-rd=1.5) - slow
+- 29,844%; 13:32 (43 fps) - 268,635 МБ (9)
+* H.265 1080p (10-bit psy-rd=2) - slow
+- 30,234%; 13:30 (43 fps) - 272,146 МБ (10)
+* H.265 1080p (10-bit aq=0.8) - slow
+- 35,057%; 14:03 (41 fps) - 315,563 МБ (11)
+* H.265 1080p (10-bit aq=1) - slow
+- 38,834%; 14:26 (40 fps) - 349,563 МБ (12)
+* H.265 1080p (10-bit aq=2) - slow
+- 74,125%; 16:47 (35 fps) - 667,229 МБ (13)
+* H.265 1080p (10-bit rc=20) - slow
+- 30,959%; 14:09 (41 fps) - 278,671 МБ (14)
+* H.265 1080p (10-bit rc=60) - slow
+- 31,660%; 15:28 (38 fps) - 284,987 МБ (15)
+* H.265 1080p (10-bit me=2) - slow
+- 30,473%; 15:59 (36 fps) - 274,3 МБ (16)
+* H.265 1080p (10-bit me=3) - slow
+- 30,520%; 15:00 (39 fps) - 274,727 МБ (16-1)
+
+* H.265 1080p (10-bit rd=4) - slow
+- 29,851%; 13:49 (42 fps) - 268,702 МБ (17)
+* H.265 1080p (10-bit rdoq-lvl=2) - slow
+- 30,277%; 15:05 (38 fps) - 272,535 МБ (18)
+* H.265 1080p (10-bit rskip=2) - slow
+- 33,770%; 12:16 (47 fps) - 303,976 МБ (19)
+
+* H.265 1080p (10-bit c-intra) - slow
+- 31,182%; 13:31 (43 fps) - 280,68 МБ (20)
+* H.265 1080p (10-bit hevc-aq) - slow
+- 27,235%; 13:58 (42 fps) - 245,153 МБ (21)
+* H.265 1080p (10-bit aq-motion) - slow
+- 27,061%; 14:16 (41 fps) - 243,583 МБ (22)
+* H.265 1080p (10-bit aq-motion:intra) - slow
+- 28,718%; 13:44 (42 fps) - 258,504 МБ (23)
+* H.265 1080p (10-bit hevc-aq:intra) - slow
+- 28,892%; 13:58 (41 fps) - 260,068 МБ (24)
+
+* JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p_HEVC-cmd
+- 31,444%; 24:08 (26 fps) - 283 МБ
+
+* H.265 NVEnc 1080p (10-bit) - veryslow, 27 CQ
+- 41,694%; 3:50 (153 fps) - 375,308 МБ (NV-0)
+* H.265 NVEnc 1080p (10-bit) - veryslow, 29 CQ
+- 33,370%; 3:50 (153 fps) - 300,382 МБ (NV-0.29)
+* H.265 NVEnc 1080p (10-bit) - veryslow, 30 CQ
+- 29,953%; 3:49 (154 fps) - 269,622 МБ (NV-0.30)
+
+* H.265 NVEnc 1080p (10-bit) - veryslow
+- 44,049%; 3:49 (153 fps) - 396,502 МБ (NV)
+* H.265 NVEnc 720p (10-bit) - veryslow
+- 28,066%; 1:48 (328 fps) - 252,632 МБ (NV-1)
+* H.265 NVEnc 576p (10-bit) - veryslow
+- 18,926%; 1:23 (431 fps) - 170,362 МБ (NV-2)
+* H.265 NVEnc 1080p (10-bit placebo) - veryslow
+- 44,049%; 3:50 (153 fps) - 396,502 МБ (NV-3)
+* H.265 NVEnc 1080p (10-bit no-sao) - veryslow
+- 44,049%; 3:50 (153 fps) - 396,502 МБ (NV-4)
+
+* H.265 NVEnc 1080p (10-bit rc=10) - veryslow
+- 44,023%; 3:49 (153 fps) - 396,269 МБ (NV-5)
+* H.265 NVEnc 1080p (10-bit subq=2) - veryslow
+- 44,049%; 3:50 (153 fps) - 396,502 МБ (NV-6)
+* H.265 NVEnc 1080p (10-bit aq=2) - veryslow
+- 44,023%; 3:50 (153 fps) - 396,269 МБ (NV-7)
+* H.265 NVEnc 1080p (10-bit aq=2:rc=10) - veryslow
+- 44,941%; 3:50 (153 fps) - 404,532 МБ (NV-8)
+
+* H.265 NVEnc 1080p (10-bit default) - veryslow
+- 44,049%; 3:40 (159 fps) - 396,502 МБ (NV-9)
+
+* H.265 NVEnc 1080p (10-bit default:high) - veryslow
+- 44,941%; 3:40 (159 fps) - 404,532 МБ (NV-10)
+* H.265 NVEnc 1080p (10-bit default:rc=10) - veryslow
+- 44,023%; 3:49 (153 fps) - 396,269 МБ (NV-11)
+* H.265 NVEnc 1080p (10-bit default:aq=1) - veryslow
+- 44,941%; 3:40 (159 fps) - 404,532 МБ (NV-12)
+* H.265 NVEnc 1080p (10-bit default:subq=10) - veryslow
+- 44,941%; 3:40 (159 fps) - 404,532 МБ (NV-13)
+* H.265 NVEnc 1080p (10-bit default:trellis=2) - veryslow
+- 44,941%; 3:40 (159 fps) - 404,532 МБ (NV-14)
+* H.265 NVEnc 1080p (10-bit default:no-deblock) - veryslow
+- 44,941%; 3:40 (159 fps) - 404,532 МБ (NV-15)
+* H.265 NVEnc 1080p (10-bit default:qcomp=0.60) - veryslow
+- 44,941%; 3:40 (159 fps) - 404,532 МБ (NV-16)
+* H.265 NVEnc 1080p (10-bit default:placebo) - veryslow
+- 44,941%; 3:40 (159 fps) - 404,532 МБ (NV-17)
+* H.265 NVEnc 1080p (10-bit default:no-sao) - veryslow
+- 44,941%; 3:40 (159 fps) - 404,532 МБ (NV-18)
+* H.265 NVEnc 1080p (10-bit default:rc=60) - veryslow
+- 44,049%; 3:49 (153 fps) - 396,502 МБ (NV-19)
+
+-------------------------------------------------
+
+5. JamClub_Tsue_to_Tsurugi_no_Wistoria_11_1080p (900 МБ)
+* H.265 1080p (10-bit) - slow, 23 CQ; Decomb
+- 29,626%; 12:47 (45 fps) - 266,674 МБ
+
+(1-3)
+* H.265 1080p (10-bit base) - slow
+- 29,624%; 12:34 (46 fps) - 266,657 МБ (1)
+* H.265 1080p (10-bit default) - slow
+- 32,408%; 31:42 (18 fps) - 291,715 МБ (2)
+* H.265 1080p (10-bit max) - slow
+- 112,777%; 34:05 (17 fps) - 1015,151 МБ (3)
+
+(4-5)
+* H.265 1080p (10-bit limit-sao) - slow
+- 29,619%; 12:21 (47 fps) - 266,613 МБ (4)
+* H.265 1080p (10-bit no-sao) - slow
+- 29,456%; 11:59 (48 fps) - 265,144 МБ (5)
+
+(6-14)
+* H.265 (10-bit no-intra) - slow
+- 29,840%; 12:25 (47 fps) - 268,601 МБ (6)
+* H.265 (10-bit deblock) - slow
+- 29,591%; 12:46 (45 fps) - 266,36 МБ (7)
+* H.265 (10-bit limit-refs=3) - slow
+- 29,629%; 12:42 (46 fps) - 266,702 МБ (8)
+* H.265 (10-bit limit-modes) - slow
+- 29,626%; 13:06 (44 fps) - 266,674 МБ (9)
+* H.265 (10-bit no-early-skip) - slow
+- 29,906%; 15:08 (38 fps) - 269,199 МБ (10)
+* H.265 (10-bit keyint=23) - slow
+- 29,624%; 12:51 (45 fps) - 266,655 МБ (11)
+* H.265 (10-bit rect=1) - slow
+- 29,318%; 20:24 (28 fps) - 263,905 МБ (12)
+* H.265 (10-bit amp=1) - slow
+- 29,319%; 24:29 (24 fps) - 263,911 МБ (13)
+* H.265 (10-bit amp=1:limit-modes) - slow
+- 29,319%; 22:34 (26 fps) - 263,916 МБ (14)
+
+(15-17)
+* H.265 (10-bit rc=10) - slow
+- 28,211%; 12:07 (48 fps) - 253,911 МБ (15)
+* H.265 (10-bit rc=60) - slow
+- 30,318%; 13:32 (43 fps) - 272,905 МБ (16)
+* H.265 (10-bit lslices=4) - slow
+- 29,550%; 13:00 (45 fps) - 265,995 МБ (17)
+
+(18-25)
+* H.265 (10-bit b=6) - slow
+- 29,192%; 13:39 (43 fps) - 262,771 МБ (18)
+* H.265 (10-bit b=8) - slow
+- 29,104%; 14:48 (39 fps) - 261,974 МБ (19)
+* H.265 (10-bit merange=24) - slow
+- 30,328%; 12:55 (45 fps) - 272,999 МБ (20)
+* H.265 (10-bit merange=16) - slow
+- 31,128%; 13:05 (44 fps) - 280,197 МБ (21)
+* H.265 (10-bit subme=3) - slow
+- 29,235%; 14:41 (40 fps) - 263,157 МБ (22)
+* H.265 (10-bit subme=4) - slow
+- 29,200%; 15:12 (38 fps) - 262,84 МБ (23)
+* H.265 (10-bit ref=8) - slow
+- 28,901%; 13:20 (44 fps) - 260,154 МБ (24)
+* H.265 (10-bit ref=8:limit-refs=3) - slow
+- 28,906%; 13:17 (44 fps) - 260,194 МБ (25)
+* H.265 (10-bit ref=8:no-intra:merange=24) - slow
+- 29,016%; 11:51 (49 fps) - 261,19 МБ (25)
+* H.265 (10-bit no-intra:merange=24) - slow
+- 29,378%; 11:40 (50 fps) - 264,442 МБ (25)
+
+* H.265 (10-bit ref=8:no-intra) - slow
+- 27,826%; 12:35 (46 fps) - 250,475 МБ (25)
+* H.265 (10-bit ref=8:intra) - slow
+- 27,607%; 12:52 (45 fps) - 248,504 МБ (25)
+
+* H.265 (10-bit intra) - slow
+- 27,925%; 12:31 (46 fps) - 251,361 МБ (25)
+
+(26-30)
+* H.265 (10-bit me=2) - slow
+- 28,878%; 17:27 (33 fps) - 259,946 МБ (26)
+* H.265 (10-bit me=2:b=8) - slow
+- 28,824%; 18:43 (31 fps) - 259,454 МБ (27)
+* H.265 (10-bit me=2:merange=24) - slow
+- 30,113%; 14:55 (39 fps) - 271,064 МБ (28)
+* H.265 (10-bit me=2:subme=3) - slow
+- 28,927%; 19:36 (30 fps) - 260,387 МБ (29)
+* H.265 (10-bit me=2:ref=8:limit-refs=3) - slow
+- 28,603%; 18:30 (31 fps) - 257,466 МБ (30)
+
+* H.265 (10-bit me=2:ref=8:no-intra) - slow
+- 28,722%; 14:17 (41 fps) - 258,536 МБ (30)
+* H.265 (10-bit me=2:no-intra) - slow
+- 29,077%; 13:57 (42 fps) - 261,738 МБ (30)
+
+* H.265 (10-bit me=2:ref=8:intra) - slow
+- 28,482%; 15:02 (39 fps) - 256,376 МБ (30)
+* H.265 (10-bit me=2:intra) - slow
+- 28,816%; 14:12 (41 fps) - 259,381 МБ (30)
+
+(31-35)
+* H.265 (10-bit me=3) - slow
+- 28,911%; 17:31 (33 fps) - 260,243 МБ (31)
+* H.265 (10-bit me=3:b=8) - slow
+- 28,845%; 18:35 (31 fps) - 259,646 МБ (32)
+* H.265 (10-bit me=3:merange=24) - slow
+- 30,189%; 14:19 (41 fps) - 271,748 МБ (33)
+* H.265 (10-bit me=3:subme=3) - slow
+- 28,939%; 19:38 (30 fps) - 260,491 МБ (34)
+* H.265 (10-bit me=3:ref=8:limit-refs=3) - slow
+- 28,619%; 18:06 (32 fps) - 257,613 МБ (35)
+
+* H.265 (10-bit me=3:ref=8:no-intra) - slow
+- 28,800%; 13:51 (42 fps) - 259,24 МБ (35)
+* H.265 (10-bit me=3:no-intra) - slow
+- 29,140%; 13:12 (44 fps) - 262,299 МБ (35)
+
+* H.265 (10-bit me=3:ref=8:intra) - slow
+- 28,548%; 14:05 (41 fps) - 256,972 МБ (35)
+* H.265 (10-bit me=3:intra) - slow
+- 28,870%; 13:53 (42 fps) - 259,871 МБ (35)
+
+(36-41)
+* H.265 (10-bit aq=0.6) - slow
+- 30,620%; 13:37 (43 fps) - 275,624 МБ (36)
+* H.265 (10-bit aq=0.8) - slow
+- 32,066%; 13:38 (43 fps) - 288,639 МБ (37)
+* H.265 (10-bit aq=1) - slow
+- 33,693%; 13:42 (42 fps) - 303,284 МБ (38)
+* H.265 (10-bit aq=2) - slow
+- 44,126%; 14:35 (40 fps) - 404,126 МБ (39)
+* H.265 (10-bit aq-mode=3:aq=0.8) - slow
+- 36,661%; 13:58 (42 fps) - 330 МБ (40)
+* H.265 (10-bit aq-mode=3) - slow
+- 30,830%; 13:30 (43 fps) - 277,512 МБ (40)
+* H.265 (10-bit aq-mode=3:aq=0.8:rc=60) - slow
+- 37,578%; 15:00 (39 fps) - 338,258 МБ (41)
+* H.265 (10-bit aq-mode=3:rc=60) - slow
+- 31,610%; 14:34 (40 fps) - 284,535 МБ (41)
+* H.265 (10-bit aq-mode=3:aq=0.8:rc=10) - slow
+- 34,946%; 13:20 (44 fps) - 266,674 МБ (41)
+* H.265 (10-bit aq-mode=3:rc=10) - slow
+- 29,479%; 12:35 (45 fps) - 265,352 МБ (41)
+
+* H.265 (10-bit aq=0.8:ref=8) - slow
+- 34,632%; 13:38 (43 fps) - 311,632 МБ (41)
+* H.265 (10-bit aq-mode=3:ref=8) - slow
+- 29,158%; 12:55 (45 fps) - 262,464 МБ (41)
+
+(42-55)
+* H.265 (10-bit psy-rd=0.6) - slow
+- 29,337%; 13:17 (44 fps) - 264,079 МБ (42)
+* H.265 (10-bit psy-rd=0.8) - slow
+- 29,437%; 13:15 (44 fps) - 264,975 МБ (43)
+* H.265 (10-bit psy-rd=1) - slow
+- 29,548%; 13:50 (42 fps) - 265,973 МБ (44)
+* H.265 (10-bit psy-rd=1.5) - slow
+- 29,955%; 13:27 (43 fps) - 269,641 МБ (45)
+* H.265 (10-bit psy-rd=2) - slow
+- 30,333%; 13:23 (43 fps) - 273,041 МБ (46)
+
+* H.265 (10-bit rdoq=0.4) - slow
+- 33,732%; 16:13 (36 fps) - 302,732 МБ (47)
+* H.265 (10-bit rdoq=0.6) - slow
+- 33,808%; 16:19 (36 fps) - 304,321 МБ (48)
+* H.265 (10-bit rdoq=0.8) - slow
+- 33,896%; 16:12 (36 fps) - 305,114 МБ (49)
+* H.265 (10-bit rdoq=1) - slow
+- 34,020%; 16:28 (35 fps) - 306,232 МБ (50)
+* H.265 (10-bit rdoq=1.5) - slow
+- 34,307%; 16:33 (35 fps) - 308,812 МБ (51)
+* H.265 (10-bit rdoq=2) - slow
+- 34,445%; 16:36 (35 fps) - 310,055 МБ (52)
+
+* H.265 (10-bit rdoq-lvl=2) - slow
+- 32,661%; 16:39 (35 fps) - 293,993 МБ (53)
+* H.265 (10-bit rdoq=0:rdoq-lvl=1) - slow
+- 32,784%; 15:25 (38 fps) - 295,106 МБ (53)
+* H.265 (10-bit rdoq=0:rdoq-lvl=2) - slow
+- 30,240%; 16:14 (36 fps) - 272,203 МБ (53)
+* H.265 (10-bit rskip=2) - slow
+- 36,975%; 13:21 (44 fps) - 332,829 МБ (54)
+* H.265 (10-bit rd=4) - slow
+- 37,022%; 13:26 (43 fps) - 333,247 МБ (55)
+
+* H.265 (10-bit psy-rd=1.0:ref=8) - slow
+- 29,488%; 12:55 (45 fps) - 265,071 МБ (55)
+* H.265 (10-bit psy-rd=1.5:ref=8) - slow
+- 29,841%; 12:53 (45 fps) - 268,613 МБ (55)
+* H.265 (10-bit rdoq-lvl=2:ref=8) - slow
+- 30,141%; 15:18 (38 fps) - 271,309 МБ (55)
+* H.265 (10-bit rdoq-lvl=2:rskip=2:ref=8) - slow
+- 33,490%; 12:34 (46 fps) - 301,46 МБ (55)
+* H.265 (10-bit rskip=2:ref=8) - slow
+- 33,040%; 11:02 (53 fps) - 297,41 МБ (55)
+* H.265 (10-bit rd=4:ref=8) - slow
+- 29,851%; 12:58 (45 fps) - 268,702 МБ (55)
+* H.265 (10-bit rd=4:rdoq-lvl=2:ref=8) - slow
+- 33,441%; 12:37 (46 fps) - 301,014 МБ (55)
+* H.265 (10-bit rd=4:rskip=2:ref=8) - slow
+- 33,055%; 13:21 (54 fps) - 297,544 МБ (55)
+
+(56-63)
+* H.265 (10-bit threads=0) - slow
+- 29,192%; 13:17 (44 fps) - 262,77 МБ (56)
+* H.265 (10-bit threads=5) - slow
+- 29,192%; 13:23 (43 fps) - 262,771 МБ (56)
+* H.265 (10-bit threads=6) - slow
+- 29,192%; 13:13 (44 fps) - 262,77 МБ (57)
+* H.265 (10-bit threads=8) - slow
+- 29,192%; 13:14 (44 fps) - 262,772 МБ (58)
+* H.265 (10-bit threads=12) - slow
+- 29,192%; 13:13 (44 fps) - 262,77 МБ (59)
+* H.265 (10-bit threads=16) - slow
+- 29,192%; 13:19 (44 fps) - 262,772 МБ (60)
+* H.265 (10-bit threads=4) - slow
+- 29,191%; 13:17 (43 fps) - 262,765 МБ (61)
+* H.265 (10-bit threads=4) - slow
+- 29,192%; 13:59 (42 fps) - 262,768 МБ (62)
+* H.265 (10-bit threads=4) - slow
+- 29,192%; 16:33 (35 fps) - 262,766 МБ (63)
+* H.265 (10-bit threads=4) - slow
+- 29,032%; 25:59 (22 fps) - 261,334 МБ (64)
+
+* H.265 (10-bit constrained-intra) - slow
+- 29,032%; 25:59 (22 fps) - 261,334 МБ (65)
+* H.265 (10-bit hevc=aq) - slow
+- 29,032%; 25:59 (22 fps) - 261,334 МБ (66)
+* H.265 (10-bit aq-motion) - slow
+- 29,032%; 25:59 (22 fps) - 261,334 МБ (67)

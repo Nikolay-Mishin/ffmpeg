@@ -1,0 +1,67 @@
+ffmpeg started on 2025-06-27 at 15:05:48
+Report written to "D:\Convert\FFMetrics\reports\ssim_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "E:\\YandexDisk\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xd1\xf2\xe0\xeb\xfc\xed\xe0\xff \xf2\xf0\xe5\xe2\xee\xe3\xe0!\\\xd2\xc2-1\\Full Metal Panic! [Opening & Ending]\\Full Metal Panic! ED2_HEVC_HEVC.mkv" -i "E:\\YandexDisk\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xd1\xf2\xe0\xeb\xfc\xed\xe0\xff \xf2\xf0\xe5\xe2\xee\xe3\xe0!\\\xd2\xc2-1\\Full Metal Panic! [Opening & Ending]\\Full Metal Panic! ED2_HEVC.mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=30000/1001,scale=1440:1080:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=30000/1001,scale=1440:1080:flags=bicubic[ref];[main][ref]ssim=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'E:\YandexDisk\Аниме\[Топ]\Стальная тревога!\ТВ-1\Full Metal Panic! [Opening & Ending]\Full Metal Panic! ED2_HEVC_HEVC.mkv':
+  Metadata:
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:32.13, start: -0.021000, bitrate: 1276 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1440x1080 [SAR 1:1 DAR 4:3], 29.97 fps, 29.97 tbr, 1k tbn (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 1079224
+        DURATION        : 00:01:32.092366666
+        NUMBER_OF_FRAMES: 2760
+        NUMBER_OF_BYTES : 12423498
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 11:57:18
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Japanese
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 193008
+        DURATION        : 00:01:32.074000000
+        NUMBER_OF_FRAMES: 4317
+        NUMBER_OF_BYTES : 2221385
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 11:57:18
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'E:\YandexDisk\Аниме\[Топ]\Стальная тревога!\ТВ-1\Full Metal Panic! [Opening & Ending]\Full Metal Panic! ED2_HEVC.mkv':
+  Metadata:
+    creation_time   : 2024-12-08T14:19:15.000000Z
+    ENCODER         : Lavf61.1.100
+  Duration: 00:01:32.09, start: -0.021000, bitrate: 1355 kb/s
+  Stream #1:0: Video: hevc (Main 10), yuv420p10le(tv, bt709), 1440x1080 [SAR 1:1 DAR 4:3], 29.97 fps, 29.97 tbr, 1k tbn (default)
+      Metadata:
+        DURATION        : 00:01:32.092000000
+  Stream #1:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Japanese
+        DURATION        : 00:01:32.074000000
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (hevc) -> settb:default
+  ssim:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1440x1080 [SAR 1:1 DAR 4:3], q=2-31, 200 kb/s, 29.97 fps, 29.97 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        title           : Japanese
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 193008
+        DURATION        : 00:01:32.074000000
+        NUMBER_OF_FRAMES: 4317
+        NUMBER_OF_BYTES : 2221385
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 11:57:18
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  262 fps=0.0 q=-0.0 size=N/A time=00:00:08.74 bitrate=N/A speed=16.8x    frame=  543 fps=528 q=-0.0 size=N/A time=00:00:18.11 bitrate=N/A speed=17.6x    frame=  828 fps=539 q=-0.0 size=N/A time=00:00:27.62 bitrate=N/A speed=  18x    frame= 1126 fps=547 q=-0.0 size=N/A time=00:00:37.57 bitrate=N/A speed=18.2x    frame= 1419 fps=549 q=-0.0 size=N/A time=00:00:47.34 bitrate=N/A speed=18.3x    frame= 1700 fps=550 q=-0.0 size=N/A time=00:00:56.72 bitrate=N/A speed=18.4x    frame= 2004 fps=555 q=-0.0 size=N/A time=00:01:06.86 bitrate=N/A speed=18.5x    frame= 2311 fps=561 q=-0.0 size=N/A time=00:01:17.11 bitrate=N/A speed=18.7x    frame= 2636 fps=568 q=-0.0 size=N/A time=00:01:27.95 bitrate=N/A speed=  19x    [Parsed_ssim_10 @ 000002208fb41880] SSIM Y:0.996790 (24.934940) U:0.994400 (22.518472) V:0.994378 (22.501329) All:0.995990 (23.968328)
+[out#0/null @ 00000220fc844800] video:1186KiB audio:17268KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2760 fps=573 q=-0.0 Lsize=N/A time=00:01:32.09 bitrate=N/A speed=19.1x    

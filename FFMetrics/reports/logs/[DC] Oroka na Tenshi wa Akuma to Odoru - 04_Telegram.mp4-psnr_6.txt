@@ -1,0 +1,81 @@
+ffmpeg started on 2025-05-24 at 15:03:08
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\\xce\xed\xe3\xee\xe8\xed\xe3\xe8\\!_33_\xc7\xe8\xec\xe0_2024\\DreamCast\\\xcd\xe5\xf0\xe0\xe7\xf3\xec\xed\xfb\xe9 \xe0\xed\xe3\xe5\xeb \xe2 \xf2\xe0\xed\xf6\xe5 \xf1 \xe4\xe5\xec\xee\xed\xee\xec\\[DC] Oroka na Tenshi wa Akuma to Odoru - 04_Telegram_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\\xce\xed\xe3\xee\xe8\xed\xe3\xe8\\!_33_\xc7\xe8\xec\xe0_2024\\DreamCast\\\xcd\xe5\xf0\xe0\xe7\xf3\xec\xed\xfb\xe9 \xe0\xed\xe3\xe5\xeb \xe2 \xf2\xe0\xed\xf6\xe5 \xf1 \xe4\xe5\xec\xee\xed\xee\xec\\[DC] Oroka na Tenshi wa Akuma to Odoru - 04_Telegram.mp4" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:1080:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p,fps=24000/1001,scale=1920:1080:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\Онгоинги\!_33_Зима_2024\DreamCast\Неразумный ангел в танце с демоном\[DC] Oroka na Tenshi wa Akuma to Odoru - 04_Telegram_HEVC.mkv':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    ENCODER         : Lavf61.7.100
+  Duration: 00:23:46.69, start: -0.021000, bitrate: 1095 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        HANDLER_NAME    : VideoHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 898010
+        DURATION        : 00:23:46.591708333
+        NUMBER_OF_FRAMES: 34204
+        NUMBER_OF_BYTES : 160136771
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-05-23 15:16:06
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1: Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 193693
+        DURATION        : 00:23:46.688000000
+        NUMBER_OF_FRAMES: 66877
+        NUMBER_OF_BYTES : 34542489
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-05-23 15:16:06
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from 'G:\Аниме\Онгоинги\!_33_Зима_2024\DreamCast\Неразумный ангел в танце с демоном\[DC] Oroka na Tenshi wa Akuma to Odoru - 04_Telegram.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.16.100
+  Duration: 00:23:46.66, start: 0.000000, bitrate: 3895 kb/s
+  Stream #1:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 3747 kb/s, 23.98 fps, 23.98 tbr, 24k tbn (default)
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc60.31.102 h264_qsv
+  Stream #1:1[0x2](und): Audio: aac (HE-AACv2) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 144 kb/s (default)
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1: Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 193693
+        DURATION        : 00:23:46.688000000
+        NUMBER_OF_FRAMES: 66877
+        NUMBER_OF_BYTES : 34542489
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-05-23 15:16:06
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  186 fps=0.0 q=-0.0 size=N/A time=00:00:07.75 bitrate=N/A speed=  15x    frame=  435 fps=418 q=-0.0 size=N/A time=00:00:18.14 bitrate=N/A speed=17.4x    frame=  660 fps=426 q=-0.0 size=N/A time=00:00:27.52 bitrate=N/A speed=17.7x    frame=  857 fps=416 q=-0.0 size=N/A time=00:00:35.74 bitrate=N/A speed=17.3x    frame= 1074 fps=415 q=-0.0 size=N/A time=00:00:44.79 bitrate=N/A speed=17.3x    frame= 1286 fps=415 q=-0.0 size=N/A time=00:00:53.63 bitrate=N/A speed=17.3x    frame= 1508 fps=418 q=-0.0 size=N/A time=00:01:02.89 bitrate=N/A speed=17.4x    frame= 1735 fps=419 q=-0.0 size=N/A time=00:01:12.36 bitrate=N/A speed=17.5x    frame= 1895 fps=408 q=-0.0 size=N/A time=00:01:19.03 bitrate=N/A speed=  17x    frame= 2084 fps=404 q=-0.0 size=N/A time=00:01:26.92 bitrate=N/A speed=16.9x    frame= 2360 fps=415 q=-0.0 size=N/A time=00:01:38.47 bitrate=N/A speed=17.3x    frame= 2556 fps=413 q=-0.0 size=N/A time=00:01:46.60 bitrate=N/A speed=17.2x    frame= 2743 fps=409 q=-0.0 size=N/A time=00:01:54.40 bitrate=N/A speed=17.1x    frame= 2973 fps=411 q=-0.0 size=N/A time=00:02:04.04 bitrate=N/A speed=17.2x    frame= 3192 fps=412 q=-0.0 size=N/A time=00:02:13.13 bitrate=N/A speed=17.2x    frame= 3408 fps=413 q=-0.0 size=N/A time=00:02:22.14 bitrate=N/A speed=17.2x    frame= 3621 fps=413 q=-0.0 size=N/A time=00:02:31.02 bitrate=N/A speed=17.2x    frame= 3862 fps=416 q=-0.0 size=N/A time=00:02:41.07 bitrate=N/A speed=17.4x    frame= 4114 fps=420 q=-0.0 size=N/A time=00:02:51.58 bitrate=N/A speed=17.5x    frame= 4380 fps=425 q=-0.0 size=N/A time=00:03:02.68 bitrate=N/A speed=17.7x    frame= 4614 fps=426 q=-0.0 size=N/A time=00:03:12.44 bitrate=N/A speed=17.8x    frame= 4885 fps=430 q=-0.0 size=N/A time=00:03:23.74 bitrate=N/A speed=17.9x    frame= 5105 fps=430 q=-0.0 size=N/A time=00:03:32.92 bitrate=N/A speed=17.9x    frame= 5356 fps=433 q=-0.0 size=N/A time=00:03:43.38 bitrate=N/A speed=18.1x    frame= 5590 fps=433 q=-0.0 size=N/A time=00:03:53.14 bitrate=N/A speed=18.1x    frame= 5831 fps=435 q=-0.0 size=N/A time=00:04:03.20 bitrate=N/A speed=18.1x    frame= 6047 fps=434 q=-0.0 size=N/A time=00:04:12.21 bitrate=N/A speed=18.1x    frame= 6310 fps=437 q=-0.0 size=N/A time=00:04:23.17 bitrate=N/A speed=18.2x    frame= 6593 fps=441 q=-0.0 size=N/A time=00:04:34.98 bitrate=N/A speed=18.4x    frame= 6838 fps=442 q=-0.0 size=N/A time=00:04:45.20 bitrate=N/A speed=18.4x    frame= 7100 fps=444 q=-0.0 size=N/A time=00:04:56.12 bitrate=N/A speed=18.5x    frame= 7371 fps=447 q=-0.0 size=N/A time=00:05:07.43 bitrate=N/A speed=18.6x    frame= 7600 fps=447 q=-0.0 size=N/A time=00:05:16.98 bitrate=N/A speed=18.6x    frame= 7860 fps=448 q=-0.0 size=N/A time=00:05:27.82 bitrate=N/A speed=18.7x    frame= 8093 fps=448 q=-0.0 size=N/A time=00:05:37.54 bitrate=N/A speed=18.7x    frame= 8290 fps=447 q=-0.0 size=N/A time=00:05:45.76 bitrate=N/A speed=18.6x    frame= 8556 fps=448 q=-0.0 size=N/A time=00:05:56.85 bitrate=N/A speed=18.7x    frame= 8777 fps=448 q=-0.0 size=N/A time=00:06:06.07 bitrate=N/A speed=18.7x    frame= 9045 fps=450 q=-0.0 size=N/A time=00:06:17.25 bitrate=N/A speed=18.8x    frame= 9301 fps=451 q=-0.0 size=N/A time=00:06:27.92 bitrate=N/A speed=18.8x    frame= 9526 fps=451 q=-0.0 size=N/A time=00:06:37.31 bitrate=N/A speed=18.8x    frame= 9780 fps=452 q=-0.0 size=N/A time=00:06:47.90 bitrate=N/A speed=18.8x    frame=10007 fps=451 q=-0.0 size=N/A time=00:06:57.37 bitrate=N/A speed=18.8x    frame=10215 fps=450 q=-0.0 size=N/A time=00:07:06.05 bitrate=N/A speed=18.8x    frame=10465 fps=451 q=-0.0 size=N/A time=00:07:16.47 bitrate=N/A speed=18.8x    frame=10733 fps=452 q=-0.0 size=N/A time=00:07:27.65 bitrate=N/A speed=18.9x    frame=10981 fps=453 q=-0.0 size=N/A time=00:07:37.99 bitrate=N/A speed=18.9x    frame=11194 fps=452 q=-0.0 size=N/A time=00:07:46.88 bitrate=N/A speed=18.9x    frame=11472 fps=454 q=-0.0 size=N/A time=00:07:58.47 bitrate=N/A speed=18.9x    frame=11718 fps=454 q=-0.0 size=N/A time=00:08:08.73 bitrate=N/A speed=  19x    frame=11985 fps=456 q=-0.0 size=N/A time=00:08:19.87 bitrate=N/A speed=  19x    frame=12270 fps=457 q=-0.0 size=N/A time=00:08:31.76 bitrate=N/A speed=19.1x    frame=12491 fps=457 q=-0.0 size=N/A time=00:08:40.97 bitrate=N/A speed=19.1x    frame=12744 fps=458 q=-0.0 size=N/A time=00:08:51.53 bitrate=N/A speed=19.1x    frame=13030 fps=459 q=-0.0 size=N/A time=00:09:03.45 bitrate=N/A speed=19.2x    frame=13287 fps=460 q=-0.0 size=N/A time=00:09:14.17 bitrate=N/A speed=19.2x    frame=13518 fps=460 q=-0.0 size=N/A time=00:09:23.81 bitrate=N/A speed=19.2x    frame=13777 fps=461 q=-0.0 size=N/A time=00:09:34.61 bitrate=N/A speed=19.2x    frame=14046 fps=462 q=-0.0 size=N/A time=00:09:45.83 bitrate=N/A speed=19.3x    frame=14322 fps=463 q=-0.0 size=N/A time=00:09:57.34 bitrate=N/A speed=19.3x    frame=14592 fps=464 q=-0.0 size=N/A time=00:10:08.60 bitrate=N/A speed=19.3x    frame=14866 fps=465 q=-0.0 size=N/A time=00:10:20.03 bitrate=N/A speed=19.4x    frame=15110 fps=465 q=-0.0 size=N/A time=00:10:30.21 bitrate=N/A speed=19.4x    frame=15339 fps=465 q=-0.0 size=N/A time=00:10:39.76 bitrate=N/A speed=19.4x    frame=15616 fps=466 q=-0.0 size=N/A time=00:10:51.31 bitrate=N/A speed=19.4x    frame=15892 fps=467 q=-0.0 size=N/A time=00:11:02.82 bitrate=N/A speed=19.5x    frame=16140 fps=467 q=-0.0 size=N/A time=00:11:13.17 bitrate=N/A speed=19.5x    frame=16405 fps=468 q=-0.0 size=N/A time=00:11:24.22 bitrate=N/A speed=19.5x    frame=16655 fps=468 q=-0.0 size=N/A time=00:11:34.65 bitrate=N/A speed=19.5x    frame=16909 fps=468 q=-0.0 size=N/A time=00:11:45.24 bitrate=N/A speed=19.5x    frame=17200 fps=470 q=-0.0 size=N/A time=00:11:57.38 bitrate=N/A speed=19.6x    frame=17463 fps=470 q=-0.0 size=N/A time=00:12:08.35 bitrate=N/A speed=19.6x    frame=17735 fps=471 q=-0.0 size=N/A time=00:12:19.69 bitrate=N/A speed=19.7x    frame=18022 fps=472 q=-0.0 size=N/A time=00:12:31.66 bitrate=N/A speed=19.7x    frame=18240 fps=472 q=-0.0 size=N/A time=00:12:40.76 bitrate=N/A speed=19.7x    frame=18533 fps=473 q=-0.0 size=N/A time=00:12:52.98 bitrate=N/A speed=19.7x    frame=18792 fps=473 q=-0.0 size=N/A time=00:13:03.78 bitrate=N/A speed=19.7x    frame=19054 fps=474 q=-0.0 size=N/A time=00:13:14.71 bitrate=N/A speed=19.8x    frame=19328 fps=474 q=-0.0 size=N/A time=00:13:26.18 bitrate=N/A speed=19.8x    frame=19629 fps=476 q=-0.0 size=N/A time=00:13:38.69 bitrate=N/A speed=19.8x    frame=19914 fps=477 q=-0.0 size=N/A time=00:13:50.57 bitrate=N/A speed=19.9x    frame=20161 fps=477 q=-0.0 size=N/A time=00:14:00.88 bitrate=N/A speed=19.9x    frame=20418 fps=477 q=-0.0 size=N/A time=00:14:11.60 bitrate=N/A speed=19.9x    frame=20636 fps=476 q=-0.0 size=N/A time=00:14:20.69 bitrate=N/A speed=19.9x    frame=20868 fps=476 q=-0.0 size=N/A time=00:14:30.36 bitrate=N/A speed=19.9x    frame=21166 fps=477 q=-0.0 size=N/A time=00:14:42.79 bitrate=N/A speed=19.9x    frame=21437 fps=478 q=-0.0 size=N/A time=00:14:54.10 bitrate=N/A speed=19.9x    frame=21685 fps=478 q=-0.0 size=N/A time=00:15:04.44 bitrate=N/A speed=19.9x    frame=21932 fps=478 q=-0.0 size=N/A time=00:15:14.74 bitrate=N/A speed=19.9x    frame=22187 fps=478 q=-0.0 size=N/A time=00:15:25.38 bitrate=N/A speed=19.9x    frame=22452 fps=478 q=-0.0 size=N/A time=00:15:36.43 bitrate=N/A speed=19.9x    frame=22702 fps=478 q=-0.0 size=N/A time=00:15:46.86 bitrate=N/A speed=  20x    frame=22951 fps=478 q=-0.0 size=N/A time=00:15:57.24 bitrate=N/A speed=  20x    frame=23228 fps=479 q=-0.0 size=N/A time=00:16:08.80 bitrate=N/A speed=  20x    frame=23477 fps=479 q=-0.0 size=N/A time=00:16:19.18 bitrate=N/A speed=  20x    frame=23757 fps=480 q=-0.0 size=N/A time=00:16:30.86 bitrate=N/A speed=  20x    frame=24035 fps=480 q=-0.0 size=N/A time=00:16:42.50 bitrate=N/A speed=  20x    frame=24302 fps=481 q=-0.0 size=N/A time=00:16:53.59 bitrate=N/A speed=20.1x    frame=24528 fps=480 q=-0.0 size=N/A time=00:17:03.02 bitrate=N/A speed=  20x    frame=24774 fps=480 q=-0.0 size=N/A time=00:17:13.28 bitrate=N/A speed=  20x    frame=25035 fps=480 q=-0.0 size=N/A time=00:17:24.16 bitrate=N/A speed=  20x    frame=25323 fps=481 q=-0.0 size=N/A time=00:17:36.18 bitrate=N/A speed=20.1x    frame=25614 fps=482 q=-0.0 size=N/A time=00:17:48.31 bitrate=N/A speed=20.1x    frame=25874 fps=482 q=-0.0 size=N/A time=00:17:59.16 bitrate=N/A speed=20.1x    frame=26154 fps=483 q=-0.0 size=N/A time=00:18:10.83 bitrate=N/A speed=20.1x    frame=26439 fps=483 q=-0.0 size=N/A time=00:18:22.72 bitrate=N/A speed=20.2x    frame=26715 fps=484 q=-0.0 size=N/A time=00:18:34.23 bitrate=N/A speed=20.2x    frame=26968 fps=484 q=-0.0 size=N/A time=00:18:44.79 bitrate=N/A speed=20.2x    frame=27246 fps=484 q=-0.0 size=N/A time=00:18:56.38 bitrate=N/A speed=20.2x    frame=27505 fps=485 q=-0.0 size=N/A time=00:19:07.18 bitrate=N/A speed=20.2x    frame=27771 fps=485 q=-0.0 size=N/A time=00:19:18.28 bitrate=N/A speed=20.2x    frame=28023 fps=485 q=-0.0 size=N/A time=00:19:28.79 bitrate=N/A speed=20.2x    frame=28300 fps=485 q=-0.0 size=N/A time=00:19:40.34 bitrate=N/A speed=20.2x    frame=28584 fps=486 q=-0.0 size=N/A time=00:19:52.19 bitrate=N/A speed=20.3x    frame=28828 fps=486 q=-0.0 size=N/A time=00:20:02.36 bitrate=N/A speed=20.3x    frame=29103 fps=486 q=-0.0 size=N/A time=00:20:13.83 bitrate=N/A speed=20.3x    frame=29354 fps=486 q=-0.0 size=N/A time=00:20:24.30 bitrate=N/A speed=20.3x    frame=29625 fps=487 q=-0.0 size=N/A time=00:20:35.60 bitrate=N/A speed=20.3x    frame=29876 fps=487 q=-0.0 size=N/A time=00:20:46.07 bitrate=N/A speed=20.3x    frame=30155 fps=487 q=-0.0 size=N/A time=00:20:57.71 bitrate=N/A speed=20.3x    frame=30438 fps=488 q=-0.0 size=N/A time=00:21:09.51 bitrate=N/A speed=20.3x    frame=30702 fps=488 q=-0.0 size=N/A time=00:21:20.52 bitrate=N/A speed=20.3x    frame=30967 fps=488 q=-0.0 size=N/A time=00:21:31.58 bitrate=N/A speed=20.4x    frame=31243 fps=488 q=-0.0 size=N/A time=00:21:43.09 bitrate=N/A speed=20.4x    frame=31528 fps=489 q=-0.0 size=N/A time=00:21:54.98 bitrate=N/A speed=20.4x    frame=31782 fps=489 q=-0.0 size=N/A time=00:22:05.57 bitrate=N/A speed=20.4x    frame=32043 fps=489 q=-0.0 size=N/A time=00:22:16.46 bitrate=N/A speed=20.4x    frame=32272 fps=489 q=-0.0 size=N/A time=00:22:26.01 bitrate=N/A speed=20.4x    frame=32487 fps=488 q=-0.0 size=N/A time=00:22:34.97 bitrate=N/A speed=20.4x    frame=32707 fps=488 q=-0.0 size=N/A time=00:22:44.15 bitrate=N/A speed=20.3x    frame=32941 fps=487 q=-0.0 size=N/A time=00:22:53.91 bitrate=N/A speed=20.3x    frame=33154 fps=487 q=-0.0 size=N/A time=00:23:02.79 bitrate=N/A speed=20.3x    frame=33386 fps=487 q=-0.0 size=N/A time=00:23:12.47 bitrate=N/A speed=20.3x    frame=33615 fps=486 q=-0.0 size=N/A time=00:23:22.02 bitrate=N/A speed=20.3x    frame=33811 fps=486 q=-0.0 size=N/A time=00:23:30.20 bitrate=N/A speed=20.3x    frame=34064 fps=485 q=-0.0 size=N/A time=00:23:40.75 bitrate=N/A speed=20.2x    [Parsed_psnr_10 @ 0000021792bf6540] PSNR y:48.544757 u:50.432036 v:50.372535 average:49.080211 min:40.494369 max:inf
+[out#0/null @ 000002178b8cf580] video:14697KiB audio:267508KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame=34204 fps=486 q=-0.0 Lsize=N/A time=00:23:46.59 bitrate=N/A speed=20.3x    

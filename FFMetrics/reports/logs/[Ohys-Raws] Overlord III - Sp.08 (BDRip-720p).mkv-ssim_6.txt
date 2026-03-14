@@ -1,0 +1,76 @@
+ffmpeg started on 2025-06-27 at 12:09:38
+Report written to "D:\Convert\FFMetrics\reports\ssim_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xcf\xee\xe2\xe5\xeb\xe8\xf2\xe5\xeb\xfc\\\xd2\xc2-3\\Special\\[Ohys-Raws] Overlord III - Sp.08 (BDRip-720p)_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xcf\xee\xe2\xe5\xeb\xe8\xf2\xe5\xeb\xfc\\\xd2\xc2-3\\Special\\[Ohys-Raws] Overlord III - Sp.08 (BDRip-720p).mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p,fps=24000/1001,scale=1280:720:flags=bicubic[ref];[main][ref]ssim=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\[Топ]\Повелитель\ТВ-3\Special\[Ohys-Raws] Overlord III - Sp.08 (BDRip-720p)_HEVC.mkv':
+  Metadata:
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:32.13, start: -0.013000, bitrate: 515 kb/s
+  Stream #0:0(jpn): Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 316989
+        DURATION        : 00:01:32.091708333
+        NUMBER_OF_FRAMES: 2208
+        NUMBER_OF_BYTES : 3648981
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:33:06
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 194262
+        DURATION        : 00:01:32.096000000
+        NUMBER_OF_FRAMES: 4318
+        NUMBER_OF_BYTES : 2236352
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:33:06
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'G:\Аниме\[Топ]\Повелитель\ТВ-3\Special\[Ohys-Raws] Overlord III - Sp.08 (BDRip-720p).mkv':
+  Metadata:
+    encoder         : libebml v1.2.3 + libmatroska v1.3.0
+    creation_time   : 2019-10-11T21:06:15.000000Z
+  Duration: 00:01:32.10, start: 0.000000, bitrate: 1118 kb/s
+  Stream #1:0(jpn): Video: h264 (Main), yuv420p(progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+  Stream #1:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  ssim:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+[swscaler @ 000001944010e080] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 00000194402c5740] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440317f40] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440487a40] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440504000] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 00000194406fbb80] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440787dc0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440943ac0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 00000194409d8b40] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440b0e7c0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440b6a040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440bd4040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440c2f040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440cb9040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 0000019440d14040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 00000194462d00c0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 194262
+        DURATION        : 00:01:32.096000000
+        NUMBER_OF_FRAMES: 4318
+        NUMBER_OF_BYTES : 2236352
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:33:06
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=   80 fps=0.0 q=-0.0 size=N/A time=00:00:03.33 bitrate=N/A speed=6.49x    frame=  164 fps=158 q=-0.0 size=N/A time=00:00:06.84 bitrate=N/A speed=6.59x    frame=  252 fps=163 q=-0.0 size=N/A time=00:00:10.51 bitrate=N/A speed=6.79x    frame=  342 fps=165 q=-0.0 size=N/A time=00:00:14.26 bitrate=N/A speed=6.88x    frame=  438 fps=169 q=-0.0 size=N/A time=00:00:18.26 bitrate=N/A speed=7.07x    frame=  527 fps=170 q=-0.0 size=N/A time=00:00:21.98 bitrate=N/A speed=7.11x    frame=  622 fps=172 q=-0.0 size=N/A time=00:00:25.94 bitrate=N/A speed=7.17x    frame=  714 fps=173 q=-0.0 size=N/A time=00:00:29.77 bitrate=N/A speed=7.21x    frame=  809 fps=174 q=-0.0 size=N/A time=00:00:33.74 bitrate=N/A speed=7.25x    frame=  900 fps=174 q=-0.0 size=N/A time=00:00:37.53 bitrate=N/A speed=7.27x    frame=  995 fps=175 q=-0.0 size=N/A time=00:00:41.49 bitrate=N/A speed=7.31x    frame= 1087 fps=176 q=-0.0 size=N/A time=00:00:45.33 bitrate=N/A speed=7.33x    frame= 1183 fps=176 q=-0.0 size=N/A time=00:00:49.34 bitrate=N/A speed=7.35x    frame= 1277 fps=177 q=-0.0 size=N/A time=00:00:53.26 bitrate=N/A speed=7.37x    frame= 1368 fps=177 q=-0.0 size=N/A time=00:00:57.05 bitrate=N/A speed=7.38x    frame= 1449 fps=175 q=-0.0 size=N/A time=00:01:00.43 bitrate=N/A speed=7.32x    frame= 1557 fps=178 q=-0.0 size=N/A time=00:01:04.93 bitrate=N/A speed=7.41x    frame= 1647 fps=177 q=-0.0 size=N/A time=00:01:08.69 bitrate=N/A speed= 7.4x    frame= 1740 fps=177 q=-0.0 size=N/A time=00:01:12.57 bitrate=N/A speed= 7.4x    frame= 1832 fps=178 q=-0.0 size=N/A time=00:01:16.40 bitrate=N/A speed=7.41x    frame= 1924 fps=177 q=-0.0 size=N/A time=00:01:20.24 bitrate=N/A speed= 7.4x    frame= 2019 fps=178 q=-0.0 size=N/A time=00:01:24.20 bitrate=N/A speed=7.42x    frame= 2112 fps=178 q=-0.0 size=N/A time=00:01:28.08 bitrate=N/A speed=7.43x    [Parsed_ssim_10 @ 0000019433b2be40] SSIM Y:0.991298 (20.604020) U:0.990342 (20.151318) V:0.989886 (19.950692) All:0.990904 (20.411331)
+[out#0/null @ 0000019433b76880] video:949KiB audio:17272KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2208 fps=179 q=-0.0 Lsize=N/A time=00:01:32.09 bitrate=N/A speed=7.45x    

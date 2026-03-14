@@ -1,0 +1,68 @@
+ffmpeg started on 2025-06-27 at 12:00:35
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xca\xf0\xee\xe2\xfc \xd2\xf0\xe8\xe5\xe4\xe8\xed\xf1\xf2\xe2\xe0\\Bonus\\[HQR] Trinity Blood TV -NCED- (BDRip 1280x720 h264 Hi10 ac3)_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xca\xf0\xee\xe2\xfc \xd2\xf0\xe8\xe5\xe4\xe8\xed\xf1\xf2\xe2\xe0\\Bonus\\[HQR] Trinity Blood TV -NCED- (BDRip 1280x720 h264 Hi10 ac3).mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+[aist#0:1/aac @ 000001fa32fa7dc0] Guessed Channel Layout: 5.1
+Input #0, matroska,webm, from 'G:\Аниме\[Топ]\Кровь Триединства\Bonus\[HQR] Trinity Blood TV -NCED- (BDRip 1280x720 h264 Hi10 ac3)_HEVC.mkv':
+  Metadata:
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:52.15, start: -0.021000, bitrate: 1122 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        title           : [HQR] NCED
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 927199
+        DURATION        : 00:01:52.070708333
+        NUMBER_OF_FRAMES: 2687
+        NUMBER_OF_BYTES : 12988909
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:19:55
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, 5.1, fltp (default)
+      Metadata:
+        title           : Original
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 191960
+        DURATION        : 00:01:52.128000000
+        NUMBER_OF_FRAMES: 5257
+        NUMBER_OF_BYTES : 2690516
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:19:55
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'G:\Аниме\[Топ]\Кровь Триединства\Bonus\[HQR] Trinity Blood TV -NCED- (BDRip 1280x720 h264 Hi10 ac3).mkv':
+  Metadata:
+    encoder         : libebml v1.3.0 + libmatroska v1.4.0
+    creation_time   : 2013-02-18T19:45:01.000000Z
+  Duration: 00:01:52.13, start: 0.000000, bitrate: 3503 kb/s
+  Stream #1:0: Video: h264 (High 10), yuv420p10le(tv, bt709, progressive), 1280x720, SAR 1:1 DAR 16:9, 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        title           : [HQR] NCED
+  Stream #1:1(jpn): Audio: ac3, 48000 Hz, 5.1(side), fltp, 384 kb/s (default)
+      Metadata:
+        title           : Original
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, 6 channels, s16, 4608 kb/s (default)
+      Metadata:
+        title           : Original
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 191960
+        DURATION        : 00:01:52.128000000
+        NUMBER_OF_FRAMES: 5257
+        NUMBER_OF_BYTES : 2690516
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:19:55
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  288 fps=0.0 q=-0.0 size=N/A time=00:00:12.01 bitrate=N/A speed=22.9x    frame=  590 fps=569 q=-0.0 size=N/A time=00:00:24.60 bitrate=N/A speed=23.7x    frame=  949 fps=614 q=-0.0 size=N/A time=00:00:39.58 bitrate=N/A speed=25.6x    frame= 1328 fps=641 q=-0.0 size=N/A time=00:00:55.38 bitrate=N/A speed=26.7x    frame= 1775 fps=687 q=-0.0 size=N/A time=00:01:14.03 bitrate=N/A speed=28.7x    frame= 2216 fps=716 q=-0.0 size=N/A time=00:01:32.42 bitrate=N/A speed=29.9x    [Parsed_psnr_10 @ 000001fa3fe2f580] PSNR y:47.235911 u:52.662139 v:52.774765 average:48.422069 min:42.751277 max:62.294573
+[out#0/null @ 000001fa32dce440] video:1155KiB audio:63084KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2687 fps=766 q=-0.0 Lsize=N/A time=00:01:52.07 bitrate=N/A speed=31.9x    

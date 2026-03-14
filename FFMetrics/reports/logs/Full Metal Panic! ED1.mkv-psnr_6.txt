@@ -1,0 +1,81 @@
+ffmpeg started on 2025-06-27 at 15:04:56
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "E:\\YandexDisk\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xd1\xf2\xe0\xeb\xfc\xed\xe0\xff \xf2\xf0\xe5\xe2\xee\xe3\xe0!\\\xd2\xc2-1\\Full Metal Panic! [Opening & Ending]\\Full Metal Panic! ED1_HEVC.mkv" -i "E:\\YandexDisk\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xd1\xf2\xe0\xeb\xfc\xed\xe0\xff \xf2\xf0\xe5\xe2\xee\xe3\xe0!\\\xd2\xc2-1\\Full Metal Panic! [Opening & Ending]\\Full Metal Panic! ED1.mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1440:1080:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p,fps=24000/1001,scale=1440:1080:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+[aist#0:1/aac @ 000001da2048b000] Guessed Channel Layout: 5.1
+Input #0, matroska,webm, from 'E:\YandexDisk\Аниме\[Топ]\Стальная тревога!\ТВ-1\Full Metal Panic! [Opening & Ending]\Full Metal Panic! ED1_HEVC.mkv':
+  Metadata:
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:32.09, start: -0.021000, bitrate: 338 kb/s
+  Stream #0:0(jpn): Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1440x1080 [SAR 1:1 DAR 4:3], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 141236
+        DURATION        : 00:01:32.091708333
+        NUMBER_OF_FRAMES: 2208
+        NUMBER_OF_BYTES : 1625830
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 11:56:15
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, 5.1, fltp (default)
+      Metadata:
+        title           : Japanese
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 192573
+        DURATION        : 00:01:32.074000000
+        NUMBER_OF_FRAMES: 4317
+        NUMBER_OF_BYTES : 2216375
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 11:56:15
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'E:\YandexDisk\Аниме\[Топ]\Стальная тревога!\ТВ-1\Full Metal Panic! [Opening & Ending]\Full Metal Panic! ED1.mkv':
+  Metadata:
+    encoder         : libebml v0.7.7 + libmatroska v0.8.1
+    creation_time   : 2009-09-10T11:59:56.000000Z
+  Duration: 00:01:32.09, start: 0.000000, bitrate: 632 kb/s
+  Stream #1:0(jpn): Video: h264 (High), yuv420p(progressive), 1440x1080, SAR 1:1 DAR 4:3, 23.98 fps, 23.98 tbr, 1k tbn (default)
+  Stream #1:1(jpn): Audio: ac3, 48000 Hz, 5.1(side), fltp, 448 kb/s (default)
+      Metadata:
+        title           : Japanese
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+[swscaler @ 000001da326d29c0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da32823dc0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da32901440] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da329df340] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da32a5ecc0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da36398040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da36461040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da364bc040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da3653a040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da36595040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da365f8040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da36675040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da366da040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da3673f040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da3675a140] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000001da3687b840] No accelerated colorspace conversion found from yuv420p to bgr48le.
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1440x1080 [SAR 1:1 DAR 4:3], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, 6 channels, s16, 4608 kb/s (default)
+      Metadata:
+        title           : Japanese
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 192573
+        DURATION        : 00:01:32.074000000
+        NUMBER_OF_FRAMES: 4317
+        NUMBER_OF_BYTES : 2216375
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 11:56:15
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=   39 fps=0.0 q=-0.0 size=N/A time=00:00:01.62 bitrate=N/A speed=3.22x    frame=   87 fps= 85 q=-0.0 size=N/A time=00:00:03.62 bitrate=N/A speed=3.53x    frame=  135 fps= 88 q=-0.0 size=N/A time=00:00:05.63 bitrate=N/A speed=3.65x    frame=  184 fps= 90 q=-0.0 size=N/A time=00:00:07.67 bitrate=N/A speed=3.74x    frame=  232 fps= 90 q=-0.0 size=N/A time=00:00:09.67 bitrate=N/A speed=3.76x    frame=  282 fps= 91 q=-0.0 size=N/A time=00:00:11.76 bitrate=N/A speed=3.82x    frame=  331 fps= 92 q=-0.0 size=N/A time=00:00:13.80 bitrate=N/A speed=3.83x    frame=  377 fps= 92 q=-0.0 size=N/A time=00:00:15.72 bitrate=N/A speed=3.82x    frame=  418 fps= 90 q=-0.0 size=N/A time=00:00:17.43 bitrate=N/A speed=3.76x    frame=  474 fps= 92 q=-0.0 size=N/A time=00:00:19.76 bitrate=N/A speed=3.84x    frame=  521 fps= 92 q=-0.0 size=N/A time=00:00:21.73 bitrate=N/A speed=3.84x    frame=  568 fps= 92 q=-0.0 size=N/A time=00:00:23.69 bitrate=N/A speed=3.83x    frame=  613 fps= 92 q=-0.0 size=N/A time=00:00:25.56 bitrate=N/A speed=3.82x    frame=  662 fps= 92 q=-0.0 size=N/A time=00:00:27.61 bitrate=N/A speed=3.83x    frame=  709 fps= 92 q=-0.0 size=N/A time=00:00:29.57 bitrate=N/A speed=3.83x    frame=  756 fps= 92 q=-0.0 size=N/A time=00:00:31.53 bitrate=N/A speed=3.83x    frame=  805 fps= 92 q=-0.0 size=N/A time=00:00:33.57 bitrate=N/A speed=3.84x    frame=  853 fps= 92 q=-0.0 size=N/A time=00:00:35.57 bitrate=N/A speed=3.84x    frame=  903 fps= 92 q=-0.0 size=N/A time=00:00:37.66 bitrate=N/A speed=3.85x    frame=  953 fps= 92 q=-0.0 size=N/A time=00:00:39.74 bitrate=N/A speed=3.86x    frame= 1002 fps= 93 q=-0.0 size=N/A time=00:00:41.79 bitrate=N/A speed=3.86x    frame= 1046 fps= 92 q=-0.0 size=N/A time=00:00:43.62 bitrate=N/A speed=3.85x    frame= 1099 fps= 93 q=-0.0 size=N/A time=00:00:45.83 bitrate=N/A speed=3.87x    frame= 1147 fps= 93 q=-0.0 size=N/A time=00:00:47.83 bitrate=N/A speed=3.87x    frame= 1190 fps= 92 q=-0.0 size=N/A time=00:00:49.63 bitrate=N/A speed=3.85x    frame= 1243 fps= 93 q=-0.0 size=N/A time=00:00:51.84 bitrate=N/A speed=3.87x    frame= 1290 fps= 93 q=-0.0 size=N/A time=00:00:53.80 bitrate=N/A speed=3.87x    frame= 1338 fps= 93 q=-0.0 size=N/A time=00:00:55.80 bitrate=N/A speed=3.87x    frame= 1385 fps= 93 q=-0.0 size=N/A time=00:00:57.76 bitrate=N/A speed=3.86x    frame= 1431 fps= 93 q=-0.0 size=N/A time=00:00:59.68 bitrate=N/A speed=3.86x    frame= 1483 fps= 93 q=-0.0 size=N/A time=00:01:01.85 bitrate=N/A speed=3.87x    frame= 1523 fps= 92 q=-0.0 size=N/A time=00:01:03.52 bitrate=N/A speed=3.85x    frame= 1581 fps= 93 q=-0.0 size=N/A time=00:01:05.94 bitrate=N/A speed=3.88x    frame= 1629 fps= 93 q=-0.0 size=N/A time=00:01:07.94 bitrate=N/A speed=3.88x    frame= 1677 fps= 93 q=-0.0 size=N/A time=00:01:09.94 bitrate=N/A speed=3.88x    frame= 1726 fps= 93 q=-0.0 size=N/A time=00:01:11.98 bitrate=N/A speed=3.88x    frame= 1770 fps= 93 q=-0.0 size=N/A time=00:01:13.82 bitrate=N/A speed=3.87x    frame= 1824 fps= 93 q=-0.0 size=N/A time=00:01:16.07 bitrate=N/A speed=3.89x    frame= 1874 fps= 93 q=-0.0 size=N/A time=00:01:18.16 bitrate=N/A speed=3.89x    frame= 1922 fps= 93 q=-0.0 size=N/A time=00:01:20.16 bitrate=N/A speed=3.89x    frame= 1965 fps= 93 q=-0.0 size=N/A time=00:01:21.95 bitrate=N/A speed=3.88x    frame= 2017 fps= 93 q=-0.0 size=N/A time=00:01:24.12 bitrate=N/A speed=3.89x    frame= 2069 fps= 93 q=-0.0 size=N/A time=00:01:26.29 bitrate=N/A speed=3.89x    frame= 2104 fps= 93 q=-0.0 size=N/A time=00:01:27.75 bitrate=N/A speed=3.87x    frame= 2166 fps= 93 q=-0.0 size=N/A time=00:01:30.34 bitrate=N/A speed=3.89x    [Parsed_psnr_10 @ 000001da235fd340] PSNR y:47.819228 u:59.875340 v:58.703420 average:49.426684 min:48.222542 max:50.154455
+[out#0/null @ 000001da20a5cc00] video:949KiB audio:51804KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2208 fps= 93 q=-0.0 Lsize=N/A time=00:01:32.09 bitrate=N/A speed=3.89x    

@@ -1,0 +1,96 @@
+ffmpeg started on 2025-06-27 at 11:52:14
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xc2\xee\xe9\xed\xe0 \xcc\xe0\xe3\xee\xe2\\Bonus\\Magical Warfare - ED_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xc2\xee\xe9\xed\xe0 \xcc\xe0\xe3\xee\xe2\\Bonus\\Magical Warfare - ED.mp4" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:1080:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p,fps=24000/1001,scale=1920:1080:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\[Топ]\Война Магов\Bonus\Magical Warfare - ED_HEVC.mkv':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:32.13, start: -0.021000, bitrate: 1965 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        HANDLER_NAME    : VideoHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 1775500
+        DURATION        : 00:01:32.008708333
+        NUMBER_OF_FRAMES: 2206
+        NUMBER_OF_BYTES : 20420026
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:07:41
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 187673
+        DURATION        : 00:01:32.116000000
+        NUMBER_OF_FRAMES: 4319
+        NUMBER_OF_BYTES : 2160969
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:07:41
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from 'G:\Аниме\[Топ]\Война Магов\Bonus\Magical Warfare - ED.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf57.14.100
+  Duration: 00:01:32.10, start: 0.000000, bitrate: 3200 kb/s
+  Stream #1:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9], 3070 kb/s, 23.98 fps, 23.98 tbr, 24k tbn (default)
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+  Stream #1:1[0x2](jpn): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s (default)
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+[swscaler @ 000002c967dd7340] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c967f47780] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c9680f5fc0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c968190e80] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c96838bc80] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c9683a64c0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c96857d180] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c9685d9040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c96875d600] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c961542d40] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c9688dc040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c968a4f100] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c968a7f9c0] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c971804040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c9718e4c80] No accelerated colorspace conversion found from yuv420p to bgr48le.
+[swscaler @ 000002c971a98040] No accelerated colorspace conversion found from yuv420p to bgr48le.
+Output #0, null, to 'pipe:':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 187673
+        DURATION        : 00:01:32.116000000
+        NUMBER_OF_FRAMES: 4319
+        NUMBER_OF_BYTES : 2160969
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:07:41
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=   22 fps=0.0 q=-0.0 size=N/A time=00:00:00.91 bitrate=N/A speed=1.78x    frame=   58 fps= 57 q=-0.0 size=N/A time=00:00:02.41 bitrate=N/A speed=2.37x    frame=   96 fps= 62 q=-0.0 size=N/A time=00:00:04.00 bitrate=N/A speed=2.59x    frame=  126 fps= 61 q=-0.0 size=N/A time=00:00:05.25 bitrate=N/A speed=2.56x    frame=  167 fps= 65 q=-0.0 size=N/A time=00:00:06.96 bitrate=N/A speed= 2.7x    frame=  201 fps= 65 q=-0.0 size=N/A time=00:00:08.38 bitrate=N/A speed=2.72x    frame=  236 fps= 65 q=-0.0 size=N/A time=00:00:09.84 bitrate=N/A speed=2.73x    frame=  272 fps= 66 q=-0.0 size=N/A time=00:00:11.34 bitrate=N/A speed=2.75x    frame=  308 fps= 66 q=-0.0 size=N/A time=00:00:12.84 bitrate=N/A speed=2.76x    frame=  343 fps= 66 q=-0.0 size=N/A time=00:00:14.30 bitrate=N/A speed=2.77x    frame=  367 fps= 65 q=-0.0 size=N/A time=00:00:15.30 bitrate=N/A speed=2.69x    frame=  413 fps= 67 q=-0.0 size=N/A time=00:00:17.22 bitrate=N/A speed=2.78x    frame=  451 fps= 67 q=-0.0 size=N/A time=00:00:18.81 bitrate=N/A speed= 2.8x    frame=  486 fps= 67 q=-0.0 size=N/A time=00:00:20.27 bitrate=N/A speed=2.81x    frame=  511 fps= 66 q=-0.0 size=N/A time=00:00:21.31 bitrate=N/A speed=2.75x    frame=  554 fps= 67 q=-0.0 size=N/A time=00:00:23.10 bitrate=N/A speed= 2.8x    frame=  590 fps= 67 q=-0.0 size=N/A time=00:00:24.60 bitrate=N/A speed=2.81x    frame=  630 fps= 68 q=-0.0 size=N/A time=00:00:26.27 bitrate=N/A speed=2.83x    frame=  666 fps= 68 q=-0.0 size=N/A time=00:00:27.77 bitrate=N/A speed=2.83x    frame=  702 fps= 68 q=-0.0 size=N/A time=00:00:29.27 bitrate=N/A speed=2.84x    frame=  736 fps= 68 q=-0.0 size=N/A time=00:00:30.69 bitrate=N/A speed=2.83x    frame=  767 fps= 68 q=-0.0 size=N/A time=00:00:31.99 bitrate=N/A speed=2.82x    frame=  803 fps= 68 q=-0.0 size=N/A time=00:00:33.49 bitrate=N/A speed=2.82x    frame=  846 fps= 68 q=-0.0 size=N/A time=00:00:35.28 bitrate=N/A speed=2.85x    frame=  883 fps= 68 q=-0.0 size=N/A time=00:00:36.82 bitrate=N/A speed=2.85x    frame=  919 fps= 69 q=-0.0 size=N/A time=00:00:38.32 bitrate=N/A speed=2.86x    frame=  954 fps= 68 q=-0.0 size=N/A time=00:00:39.78 bitrate=N/A speed=2.86x    frame=  989 fps= 68 q=-0.0 size=N/A time=00:00:41.24 bitrate=N/A speed=2.86x    frame= 1019 fps= 68 q=-0.0 size=N/A time=00:00:42.50 bitrate=N/A speed=2.84x    frame= 1055 fps= 68 q=-0.0 size=N/A time=00:00:44.00 bitrate=N/A speed=2.84x    frame= 1091 fps= 68 q=-0.0 size=N/A time=00:00:45.50 bitrate=N/A speed=2.85x    frame= 1124 fps= 68 q=-0.0 size=N/A time=00:00:46.88 bitrate=N/A speed=2.84x    frame= 1168 fps= 69 q=-0.0 size=N/A time=00:00:48.71 bitrate=N/A speed=2.86x    frame= 1204 fps= 69 q=-0.0 size=N/A time=00:00:50.21 bitrate=N/A speed=2.86x    frame= 1241 fps= 69 q=-0.0 size=N/A time=00:00:51.76 bitrate=N/A speed=2.87x    frame= 1272 fps= 69 q=-0.0 size=N/A time=00:00:53.05 bitrate=N/A speed=2.86x    frame= 1308 fps= 69 q=-0.0 size=N/A time=00:00:54.55 bitrate=N/A speed=2.86x    frame= 1350 fps= 69 q=-0.0 size=N/A time=00:00:56.30 bitrate=N/A speed=2.87x    frame= 1386 fps= 69 q=-0.0 size=N/A time=00:00:57.80 bitrate=N/A speed=2.87x    frame= 1423 fps= 69 q=-0.0 size=N/A time=00:00:59.35 bitrate=N/A speed=2.88x    frame= 1459 fps= 69 q=-0.0 size=N/A time=00:01:00.85 bitrate=N/A speed=2.88x    frame= 1496 fps= 69 q=-0.0 size=N/A time=00:01:02.39 bitrate=N/A speed=2.88x    frame= 1532 fps= 69 q=-0.0 size=N/A time=00:01:03.89 bitrate=N/A speed=2.88x    frame= 1564 fps= 69 q=-0.0 size=N/A time=00:01:05.23 bitrate=N/A speed=2.87x    frame= 1595 fps= 69 q=-0.0 size=N/A time=00:01:06.52 bitrate=N/A speed=2.87x    frame= 1632 fps= 69 q=-0.0 size=N/A time=00:01:08.06 bitrate=N/A speed=2.87x    frame= 1677 fps= 69 q=-0.0 size=N/A time=00:01:09.94 bitrate=N/A speed=2.89x    frame= 1714 fps= 69 q=-0.0 size=N/A time=00:01:11.48 bitrate=N/A speed=2.89x    frame= 1744 fps= 69 q=-0.0 size=N/A time=00:01:12.73 bitrate=N/A speed=2.88x    frame= 1786 fps= 69 q=-0.0 size=N/A time=00:01:14.49 bitrate=N/A speed=2.89x    frame= 1821 fps= 69 q=-0.0 size=N/A time=00:01:15.95 bitrate=N/A speed=2.89x    frame= 1857 fps= 69 q=-0.0 size=N/A time=00:01:17.45 bitrate=N/A speed=2.89x    frame= 1895 fps= 69 q=-0.0 size=N/A time=00:01:19.03 bitrate=N/A speed=2.89x    frame= 1931 fps= 69 q=-0.0 size=N/A time=00:01:20.53 bitrate=N/A speed=2.89x    frame= 1968 fps= 69 q=-0.0 size=N/A time=00:01:22.08 bitrate=N/A speed=2.89x    frame= 2004 fps= 69 q=-0.0 size=N/A time=00:01:23.58 bitrate=N/A speed=2.89x    frame= 2035 fps= 69 q=-0.0 size=N/A time=00:01:24.87 bitrate=N/A speed=2.89x    frame= 2070 fps= 69 q=-0.0 size=N/A time=00:01:26.33 bitrate=N/A speed=2.88x    frame= 2106 fps= 69 q=-0.0 size=N/A time=00:01:27.83 bitrate=N/A speed=2.88x    frame= 2148 fps= 69 q=-0.0 size=N/A time=00:01:29.58 bitrate=N/A speed=2.89x    frame= 2185 fps= 69 q=-0.0 size=N/A time=00:01:31.13 bitrate=N/A speed=2.89x    [Parsed_psnr_10 @ 000002c96695a440] PSNR y:46.499069 u:50.874730 v:49.833906 average:47.441904 min:42.582538 max:inf
+[out#0/null @ 000002c950bcb940] video:948KiB audio:17276KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2206 fps= 69 q=-0.0 Lsize=N/A time=00:01:32.00 bitrate=N/A speed= 2.9x    

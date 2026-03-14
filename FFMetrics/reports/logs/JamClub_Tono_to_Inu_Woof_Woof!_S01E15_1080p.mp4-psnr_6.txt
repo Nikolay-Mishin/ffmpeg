@@ -1,0 +1,80 @@
+ffmpeg started on 2025-06-30 at 14:45:09
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\\xce\xed\xe3\xee\xe8\xed\xe3\xe8\\!_37_\xc7\xe8\xec\xe0_2025\\JamClub\\\xc3\xee\xf1\xef\xee\xe4\xe8\xed \xe8 \xef\xb8\xf1\\JamClub_Tono_to_Inu_Woof_Woof!_S01E15_1080p_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\\xce\xed\xe3\xee\xe8\xed\xe3\xe8\\!_37_\xc7\xe8\xec\xe0_2025\\JamClub\\\xc3\xee\xf1\xef\xee\xe4\xe8\xed \xe8 \xef\xb8\xf1\\JamClub_Tono_to_Inu_Woof_Woof!_S01E15_1080p.mp4" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:1080:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p,fps=24000/1001,scale=1920:1080:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Господин и пёс\JamClub_Tono_to_Inu_Woof_Woof!_S01E15_1080p_HEVC.mkv':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    ENCODER         : Lavf61.7.100
+  Duration: 00:02:52.23, start: -0.021000, bitrate: 2126 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        HANDLER_NAME    : VideoHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 1928584
+        DURATION        : 00:02:52.129708333
+        NUMBER_OF_FRAMES: 4127
+        NUMBER_OF_BYTES : 41495672
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-28 16:07:20
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(eng): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 195016
+        DURATION        : 00:02:52.205000000
+        NUMBER_OF_FRAMES: 8073
+        NUMBER_OF_BYTES : 4197845
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-28 16:07:20
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from 'G:\Аниме\Онгоинги\!_37_Зима_2025\JamClub\Господин и пёс\JamClub_Tono_to_Inu_Woof_Woof!_S01E15_1080p.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.16.100
+  Duration: 00:02:52.21, start: 0.000000, bitrate: 5368 kb/s
+  Stream #1:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 5172 kb/s, 23.98 fps, 23.98 tbr, 90k tbn (default)
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+  Stream #1:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 191 kb/s (default)
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(eng): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 195016
+        DURATION        : 00:02:52.205000000
+        NUMBER_OF_FRAMES: 8073
+        NUMBER_OF_BYTES : 4197845
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-28 16:07:20
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  118 fps=0.0 q=-0.0 size=N/A time=00:00:04.92 bitrate=N/A speed=9.53x    frame=  281 fps=270 q=-0.0 size=N/A time=00:00:11.72 bitrate=N/A speed=11.3x    frame=  483 fps=311 q=-0.0 size=N/A time=00:00:20.14 bitrate=N/A speed=  13x    frame=  708 fps=341 q=-0.0 size=N/A time=00:00:29.52 bitrate=N/A speed=14.2x    frame=  943 fps=364 q=-0.0 size=N/A time=00:00:39.33 bitrate=N/A speed=15.2x    frame= 1183 fps=382 q=-0.0 size=N/A time=00:00:49.34 bitrate=N/A speed=15.9x    frame= 1402 fps=387 q=-0.0 size=N/A time=00:00:58.47 bitrate=N/A speed=16.1x    frame= 1626 fps=393 q=-0.0 size=N/A time=00:01:07.81 bitrate=N/A speed=16.4x    frame= 1835 fps=394 q=-0.0 size=N/A time=00:01:16.53 bitrate=N/A speed=16.4x    frame= 2046 fps=396 q=-0.0 size=N/A time=00:01:25.33 bitrate=N/A speed=16.5x    frame= 2281 fps=401 q=-0.0 size=N/A time=00:01:35.13 bitrate=N/A speed=16.7x    frame= 2509 fps=405 q=-0.0 size=N/A time=00:01:44.64 bitrate=N/A speed=16.9x    frame= 2750 fps=409 q=-0.0 size=N/A time=00:01:54.69 bitrate=N/A speed=17.1x    frame= 2919 fps=404 q=-0.0 size=N/A time=00:02:01.74 bitrate=N/A speed=16.9x    frame= 3100 fps=400 q=-0.0 size=N/A time=00:02:09.29 bitrate=N/A speed=16.7x    frame= 3337 fps=404 q=-0.0 size=N/A time=00:02:19.18 bitrate=N/A speed=16.9x    frame= 3509 fps=400 q=-0.0 size=N/A time=00:02:26.35 bitrate=N/A speed=16.7x    frame= 3710 fps=400 q=-0.0 size=N/A time=00:02:34.73 bitrate=N/A speed=16.7x    frame= 3909 fps=399 q=-0.0 size=N/A time=00:02:43.03 bitrate=N/A speed=16.6x    [Parsed_psnr_10 @ 000002126aa33800] PSNR y:46.179844 u:48.280899 v:48.816075 average:46.833664 min:37.690439 max:inf
+[out#0/null @ 000002126a2b0f40] video:1773KiB audio:32292KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 4127 fps=403 q=-0.0 Lsize=N/A time=00:02:52.13 bitrate=N/A speed=16.8x    

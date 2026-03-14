@@ -1,0 +1,67 @@
+ffmpeg started on 2025-06-27 at 12:15:32
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xdd\xe9, \xf6\xfb\xef\xee\xf7\xea\xe0!\\NC\\[Yousei-raws] Mayo Chiki! (Creditless ED) [BDrip 1280x720 x264 Vorbis]_HEVC_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xdd\xe9, \xf6\xfb\xef\xee\xf7\xea\xe0!\\NC\\[Yousei-raws] Mayo Chiki! (Creditless ED) [BDrip 1280x720 x264 Vorbis]_HEVC.mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\[Топ]\Эй, цыпочка!\NC\[Yousei-raws] Mayo Chiki! (Creditless ED) [BDrip 1280x720 x264 Vorbis]_HEVC_HEVC.mkv':
+  Metadata:
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:31.14, start: -0.021000, bitrate: 517 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 321759
+        DURATION        : 00:01:31.090708333
+        NUMBER_OF_FRAMES: 2184
+        NUMBER_OF_BYTES : 3663632
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:45:27
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Stereo
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 191635
+        DURATION        : 00:01:31.114000000
+        NUMBER_OF_FRAMES: 4272
+        NUMBER_OF_BYTES : 2182581
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:45:27
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'G:\Аниме\[Топ]\Эй, цыпочка!\NC\[Yousei-raws] Mayo Chiki! (Creditless ED) [BDrip 1280x720 x264 Vorbis]_HEVC.mkv':
+  Metadata:
+    creation_time   : 2024-11-19T13:27:01.000000Z
+    ENCODER         : Lavf61.1.100
+  Duration: 00:01:31.12, start: -0.019000, bitrate: 1316 kb/s
+  Stream #1:0: Video: hevc (Main 10), yuv420p10le(tv, bt709), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        DURATION        : 00:01:31.091000000
+  Stream #1:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Stereo
+        DURATION        : 00:01:31.116000000
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (hevc) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        title           : Stereo
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 191635
+        DURATION        : 00:01:31.114000000
+        NUMBER_OF_FRAMES: 4272
+        NUMBER_OF_BYTES : 2182581
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:45:27
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  531 fps=0.0 q=-0.0 size=N/A time=00:00:22.14 bitrate=N/A speed=42.1x    frame= 1107 fps=1051 q=-0.0 size=N/A time=00:00:46.17 bitrate=N/A speed=43.8x    frame= 1642 fps=1053 q=-0.0 size=N/A time=00:01:08.48 bitrate=N/A speed=43.9x    [Parsed_psnr_10 @ 000002234d8aca80] PSNR y:49.893014 u:52.708912 v:52.294139 average:50.600374 min:46.286832 max:108.593550
+[out#0/null @ 000002234d577dc0] video:938KiB audio:17088KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2184 fps=1066 q=-0.0 Lsize=N/A time=00:01:31.09 bitrate=N/A speed=44.4x    

@@ -1,0 +1,70 @@
+ffmpeg started on 2025-06-27 at 12:14:26
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xcf\xf0\xee\xe4\xe5\xeb\xea\xe8 \xd1\xe0\xea\xf3\xf0\xfb\\Bonus\\Menu\\Sakura Trick TV Menu 6_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xcf\xf0\xee\xe4\xe5\xeb\xea\xe8 \xd1\xe0\xea\xf3\xf0\xfb\\Bonus\\Menu\\Sakura Trick TV Menu 6.mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:1080:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1920:1080:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\[Топ]\Проделки Сакуры\Bonus\Menu\Sakura Trick TV Menu 6_HEVC.mkv':
+  Metadata:
+    title           : Sakura Trick TV Menu 6
+    ENCODER         : Lavf61.7.100
+  Duration: 00:03:20.12, start: -0.021000, bitrate: 534 kb/s
+  Stream #0:0(jpn): Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        title           : [VCB & Hakugetsu & DMG]
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 433853
+        DURATION        : 00:03:20.116708333
+        NUMBER_OF_FRAMES: 4798
+        NUMBER_OF_BYTES : 10852632
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:40:38
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : [Original]
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 195566
+        DURATION        : 00:01:40.075000000
+        NUMBER_OF_FRAMES: 4692
+        NUMBER_OF_BYTES : 2446417
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:40:38
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'G:\Аниме\[Топ]\Проделки Сакуры\Bonus\Menu\Sakura Trick TV Menu 6.mkv':
+  Metadata:
+    title           : Sakura Trick TV Menu 6
+    encoder         : libebml v1.3.6 + libmatroska v1.4.9
+    creation_time   : 2018-07-04T17:49:43.000000Z
+  Duration: 00:03:20.12, start: 0.000000, bitrate: 867 kb/s
+  Stream #1:0(jpn): Video: h264 (High 10), yuv420p10le(tv, bt709/unknown/unknown, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        title           : [VCB & Hakugetsu & DMG]
+  Stream #1:1(jpn): Audio: flac, 48000 Hz, stereo, s16 (default)
+      Metadata:
+        title           : [Original]
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    title           : Sakura Trick TV Menu 6
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        title           : [Original]
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 195566
+        DURATION        : 00:01:40.075000000
+        NUMBER_OF_FRAMES: 4692
+        NUMBER_OF_BYTES : 2446417
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:40:38
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  208 fps=0.0 q=-0.0 size=N/A time=00:00:08.67 bitrate=N/A speed=  17x    frame=  488 fps=470 q=-0.0 size=N/A time=00:00:20.35 bitrate=N/A speed=19.6x    frame=  759 fps=490 q=-0.0 size=N/A time=00:00:31.65 bitrate=N/A speed=20.4x    frame= 1043 fps=507 q=-0.0 size=N/A time=00:00:43.50 bitrate=N/A speed=21.1x    frame= 1327 fps=513 q=-0.0 size=N/A time=00:00:55.34 bitrate=N/A speed=21.4x    frame= 1596 fps=516 q=-0.0 size=N/A time=00:01:06.56 bitrate=N/A speed=21.5x    frame= 1879 fps=521 q=-0.0 size=N/A time=00:01:18.36 bitrate=N/A speed=21.7x    frame= 2177 fps=527 q=-0.0 size=N/A time=00:01:30.84 bitrate=N/A speed=  22x    frame= 2379 fps=512 q=-0.0 size=N/A time=00:01:38.79 bitrate=N/A speed=21.3x    frame= 2379 fps=462 q=-0.0 size=N/A time=00:01:38.79 bitrate=N/A speed=19.2x    frame= 2379 fps=419 q=-0.0 size=N/A time=00:01:38.79 bitrate=N/A speed=17.4x    frame= 2379 fps=384 q=-0.0 size=N/A time=00:01:38.79 bitrate=N/A speed=  16x    frame= 2379 fps=354 q=-0.0 size=N/A time=00:01:38.79 bitrate=N/A speed=14.7x    frame= 2379 fps=329 q=-0.0 size=N/A time=00:01:38.79 bitrate=N/A speed=13.7x    frame= 2379 fps=308 q=-0.0 size=N/A time=00:01:38.79 bitrate=N/A speed=12.8x    frame= 2419 fps=293 q=-0.0 size=N/A time=00:01:40.09 bitrate=N/A speed=12.1x    frame= 2738 fps=312 q=-0.0 size=N/A time=00:01:54.19 bitrate=N/A speed=  13x    frame= 3238 fps=349 q=-0.0 size=N/A time=00:02:15.05 bitrate=N/A speed=14.6x    frame= 3760 fps=383 q=-0.0 size=N/A time=00:02:36.82 bitrate=N/A speed=  16x    frame= 4277 fps=415 q=-0.0 size=N/A time=00:02:58.38 bitrate=N/A speed=17.3x    [Parsed_psnr_10 @ 000001fb662a3a80] PSNR y:45.116419 u:48.190134 v:46.595068 average:45.734402 min:43.122384 max:inf
+[out#0/null @ 000001fb663d4a00] video:2062KiB audio:18768KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 4798 fps=444 q=-0.0 Lsize=N/A time=00:01:40.09 bitrate=N/A speed=9.27x    

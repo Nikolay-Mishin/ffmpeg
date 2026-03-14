@@ -1,0 +1,97 @@
+ffmpeg started on 2025-07-07 at 19:34:47
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "D:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef-5]\\\xcf\xf0\xe8\xed\xf6\xe5\xf1\xf1\xe0 \xcd\xe5\xec\xe5\xf0\xf2\xe2\xfb\xf5\\\xd2\xc2-2\\Shikabane_Hime_Kuro_ SP02_HEVC.mkv" -i "D:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef-5]\\\xcf\xf0\xe8\xed\xf6\xe5\xf1\xf1\xe0 \xcd\xe5\xec\xe5\xf0\xf2\xe2\xfb\xf5\\\xd2\xc2-2\\Shikabane_Hime_Kuro_ SP02.mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=1280:720:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'D:\Аниме\[Топ-5]\Принцесса Немертвых\ТВ-2\Shikabane_Hime_Kuro_ SP02_HEVC.mkv':
+  Metadata:
+    title           : Shikabane Hime: Kuro EP01
+    ENCODER         : Lavf61.7.100
+  Duration: 00:03:57.26, start: -0.021000, bitrate: 1065 kb/s
+  Stream #0:0(jpn): Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        title           : DVDRip [x264, upscale]
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 671313
+        DURATION        : 00:03:57.236708333
+        NUMBER_OF_FRAMES: 5688
+        NUMBER_OF_BYTES : 19907454
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-07-07 16:26:46
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(rus): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Akikomi
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 192553
+        DURATION        : 00:03:57.248000000
+        NUMBER_OF_FRAMES: 11122
+        NUMBER_OF_BYTES : 5710367
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-07-07 16:26:46
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:2(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp
+      Metadata:
+        title           : Original [AC3]
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 194498
+        DURATION        : 00:03:57.226000000
+        NUMBER_OF_FRAMES: 11121
+        NUMBER_OF_BYTES : 5767513
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-07-07 16:26:46
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:3: Subtitle: ass (ssa)
+      Metadata:
+        title           : полные
+        BPS             : 188
+        DURATION        : 00:03:08.480000000
+        NUMBER_OF_FRAMES: 63
+        NUMBER_OF_BYTES : 4450
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-07-07 16:26:46
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'D:\Аниме\[Топ-5]\Принцесса Немертвых\ТВ-2\Shikabane_Hime_Kuro_ SP02.mkv':
+  Metadata:
+    title           : Shikabane Hime: Kuro EP01
+    encoder         : libebml v1.3.0 + libmatroska v1.4.0
+    creation_time   : 2013-06-27T15:14:32.000000Z
+  Duration: 00:03:57.24, start: 0.000000, bitrate: 3882 kb/s
+  Stream #1:0(jpn): Video: h264 (High 10), yuv420p10le(progressive), 1280x720 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        title           : DVDRip [x264, upscale]
+  Stream #1:1(rus): Audio: mp3 (mp3float), 48000 Hz, stereo, fltp, 192 kb/s
+      Metadata:
+        title           : Akikomi
+  Stream #1:2(jpn): Audio: ac3, 48000 Hz, stereo, fltp, 448 kb/s
+      Metadata:
+        title           : Original [AC3]
+  Stream #1:3: Subtitle: ass (ssa)
+      Metadata:
+        title           : полные
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    title           : Shikabane Hime: Kuro EP01
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(rus): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        title           : Akikomi
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 192553
+        DURATION        : 00:03:57.248000000
+        NUMBER_OF_FRAMES: 11122
+        NUMBER_OF_BYTES : 5710367
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-07-07 16:26:46
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=   37 fps=0.0 q=-0.0 size=N/A time=00:00:01.54 bitrate=N/A speed=3.03x    frame=   82 fps= 79 q=-0.0 size=N/A time=00:00:03.42 bitrate=N/A speed=3.31x    frame=  136 fps= 88 q=-0.0 size=N/A time=00:00:05.67 bitrate=N/A speed=3.65x    frame=  175 fps= 85 q=-0.0 size=N/A time=00:00:07.29 bitrate=N/A speed=3.54x    frame=  236 fps= 92 q=-0.0 size=N/A time=00:00:09.84 bitrate=N/A speed=3.83x    frame=  288 fps= 93 q=-0.0 size=N/A time=00:00:12.01 bitrate=N/A speed=3.88x    frame=  338 fps= 94 q=-0.0 size=N/A time=00:00:14.09 bitrate=N/A speed=3.91x    frame=  390 fps= 94 q=-0.0 size=N/A time=00:00:16.26 bitrate=N/A speed=3.93x    frame=  433 fps= 93 q=-0.0 size=N/A time=00:00:18.05 bitrate=N/A speed=3.89x    frame=  487 fps= 95 q=-0.0 size=N/A time=00:00:20.31 bitrate=N/A speed=3.94x    frame=  543 fps= 96 q=-0.0 size=N/A time=00:00:22.64 bitrate=N/A speed=3.99x    frame=  594 fps= 96 q=-0.0 size=N/A time=00:00:24.77 bitrate=N/A speed=4.01x    frame=  643 fps= 96 q=-0.0 size=N/A time=00:00:26.81 bitrate=N/A speed=   4x    frame=  693 fps= 96 q=-0.0 size=N/A time=00:00:28.90 bitrate=N/A speed=   4x    frame=  746 fps= 96 q=-0.0 size=N/A time=00:00:31.11 bitrate=N/A speed=4.02x    frame=  796 fps= 97 q=-0.0 size=N/A time=00:00:33.19 bitrate=N/A speed=4.03x    frame=  848 fps= 97 q=-0.0 size=N/A time=00:00:35.36 bitrate=N/A speed=4.03x    frame=  897 fps= 97 q=-0.0 size=N/A time=00:00:37.41 bitrate=N/A speed=4.03x    frame=  941 fps= 96 q=-0.0 size=N/A time=00:00:39.24 bitrate=N/A speed=   4x    frame= 1000 fps= 97 q=-0.0 size=N/A time=00:00:41.70 bitrate=N/A speed=4.04x    frame= 1052 fps= 97 q=-0.0 size=N/A time=00:00:43.87 bitrate=N/A speed=4.05x    frame= 1104 fps= 97 q=-0.0 size=N/A time=00:00:46.04 bitrate=N/A speed=4.05x    frame= 1155 fps= 97 q=-0.0 size=N/A time=00:00:48.17 bitrate=N/A speed=4.06x    frame= 1201 fps= 97 q=-0.0 size=N/A time=00:00:50.09 bitrate=N/A speed=4.04x    frame= 1255 fps= 97 q=-0.0 size=N/A time=00:00:52.34 bitrate=N/A speed=4.06x    frame= 1310 fps= 98 q=-0.0 size=N/A time=00:00:54.63 bitrate=N/A speed=4.07x    frame= 1361 fps= 98 q=-0.0 size=N/A time=00:00:56.76 bitrate=N/A speed=4.07x    frame= 1412 fps= 98 q=-0.0 size=N/A time=00:00:58.89 bitrate=N/A speed=4.08x    frame= 1464 fps= 98 q=-0.0 size=N/A time=00:01:01.06 bitrate=N/A speed=4.08x    frame= 1515 fps= 98 q=-0.0 size=N/A time=00:01:03.18 bitrate=N/A speed=4.08x    frame= 1567 fps= 98 q=-0.0 size=N/A time=00:01:05.35 bitrate=N/A speed=4.09x    frame= 1613 fps= 98 q=-0.0 size=N/A time=00:01:07.27 bitrate=N/A speed=4.07x    frame= 1666 fps= 98 q=-0.0 size=N/A time=00:01:09.48 bitrate=N/A speed=4.08x    frame= 1719 fps= 98 q=-0.0 size=N/A time=00:01:11.69 bitrate=N/A speed=4.08x    frame= 1763 fps= 98 q=-0.0 size=N/A time=00:01:13.53 bitrate=N/A speed=4.07x    frame= 1822 fps= 98 q=-0.0 size=N/A time=00:01:15.99 bitrate=N/A speed=4.09x    frame= 1873 fps= 98 q=-0.0 size=N/A time=00:01:18.11 bitrate=N/A speed=4.09x    frame= 1925 fps= 98 q=-0.0 size=N/A time=00:01:20.28 bitrate=N/A speed=4.09x    frame= 1976 fps= 98 q=-0.0 size=N/A time=00:01:22.41 bitrate=N/A speed=4.09x    frame= 2021 fps= 98 q=-0.0 size=N/A time=00:01:24.29 bitrate=N/A speed=4.08x    frame= 2078 fps= 98 q=-0.0 size=N/A time=00:01:26.66 bitrate=N/A speed= 4.1x    frame= 2124 fps= 98 q=-0.0 size=N/A time=00:01:28.58 bitrate=N/A speed=4.09x    frame= 2179 fps= 98 q=-0.0 size=N/A time=00:01:30.88 bitrate=N/A speed= 4.1x    frame= 2228 fps= 98 q=-0.0 size=N/A time=00:01:32.92 bitrate=N/A speed=4.09x    frame= 2280 fps= 98 q=-0.0 size=N/A time=00:01:35.09 bitrate=N/A speed=4.09x    frame= 2321 fps= 98 q=-0.0 size=N/A time=00:01:36.80 bitrate=N/A speed=4.08x    frame= 2379 fps= 98 q=-0.0 size=N/A time=00:01:39.22 bitrate=N/A speed=4.09x    frame= 2429 fps= 98 q=-0.0 size=N/A time=00:01:41.30 bitrate=N/A speed=4.09x    frame= 2480 fps= 98 q=-0.0 size=N/A time=00:01:43.43 bitrate=N/A speed=4.09x    frame= 2532 fps= 98 q=-0.0 size=N/A time=00:01:45.60 bitrate=N/A speed=4.09x    frame= 2578 fps= 98 q=-0.0 size=N/A time=00:01:47.52 bitrate=N/A speed=4.09x    frame= 2632 fps= 98 q=-0.0 size=N/A time=00:01:49.77 bitrate=N/A speed=4.09x    frame= 2686 fps= 98 q=-0.0 size=N/A time=00:01:52.02 bitrate=N/A speed= 4.1x    frame= 2736 fps= 98 q=-0.0 size=N/A time=00:01:54.11 bitrate=N/A speed= 4.1x    frame= 2786 fps= 98 q=-0.0 size=N/A time=00:01:56.19 bitrate=N/A speed= 4.1x    frame= 2838 fps= 98 q=-0.0 size=N/A time=00:01:58.36 bitrate=N/A speed= 4.1x    frame= 2885 fps= 98 q=-0.0 size=N/A time=00:02:00.32 bitrate=N/A speed=4.09x    frame= 2939 fps= 98 q=-0.0 size=N/A time=00:02:02.58 bitrate=N/A speed= 4.1x    frame= 2990 fps= 98 q=-0.0 size=N/A time=00:02:04.70 bitrate=N/A speed= 4.1x    frame= 3040 fps= 98 q=-0.0 size=N/A time=00:02:06.79 bitrate=N/A speed= 4.1x    frame= 3092 fps= 98 q=-0.0 size=N/A time=00:02:08.96 bitrate=N/A speed= 4.1x    frame= 3142 fps= 98 q=-0.0 size=N/A time=00:02:11.04 bitrate=N/A speed= 4.1x    frame= 3188 fps= 98 q=-0.0 size=N/A time=00:02:12.96 bitrate=N/A speed=4.09x    frame= 3242 fps= 98 q=-0.0 size=N/A time=00:02:15.21 bitrate=N/A speed=4.09x    frame= 3296 fps= 98 q=-0.0 size=N/A time=00:02:17.47 bitrate=N/A speed= 4.1x    frame= 3348 fps= 98 q=-0.0 size=N/A time=00:02:19.63 bitrate=N/A speed= 4.1x    frame= 3398 fps= 98 q=-0.0 size=N/A time=00:02:21.72 bitrate=N/A speed= 4.1x    frame= 3450 fps= 98 q=-0.0 size=N/A time=00:02:23.89 bitrate=N/A speed= 4.1x    frame= 3500 fps= 98 q=-0.0 size=N/A time=00:02:25.97 bitrate=N/A speed= 4.1x    frame= 3551 fps= 98 q=-0.0 size=N/A time=00:02:28.10 bitrate=N/A speed= 4.1x    frame= 3602 fps= 98 q=-0.0 size=N/A time=00:02:30.23 bitrate=N/A speed= 4.1x    frame= 3651 fps= 98 q=-0.0 size=N/A time=00:02:32.27 bitrate=N/A speed= 4.1x    frame= 3697 fps= 98 q=-0.0 size=N/A time=00:02:34.19 bitrate=N/A speed=4.09x    frame= 3746 fps= 98 q=-0.0 size=N/A time=00:02:36.23 bitrate=N/A speed=4.09x    frame= 3793 fps= 98 q=-0.0 size=N/A time=00:02:38.19 bitrate=N/A speed=4.09x    frame= 3832 fps= 98 q=-0.0 size=N/A time=00:02:39.82 bitrate=N/A speed=4.08x    frame= 3881 fps= 98 q=-0.0 size=N/A time=00:02:41.87 bitrate=N/A speed=4.07x    frame= 3930 fps= 98 q=-0.0 size=N/A time=00:02:43.91 bitrate=N/A speed=4.07x    frame= 3969 fps= 97 q=-0.0 size=N/A time=00:02:45.54 bitrate=N/A speed=4.06x    frame= 4031 fps= 98 q=-0.0 size=N/A time=00:02:48.12 bitrate=N/A speed=4.07x    frame= 4076 fps= 98 q=-0.0 size=N/A time=00:02:50.00 bitrate=N/A speed=4.07x    frame= 4131 fps= 98 q=-0.0 size=N/A time=00:02:52.29 bitrate=N/A speed=4.07x    frame= 4180 fps= 98 q=-0.0 size=N/A time=00:02:54.34 bitrate=N/A speed=4.07x    frame= 4226 fps= 97 q=-0.0 size=N/A time=00:02:56.25 bitrate=N/A speed=4.07x    frame= 4269 fps= 97 q=-0.0 size=N/A time=00:02:58.05 bitrate=N/A speed=4.06x    frame= 4306 fps= 97 q=-0.0 size=N/A time=00:02:59.59 bitrate=N/A speed=4.05x    frame= 4355 fps= 97 q=-0.0 size=N/A time=00:03:01.63 bitrate=N/A speed=4.05x    frame= 4400 fps= 97 q=-0.0 size=N/A time=00:03:03.51 bitrate=N/A speed=4.04x    frame= 4441 fps= 97 q=-0.0 size=N/A time=00:03:05.22 bitrate=N/A speed=4.03x    frame= 4488 fps= 97 q=-0.0 size=N/A time=00:03:07.18 bitrate=N/A speed=4.03x    frame= 4531 fps= 97 q=-0.0 size=N/A time=00:03:08.98 bitrate=N/A speed=4.03x    frame= 4576 fps= 96 q=-0.0 size=N/A time=00:03:10.85 bitrate=N/A speed=4.02x    frame= 4620 fps= 96 q=-0.0 size=N/A time=00:03:12.69 bitrate=N/A speed=4.02x    frame= 4656 fps= 96 q=-0.0 size=N/A time=00:03:14.19 bitrate=N/A speed=   4x    frame= 4707 fps= 96 q=-0.0 size=N/A time=00:03:16.32 bitrate=N/A speed=   4x    frame= 4750 fps= 96 q=-0.0 size=N/A time=00:03:18.11 bitrate=N/A speed=   4x    frame= 4793 fps= 96 q=-0.0 size=N/A time=00:03:19.90 bitrate=N/A speed=3.99x    frame= 4838 fps= 96 q=-0.0 size=N/A time=00:03:21.78 bitrate=N/A speed=3.99x    frame= 4882 fps= 96 q=-0.0 size=N/A time=00:03:23.62 bitrate=N/A speed=3.99x    frame= 4926 fps= 95 q=-0.0 size=N/A time=00:03:25.45 bitrate=N/A speed=3.98x    frame= 4965 fps= 95 q=-0.0 size=N/A time=00:03:27.08 bitrate=N/A speed=3.97x    frame= 5012 fps= 95 q=-0.0 size=N/A time=00:03:29.04 bitrate=N/A speed=3.97x    frame= 5057 fps= 95 q=-0.0 size=N/A time=00:03:30.91 bitrate=N/A speed=3.97x    frame= 5100 fps= 95 q=-0.0 size=N/A time=00:03:32.71 bitrate=N/A speed=3.96x    frame= 5137 fps= 95 q=-0.0 size=N/A time=00:03:34.25 bitrate=N/A speed=3.96x    frame= 5185 fps= 95 q=-0.0 size=N/A time=00:03:36.25 bitrate=N/A speed=3.95x    frame= 5222 fps= 95 q=-0.0 size=N/A time=00:03:37.80 bitrate=N/A speed=3.95x    frame= 5272 fps= 95 q=-0.0 size=N/A time=00:03:39.88 bitrate=N/A speed=3.95x    frame= 5317 fps= 95 q=-0.0 size=N/A time=00:03:41.76 bitrate=N/A speed=3.94x    frame= 5361 fps= 94 q=-0.0 size=N/A time=00:03:43.59 bitrate=N/A speed=3.94x    frame= 5405 fps= 94 q=-0.0 size=N/A time=00:03:45.43 bitrate=N/A speed=3.94x    frame= 5444 fps= 94 q=-0.0 size=N/A time=00:03:47.06 bitrate=N/A speed=3.93x    frame= 5493 fps= 94 q=-0.0 size=N/A time=00:03:49.10 bitrate=N/A speed=3.93x    frame= 5536 fps= 94 q=-0.0 size=N/A time=00:03:50.89 bitrate=N/A speed=3.93x    frame= 5575 fps= 94 q=-0.0 size=N/A time=00:03:52.52 bitrate=N/A speed=3.92x    frame= 5624 fps= 94 q=-0.0 size=N/A time=00:03:54.56 bitrate=N/A speed=3.92x    frame= 5671 fps= 94 q=-0.0 size=N/A time=00:03:56.52 bitrate=N/A speed=3.92x    [Parsed_psnr_10 @ 000001afac40f200] PSNR y:47.484370 u:51.677571 v:51.018511 average:48.431836 min:41.251404 max:66.751805
+[out#0/null @ 000001afa4980380] video:2444KiB audio:44488KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 5688 fps= 94 q=-0.0 Lsize=N/A time=00:03:57.23 bitrate=N/A speed=3.92x    

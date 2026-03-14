@@ -1,0 +1,67 @@
+ffmpeg started on 2025-06-27 at 12:15:24
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xd8\xea\xee\xeb\xfc\xed\xfb\xe5 \xe2\xee\xe9\xed\xfb\\\xd2\xc2-1\\Bonus\\[W] Ikkitousen NCED [BDrip 960x720 x264 Vorbis]_HEVC_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xd8\xea\xee\xeb\xfc\xed\xfb\xe5 \xe2\xee\xe9\xed\xfb\\\xd2\xc2-1\\Bonus\\[W] Ikkitousen NCED [BDrip 960x720 x264 Vorbis]_HEVC.mkv" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=960:720:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=24000/1001,scale=960:720:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\[Топ]\Школьные войны\ТВ-1\Bonus\[W] Ikkitousen NCED [BDrip 960x720 x264 Vorbis]_HEVC_HEVC.mkv':
+  Metadata:
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:39.14, start: -0.021000, bitrate: 538 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 960x720 [SAR 1:1 DAR 4:3], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 356153
+        DURATION        : 00:01:39.098708333
+        NUMBER_OF_FRAMES: 2376
+        NUMBER_OF_BYTES : 4411767
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:44:07
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Stereo
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 178494
+        DURATION        : 00:01:39.114000000
+        NUMBER_OF_FRAMES: 4647
+        NUMBER_OF_BYTES : 2211410
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:44:07
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, matroska,webm, from 'G:\Аниме\[Топ]\Школьные войны\ТВ-1\Bonus\[W] Ikkitousen NCED [BDrip 960x720 x264 Vorbis]_HEVC.mkv':
+  Metadata:
+    creation_time   : 2024-11-19T12:21:03.000000Z
+    ENCODER         : Lavf61.1.100
+  Duration: 00:01:39.12, start: -0.019000, bitrate: 1267 kb/s
+  Stream #1:0: Video: hevc (Main 10), yuv420p10le(tv, bt709), 960x720 [SAR 1:1 DAR 4:3], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        DURATION        : 00:01:39.099000000
+  Stream #1:1(jpn): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Stereo
+        DURATION        : 00:01:39.116000000
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (hevc) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 960x720 [SAR 1:1 DAR 4:3], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        title           : Stereo
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 178494
+        DURATION        : 00:01:39.114000000
+        NUMBER_OF_FRAMES: 4647
+        NUMBER_OF_BYTES : 2211410
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:44:07
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  618 fps=0.0 q=-0.0 size=N/A time=00:00:25.77 bitrate=N/A speed=50.1x    frame= 1208 fps=1180 q=-0.0 size=N/A time=00:00:50.38 bitrate=N/A speed=49.2x    frame= 1953 fps=1260 q=-0.0 size=N/A time=00:01:21.45 bitrate=N/A speed=52.6x    [Parsed_psnr_10 @ 000001eac3434340] PSNR y:47.530256 u:49.463910 v:49.406644 average:48.077339 min:43.911544 max:92.292663
+[out#0/null @ 000001eac3462c00] video:1021KiB audio:18588KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2376 fps=1277 q=-0.0 Lsize=N/A time=00:01:39.09 bitrate=N/A speed=53.2x    

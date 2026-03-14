@@ -1,0 +1,342 @@
+APSNR (Average Peak signal-to-noise ratio)
+
+PSNR — Пиковое отношение сигнал/шум. PSNR определяет уровень искажений при сжатии и включает подсчет среднеквадратичной ошибки (MSE).
+Диапазон принимаемых значений от 0 до 100.
+
+Качество видео  	Значения PSNR
+Excellent (отличное)	38 и выше
+Good (хорошее)		35-38
+Fair (среднее)		33-35
+Poor			30-33
+Bad (плохое)		30 и ниже
+
+SSIM - метрика оценки качества изображения по трем критериям: яркость, контрастность и структура. 
+Принимает значения от 0 до 1.
+
+Качество видео  	Значения SSIM
+Excellent (отличное)	0,93 и выше
+Good (хорошее)		0,88-0,93
+Fair (среднее)		0,84-0,88
+Poor			0,78-0,84
+Bad (плохое)		0,78 и ниже
+
+VMAF Video Multi-Method Assessment Fusion — метрика оценки воспринимаемого качества изображения.
+
+Время расчета VMAF может превышать длительность подсчета PSNR в 6-12 раз.
+
+Качество видео  	Значения VMAF
+Excellent (отличное)	90 и выше
+Good (хорошее)		74-90
+Fair (среднее)		58-74
+Poor			38-58
+Bad (плохое)		38 и ниже
+
+VQM — показатель измерения эффектов искажения видео. 
+Значение 0 отражает полную идентичность видеопоследовательностей и самое высокое качество видео.  
+Чем выше значение метрики, тем больше разница и хуже качество.
+
+Качество видео  	Значения VQM
+Excellent (отличное)	0-1,23
+Good (хорошее)		1,23-1,74
+Fair (среднее)		1,74-2,3
+Poor			2,33-3,03
+Bad (плохое)		3,03 и выше
+
+DELTA — значение метрики показывает различия компонентов цветности.
+Метрика используется для тестирования кодеков и фильтров.
+DELTA менее репрезентативна для оценки качества, подходит для детектирования разницы в яркости.
+Для 8-битых видеопоследовательностей значения варьируются от -255 до 255, при этом чем выше значение метрики, тем больше выявлено отличий.
+Значение 0 отражает полную идентичность видеопоследовательностей.
+
+Качество видео  	Значения DELTA
+Excellent (отличное)	0 - 0,144
+Good (хорошее)		0,144 - 0,236
+Fair (среднее)		0,236 - 0,3
+Poor			0,3 - 0,369
+Bad (плохое)		0,369 и выше
+
+MSAD — рассчитывается как DELTA, за одним исключением, разница берется по модулю.
+Значение 0 отражает полную идентичность видеопоследовательностей.
+
+Качество видео  	Значения MSAD
+Excellent (отличное)	0 - 2,05
+Good (хорошее)		2,05 - 2,67
+Fair (среднее)		2,67 - 3,22
+Poor			3,22 - 3,96
+Bad (плохое)		3,96 и выше
+
+MSE — простейшая метрика, отражающая среднеквадратичную ошибку.
+Значение 0 отражает полную идентичность видеопоследовательностей.
+
+Качество видео  	Значения MSE
+Excellent (отличное)	0 - 15,5
+Good (хорошее)		15,5 - 28,9
+Fair (среднее)		28,9 - 47,7
+Poor			47,7 - 83,2
+Bad (плохое)		83,2 и выше
+
+NQI — метрика, предназначенная для оценки качества видео путем объединения трех компонентов: потери корреляции, искажения яркости и контрастности. 
+Диапазон значений колеблется от 0 до 1. 
+Чем ниже значение, тем хуже качество.
+
+Качество видео  	Значения NQI
+Excellent (отличное)	0,43 и выше
+Good (хорошее)		0,33 - 0,43
+Fair (среднее)		0,28 - 0,33
+Poor			0,21 - 0,28
+Bad (плохое)		0 - 0,21
+
+VIF (Visual information fidelity)
+
+-------------------------------------------------
+[FFMetrics]
+Bad frame
+
+ffmpeg -hide_banner -nostdin -accurate_seek -r 25 -i "E:\Convert\out\FBS NF 124 (1080P AVC)_HEVC.mkv" -ss 323.52 -frames:v 1 -f image2 -vf settb=AVTB,setpts=PTS-STARTPTS -pix_fmt rgb24 -sws_flags accurate_rnd+full_chroma_int+bitexact "C:\Users\Владелец Super PC\AppData\Local\Temp\1c241612-51e8-40aa-8238-9b8c20c7bc65.png"
+ffmpeg \
+	-hide_banner -nostdin \
+	-accurate_seek \
+	-r 25 -i "E:\Convert\out\FBS NF 124 (1080P AVC)_HEVC.mkv" \
+	-c:v png \
+	-ss 323.52 -frames:v 1 -f image2 \
+	-vf settb=AVTB,setpts=PTS-STARTPTS \
+	-pix_fmt rgb24 \
+	-sws_flags accurate_rnd+full_chroma_int+bitexact \
+	"C:\Users\Владелец Super PC\AppData\Local\Temp\1c241612-51e8-40aa-8238-9b8c20c7bc65.png"
+
+-s 1920x1080 \ разрешение
+-ss 00:00:3 \ time=00:00:03.00
+
+-------------------------------------------------
+[FFMetrics]
+Parsed_psnr_0
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/psnr_report.txt':level=32 \
+ffmpeg \
+	-i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi psnr=stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile.txt' \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/ssim_report.txt':level=32 \
+ffmpeg \
+	-i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi ssim=stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile.txt' \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/vmaf_report.txt':level=32 \
+ffmpeg \
+	-i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi libvmaf=model=version=vmaf_v0.6.1:log_path='D\\:/Convert/FFMetrics/logs/vmaf_logfile.txt':n_threads=32 \
+	-f null -
+
+-------------------------------------------------
+[FFMetrics]
+Parsed_psnr_0
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/psnr_report-1.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi psnr=stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-1.txt' \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/ssim_report-1.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi ssim=stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile-1.txt' \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/vmaf_report-1.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi libvmaf=model=version=vmaf_v0.6.1:log_path='D\\:/Convert/FFMetrics/logs/vmaf_logfile-1.txt':n_threads=32 \
+	-f null -
+
+-------------------------------------------------
+[FFMetrics]
+Parsed_psnr_2
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/psnr_report-2.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]fps=24000/1001[main]; \
+	[1:v]fps=24000/1001[ref]; \
+	[main][ref]psnr=stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-2.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/ssim_report-2.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]fps=24000/1001[main]; \
+	[1:v]fps=24000/1001[ref]; \
+	[main][ref]ssim=stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile-2.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/vmaf_report-2.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]fps=24000/1001[main]; \
+	[1:v]fps=24000/1001[ref]; \
+	[main][ref]libvmaf=model=version=vmaf_v0.6.1:log_path='D\\:/Convert/FFMetrics/logs/vmaf_logfile-2.txt':n_threads=32" \
+	-f null -
+
+-------------------------------------------------
+Parsed_psnr_4
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/psnr_report-3.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS[ref]; \
+	[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-3.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/ssim_report-3.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS[ref]; \
+	[main][ref]ssim=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile-3.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/vmaf_report-3.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS[ref]; \
+	[main][ref]libvmaf=eof_action=endall:log_path='D\\:/Convert/FFMetrics/logs/vmaf_logfile-3.txt':n_threads=32:pool=Mean:model=version=vmaf_v0.6.1" \
+	-f null -
+
+-------------------------------------------------
+Parsed_psnr_5
+
+scale=1920:1080:flags=bicubic если разрешения исходного и целевого видео отличаются
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/psnr_report-4.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,scale=1920:1080:flags=bicubic[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS[ref]; \
+	[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-4.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/ssim_report-4.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,scale=1920:1080:flags=bicubic[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS[ref]; \
+	[main][ref]ssim=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile-4.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/vmaf_report-4.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,scale=1920:1080:flags=bicubic[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS[ref]; \
+	[main][ref]libvmaf=eof_action=endall:log_path='D\\:/Convert/FFMetrics/logs/vmaf_logfile-4.txt':n_threads=32:pool=Mean:model=version=vmaf_v0.6.1" \
+	-f null -
+
+-------------------------------------------------
+Parsed_psnr_7
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/psnr_report-5.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p10[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS[ref]; \
+	[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-5.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/ssim_report-5.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p10[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS[ref]; \
+	[main][ref]ssim=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile-5.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/vmaf_report-5.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p10[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS[ref]; \
+	[main][ref]libvmaf=eof_action=endall:log_path='D\\:/Convert/FFMetrics/logs/vmaf_logfile-5.txt':n_threads=32:pool=Mean:model=version=vmaf_v0.6.1" \
+	-f null -
+
+-------------------------------------------------
+Parsed_psnr_10
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/psnr_report-6.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p10[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p[ref]; \
+	[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/ssim_report-6.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p10[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p[ref]; \
+	[main][ref]ssim=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/ssim_logfile-6.txt'" \
+	-f null -
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/vmaf_report-6.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/vmaf/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p10[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p[ref]; \
+	[main][ref]libvmaf=eof_action=endall:log_path='D\\:/Convert/FFMetrics/logs/vmaf_logfile-6.txt':n_threads=32:pool=Mean:model=version=vmaf_v0.6.1" \
+	-f null -
+
+-------------------------------------------------
+Parsed_psnr_10
+
+FFREPORT=file='D\:/Convert/FFMetrics/reports/psnr_report-8.txt':level=32 \
+ffmpeg \
+	-hide_banner -nostdin \
+	-r 24000/1001 -i "E:/Convert/out/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p_HEVC].mkv" \
+	-r 24000/1001 -i "E:/Convert/files/Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv" \
+	-lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p10[main]; \
+	[1:v]settb=AVTB,setpts=PTS-STARTPTS,fps=24000/1001,scale=1920:1080:flags=bicubic,format=pix_fmts=yuv420p[ref]; \
+	[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-8.txt'" \
+	-f null -

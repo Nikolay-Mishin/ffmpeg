@@ -1,0 +1,51 @@
+{
+    "name": "ffmpeg",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "exports": {
+        "default": "./index.js",
+        "import": "./index.js",
+        "require": "./index.js"
+    },
+    "license": "ISC",
+    "author": {
+        "name": "Nikolay Mishin",
+        "url": "https://github.com/Nikolay-Mishin"
+    },
+    "description": "Library of development tools",
+    "keywords": [
+        "npm", "ffmpeg"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Nikolay-Mishin/dir-sync",
+        "directory": ""
+    },
+    "engines": {
+        "node": ">=20.12.2"
+    },
+    "scripts": {
+        "echo": "echo \"Error: no test specified\" && exit 1",
+        "test": "node index.js -test",
+        "start": "node index.js -exec",
+        "cut": "node index.js -exec -t=30",
+        "metrics": "node index.js -metrics -exec",
+        "metrics-test": "node index.js -metrics -test",
+        "scan": "node scan.js",
+        "ffmetrics": "node ffmetrics.js",
+        "film": "node index.js -exec -tune=film",
+        "grain": "node index.js -exec -tune=grain",
+        "no-tune": "node index.js -exec -tune=none",
+        "test-film": "node index.js -test -tune=film",
+        "test-grain": "node index.js -test -tune=grain",
+        "test-no-tune": "node index.js -test -tune=none",
+        "ws": "node ws.js",
+        "ws-test": "node ws.test.js"
+    },
+    "dependencies": {
+        "exiftool-vendored": "29.1.0",
+        "node-mediainfo": "1.0.3",
+        "ws": "8.18.3"
+    }
+}

@@ -1,0 +1,80 @@
+ffmpeg started on 2025-06-27 at 11:54:23
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xc2\xee\xeb\xf7\xe8\xf6\xe0 \xe8 \xef\xf0\xff\xed\xee\xf1\xf2\xe8\\\xd2\xc2-1\\BD Menu\\Spice and wolf - BD menu (vol.1)_HEVC.mkv" -i "G:\\\xc0\xed\xe8\xec\xe5\\[\xd2\xee\xef]\\\xc2\xee\xeb\xf7\xe8\xf6\xe0 \xe8 \xef\xf0\xff\xed\xee\xf1\xf2\xe8\\\xd2\xc2-1\\BD Menu\\Spice and wolf - BD menu (vol.1).mp4" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=25/1,scale=1280:720:flags=bicubic[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10,fps=25/1,scale=1280:720:flags=bicubic[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'G:\Аниме\[Топ]\Волчица и пряности\ТВ-1\BD Menu\Spice and wolf - BD menu (vol.1)_HEVC.mkv':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    ENCODER         : Lavf61.7.100
+  Duration: 00:01:30.08, start: -0.021000, bitrate: 471 kb/s
+  Stream #0:0(jpn): Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], 25 fps, 25 tbr, 1k tbn (default)
+      Metadata:
+        HANDLER_NAME    : VideoHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 297035
+        DURATION        : 00:01:30.080000000
+        NUMBER_OF_FRAMES: 2252
+        NUMBER_OF_BYTES : 3344624
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:10:08
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1(jpn): Audio: aac (LC), 48000 Hz, mono, fltp (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 169693
+        DURATION        : 00:01:30.026000000
+        NUMBER_OF_FRAMES: 4221
+        NUMBER_OF_BYTES : 1909607
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:10:08
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from 'G:\Аниме\[Топ]\Волчица и пряности\ТВ-1\BD Menu\Spice and wolf - BD menu (vol.1).mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf58.27.102
+  Duration: 00:01:30.08, start: 0.000000, bitrate: 1236 kb/s
+  Stream #1:0[0x1](jpn): Video: h264 (High 10) (avc1 / 0x31637661), yuv420p10le(progressive), 1280x720 [SAR 1:1 DAR 16:9], 1174 kb/s, 25 fps, 25 tbr, 12800 tbn (default)
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+  Stream #1:1[0x2](jpn): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, mono, fltp, 56 kb/s (default)
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 25 fps, 25 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1(jpn): Audio: pcm_s16le, 48000 Hz, mono, s16, 768 kb/s (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 169693
+        DURATION        : 00:01:30.026000000
+        NUMBER_OF_FRAMES: 4221
+        NUMBER_OF_BYTES : 1909607
+        _STATISTICS_WRITING_APP: mkvpropedit v66.0.0 ('Josie') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2025-06-27 08:10:08
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=   37 fps=0.0 q=-0.0 size=N/A time=00:00:01.48 bitrate=N/A speed=2.88x    frame=   74 fps= 72 q=-0.0 size=N/A time=00:00:02.96 bitrate=N/A speed=2.87x    frame=  110 fps= 70 q=-0.0 size=N/A time=00:00:04.40 bitrate=N/A speed=2.81x    frame=  156 fps= 75 q=-0.0 size=N/A time=00:00:06.24 bitrate=N/A speed=2.98x    frame=  203 fps= 78 q=-0.0 size=N/A time=00:00:08.12 bitrate=N/A speed= 3.1x    frame=  243 fps= 78 q=-0.0 size=N/A time=00:00:09.72 bitrate=N/A speed=3.11x    frame=  261 fps= 72 q=-0.0 size=N/A time=00:00:10.44 bitrate=N/A speed=2.87x    frame=  300 fps= 72 q=-0.0 size=N/A time=00:00:12.00 bitrate=N/A speed=2.88x    frame=  336 fps= 72 q=-0.0 size=N/A time=00:00:13.44 bitrate=N/A speed=2.88x    frame=  383 fps= 74 q=-0.0 size=N/A time=00:00:15.32 bitrate=N/A speed=2.95x    frame=  430 fps= 75 q=-0.0 size=N/A time=00:00:17.20 bitrate=N/A speed=3.01x    frame=  470 fps= 75 q=-0.0 size=N/A time=00:00:18.80 bitrate=N/A speed=3.01x    frame=  517 fps= 77 q=-0.0 size=N/A time=00:00:20.68 bitrate=N/A speed=3.06x    frame=  558 fps= 77 q=-0.0 size=N/A time=00:00:22.32 bitrate=N/A speed=3.07x    frame=  613 fps= 79 q=-0.0 size=N/A time=00:00:24.52 bitrate=N/A speed=3.15x    frame=  661 fps= 80 q=-0.0 size=N/A time=00:00:26.44 bitrate=N/A speed=3.19x    frame=  710 fps= 81 q=-0.0 size=N/A time=00:00:28.40 bitrate=N/A speed=3.22x    frame=  755 fps= 81 q=-0.0 size=N/A time=00:00:30.20 bitrate=N/A speed=3.23x    frame=  811 fps= 82 q=-0.0 size=N/A time=00:00:32.44 bitrate=N/A speed=3.29x    frame=  860 fps= 83 q=-0.0 size=N/A time=00:00:34.40 bitrate=N/A speed=3.32x    frame=  904 fps= 83 q=-0.0 size=N/A time=00:00:36.16 bitrate=N/A speed=3.32x    frame=  948 fps= 83 q=-0.0 size=N/A time=00:00:37.92 bitrate=N/A speed=3.33x    frame= 1010 fps= 85 q=-0.0 size=N/A time=00:00:40.40 bitrate=N/A speed=3.39x    frame= 1059 fps= 85 q=-0.0 size=N/A time=00:00:42.36 bitrate=N/A speed=3.41x    frame= 1110 fps= 86 q=-0.0 size=N/A time=00:00:44.40 bitrate=N/A speed=3.43x    frame= 1159 fps= 86 q=-0.0 size=N/A time=00:00:46.36 bitrate=N/A speed=3.44x    frame= 1212 fps= 87 q=-0.0 size=N/A time=00:00:48.48 bitrate=N/A speed=3.47x    frame= 1262 fps= 87 q=-0.0 size=N/A time=00:00:50.48 bitrate=N/A speed=3.48x    frame= 1309 fps= 87 q=-0.0 size=N/A time=00:00:52.36 bitrate=N/A speed=3.48x    frame= 1362 fps= 88 q=-0.0 size=N/A time=00:00:54.48 bitrate=N/A speed=3.51x    frame= 1412 fps= 88 q=-0.0 size=N/A time=00:00:56.48 bitrate=N/A speed=3.52x    frame= 1461 fps= 88 q=-0.0 size=N/A time=00:00:58.44 bitrate=N/A speed=3.53x    frame= 1507 fps= 88 q=-0.0 size=N/A time=00:01:00.28 bitrate=N/A speed=3.53x    frame= 1562 fps= 89 q=-0.0 size=N/A time=00:01:02.48 bitrate=N/A speed=3.55x    frame= 1611 fps= 89 q=-0.0 size=N/A time=00:01:04.44 bitrate=N/A speed=3.56x    frame= 1661 fps= 89 q=-0.0 size=N/A time=00:01:06.44 bitrate=N/A speed=3.56x    frame= 1711 fps= 89 q=-0.0 size=N/A time=00:01:08.44 bitrate=N/A speed=3.57x    frame= 1762 fps= 90 q=-0.0 size=N/A time=00:01:10.48 bitrate=N/A speed=3.58x    frame= 1813 fps= 90 q=-0.0 size=N/A time=00:01:12.52 bitrate=N/A speed=3.59x    frame= 1863 fps= 90 q=-0.0 size=N/A time=00:01:14.52 bitrate=N/A speed= 3.6x    frame= 1908 fps= 90 q=-0.0 size=N/A time=00:01:16.32 bitrate=N/A speed=3.59x    frame= 1963 fps= 90 q=-0.0 size=N/A time=00:01:18.52 bitrate=N/A speed=3.61x    frame= 2007 fps= 90 q=-0.0 size=N/A time=00:01:20.28 bitrate=N/A speed=3.61x    frame= 2064 fps= 91 q=-0.0 size=N/A time=00:01:22.56 bitrate=N/A speed=3.62x    frame= 2108 fps= 90 q=-0.0 size=N/A time=00:01:24.32 bitrate=N/A speed=3.62x    frame= 2162 fps= 91 q=-0.0 size=N/A time=00:01:26.48 bitrate=N/A speed=3.63x    frame= 2209 fps= 91 q=-0.0 size=N/A time=00:01:28.36 bitrate=N/A speed=3.63x    [Parsed_psnr_10 @ 000001fe389c0e00] PSNR y:47.252606 u:49.905004 v:49.332633 average:47.905612 min:44.507295 max:49.372905
+[out#0/null @ 000001fe37674300] video:968KiB audio:8442KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2252 fps= 91 q=-0.0 Lsize=N/A time=00:01:30.04 bitrate=N/A speed=3.64x    
