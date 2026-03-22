@@ -99,7 +99,7 @@ export const test = async () => {
     //await ffmpeg(f6, postfix, true);
     //await ffmpeg(f8, postfix, true);
 
-    //await testScripts(39);
+    //await testScripts(41);
 
     //await scan("F:\\Аниме\\Онгоинги\\!_37_Зима_2025\\JamClub\\Доктор Стоун\\ТВ-4");
     //await scan("F:\\Convert\\files");
