@@ -137,7 +137,8 @@ const opts = {
             chroma: 'ChromaSubsampling', //: '4:2:0',
             bit: 'BitDepth', //: '10',
             scan: 'ScanType', //: 'Progressive', // AVC
-            params: 'Encoded_Library_Settings', //: '',
+            //params: 'Encoded_Library_Settings', //: '',
+            params: { v: 'Encoded_Library_Settings', fn: v => !v ? v : v.toArr('/').map(s => s.toArr('=')).fromEntries() },
             default: 'Default', //: 'Yes',
             forced: 'Forced', //: 'No',
             //range: 'colour_range', //: 'Limited',

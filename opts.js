@@ -23,15 +23,17 @@ const fpsList = {
     'film': '24/1',
     'ntsc_film': '24000/1001', // ntsc-film
     'ntsc_60': '60000/1001', // ntsc-film
+    'youtube': '30/1',
     'youtube_60': '60/1'
 };
-const { ntsc_film, film, pal, ntsc, ntsc_60, youtube_60 } = fpsList;
+const { ntsc_film, film, pal, ntsc, ntsc_60, youtube, youtube_60 } = fpsList;
 
 const rList = {
     [fps]: ntsc_film,
     24: film,
     25: pal,
     29.97: ntsc,
+    30: youtube,
     59.94: ntsc_60,
     60: youtube_60
 };
@@ -69,6 +71,14 @@ export const
     codec_remove = c => $codec_remove.includes(c),
     map_remove = (l, c) => lang_remove(l) || codec_remove(c),
     map_filter = (l, c) => !lang_remove(l) && codec_remove(c),
+    //сохранить глобальные метаданные в текстовый файл
+    //ffmpeg -i in.mp4 -f ffmetadata in.txt
+    //Если также необходимы метаданные из видео- и аудиопотоков
+    //ffmpeg -i in.mp4 -c copy -map_metadata 0 -map_metadata:s:v 0:s:v -map_metadata:s:a 0:s:a -f ffmetadata in.txt
+    ffmetadata = async path => await exec(`ffmpeg -i "${path}" -map_metadata 0 -map_metadata:s:v 0:s:v -map_metadata:s:a 0:s:a -c copy -f ffmetadata "${path}.txt"`, false),
+    ffformat = async path => await exec(`ffprobe -show_format -show_streams "${path}" -v 0`),
+    //ffmpeg -hide_banner -i "e:\video.mpg" -vf "showinfo" -f null -
+    ffinfo = async path => await exec(`ffmpeg -hide_banner -i "${path}" -vf "showinfo" -f null -`),
     ffprobe = async (path, args = '') => await exec(`ffprobe -v error -show_streams "${path}" ${args}`, false),
     ffError = async path => (await ffprobe(path, '| grep error')).replace(/Error: Command exited with code: .+\./, '').toArr().filter(el => el !== ''),
     ffColor = async path => {
@@ -185,7 +195,7 @@ export const mkvReport = async (i) => {
     const data = str.toArr();
     i.mkvReport = data[data.length - 2];
     const out = await miOpts(o),
-        { v: { fps_mode: fps_mode_o, fr }, a } = out;
+        { v: { fps_mode: fps_mode_o, fr, params }, a } = out;
     const { s: _s } = i.s = await size(o, 1);
     i.s.s += ' KB';
     i.s.b += ' kb/s';
@@ -199,6 +209,8 @@ export const mkvReport = async (i) => {
     i.s.color = color;
     i.s.out_color = await ffColor(o);
     i.aCodecsOut = await aCodecs(a);
+    i.s.min_keyint = params['min-keyint'];
+    i.s.keyint = params.keyint;
     //log(i);
     //log(out);
     //log(str);
@@ -240,6 +252,7 @@ export const copyReport = async (i, out, map) => {
 export const getReportInfo = async (type, copy = true, i = {}) => {
     const { i: input, o, setFFmpeg, report, reportFile, logFile, logStr, mkvReport, s, ext, aCodecs, aCodecsOut } = i;
     const { ext: ext_p } = preset;
+    const fps = `[fps] ${ext.upper()} => ${ext_p.upper()} fps_mode: ${s.fps_mode}, ${s.fps_mode_i} => ${s.fps_mode_o}, ${s.fps_o} => ${s.fps}, keyint: ${s.min_keyint} / ${s.keyint}\n`;
     const isFF = ffTypes.k().includes(type);
     const isFFmpeg = type === 'ff';
     //log(i);
@@ -275,8 +288,7 @@ export const getReportInfo = async (type, copy = true, i = {}) => {
             await appendFile(reportFile, !setFFmpeg ? '' : `[o_aCodecs] ${aCodecsOut}\n`);
         }
         if (s) {
-            const _ext = ext => ext.upper();
-            await appendFile(reportFile, !setFFmpeg ? '' : `[fps] ${_ext(ext)} => ${_ext(ext_p)} fps_mode: ${s.fps_mode}, ${s.fps_mode_i} => ${s.fps_mode_o}, ${s.fps_o} => ${s.fps}\n`);
+            await appendFile(reportFile, !setFFmpeg ? '' : fps);
             await appendFile(reportFile, !setFFmpeg ? '' : `[i_color] ${getColor(s.color)}\n`);
             await appendFile(reportFile, !setFFmpeg ? '' : `[o_color] ${getColor(s.out_color)}\n`);
         }
@@ -349,9 +361,9 @@ export const
     getFlags = (flags = vf_flags) => `flags=${flags}${flags !== 'lanczos' ? '' : ':param0=3'}`,
     // scale=1920x1080:flags=bicubic,format=pix_fmts=yuv420p10,fps=fps=23.976
     setFilter = (format, fps, scale, space = '', flags = vf_flags, sar = false, dar = false) => {
+        const _fps = !fps ? '' : `fps=${fps},`;
         const _sar = !sar ? '' : `,setsar=${sar}`;
         const _dar = !dar ? '' : `,setdar=${dar}`;
-        const _fps = !fps ? '' : `fps=${fps},`;
         return `${format}${format === '' ? '' : ','}${_fps}scale=${scale}:${getFlags(flags)}${space}${_sar}${_dar}`;
     },
     setPrefixLavfi = (endall, filter = '', filter1 = '', noScale = true) => {
@@ -393,14 +405,14 @@ export const
         const { range = default_range, primaries = default_primaries(h), trc = default_trc, space = default_matrix(h) } = ffColor;
         const _ffColor = { range, primaries, trc, space, chroma };
         const setChroma = (p, con = c_chroma) => setParam(con, getChroma(chroma, p));
-        const setPrim = (p, con = c_space/* && iprimaries*/) => setParam(con, getPrimP(primaries, p));
-        const setTrc = (p, con = c_space/* && itrc*/) => setParam(con, getTrcP(trc, p));
-        const setCspace = (p, con = c_space/* && ispace*/) => setParam(con, getSpaceP(space, p));
+        const setPrim = (p, con = c_space && iprimaries) => setParam(con, getPrimP(primaries, p));
+        const setTrc = (p, con = c_space && itrc) => setParam(con, getTrcP(trc, p));
+        const setCspace = (p, con = c_space && ispace) => setParam(con, getSpaceP(space, p));
         const chromaLoc = setChroma();
         // -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -chroma_sample_location left`
         const cRange = !c_range ? '' : `-color_range ${range}${setPrim()}${setTrc()}${setCspace()}${chromaLoc} `;
         const in_range = !vf_in ? '' : `:in_range=${range}:in_color_matrix=${space}:in_chroma_loc=${chroma_loc}`;
-        const _scale_range = !scale_range ? '' : `:out_range=${range}${setCspace('out_color_matrix', scale_space/* && ispace*/)}${setChroma('out_chroma_loc', chroma_loc)}`;
+        const _scale_range = !scale_range ? '' : `:out_range=${range}${setCspace('out_color_matrix', scale_space && ispace)}${setChroma('out_chroma_loc', chroma_loc)}`;
         const out_range = !vf_range ? '' : `${in_range}${_scale_range}`;
         // -vf "colorspace=format=yuv420p10:irange=tv:iprimaries=bt709:itrc=bt709:ispace=bt709:range=tv:primaries=bt709:trc=bt709:space=bt709:fast=0"
         const range_space = range.replace('limited', 'tv');

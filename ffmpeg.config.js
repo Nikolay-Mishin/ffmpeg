@@ -45,7 +45,7 @@ export const {
     // rc-lookahead=20:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=1.50:rdoq-level=2:rskip=1:aq-mode=3:aq-strength=0.4:
     // bframes=6:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:
     // limit-tu=4:weight-b=1
-    lookahead_threads = 0, min_keyint = 23, keyint = 250,
+    lookahead_threads = 0, min_keyint = 0, keyint = 0,
     rc_lookahead = 20, lookahead_slices = 0, rect = 0, amp = 0, rd = 3, psy_rd = "1.50", psy_rdoq = "1.50", rdoq_level = 2, rskip = 1, aq_mode = 3, aq_strength = "0.40",
     bframes = 6, ref = 8, me = 1, subme = 2, merange = 57, strong_intra_smoothing = 1, deblock = 0, qcomp = "0.60", limit_refs = 3, limit_modes = 0, sao = 1, early_skip = 1,
     limit_tu = 0, weight_b = 0, // limit_tu > 0 ? 1 : 0

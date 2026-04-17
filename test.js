@@ -12,7 +12,7 @@ import testParams2, {
 } from './testHelpers.js';
 import preset from './presets.js';
 import { setParams } from './params.js';
-import { getFormat, ffColor } from './opts.js';
+import { getFormat, ffColor, ffmetadata, ffformat, ffinfo } from './opts.js';
 
 export const test = async () => {
     //if (!test) await scan(i, out);
@@ -74,16 +74,21 @@ export const test = async () => {
 
     const postfix = `_HEVC(${n > 9 ? n : `0${n}`})`,
         fname = f => f.replace(ext(f), `${postfix}.mkv`),
-        f0 = "F:\\Convert\\files\\[DC] Make Heroine ga Oosugiru - 07_Telegram.mp4",
+        fd = "F:\\Convert\\files",
+        f0 = `${fd}\\[DC] Make Heroine ga Oosugiru - 07_Telegram.mp4`,
         f1 = fname(f0),
-        f2 = "F:\\Аниме\\Онгоинги\\!_37_Зима_2025\\JamClub\\Доктор Стоун\\ТВ-4\\JamClub_Dr_Stone_Science_Future_03_1080p.mp4",
+        f2 = `${fd}\\JamClub_Dr_Stone_Science_Future_03_1080p.mp4`,
         f3 = fname(f2),
-        f4 = "F:\\Convert\\files\\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4",
+        f4 = `${fd}\\JamClub_Ore_dake_Level_Up_na_Ken_Season_2_13_1080p.mp4`,
         f5 = fname(f4),
-        f6 = "D:\\Convert\\files\\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv",
+        f6 = `${fd}\\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p].mkv`,
         f7 = fname(f6),
-        f8 = "F:\\Convert\\files\\FBS NF 124 (1080P AVC).mp4",
-        f9 = fname(f8);
+        f8 = `${fd}\\FBS NF 124 (1080P AVC).mp4`,
+        f9 = fname(f8),
+        f10 = `${fd}\\Glass.Heart.s01e01.HD1080p.WEBRip.Rus.AniDub.com.mp4`,
+        f11 = fname(f10),
+        f12 = `${fd}\\Dungeon_ni_Deai_wo_Motomeru_no_wa_Machigatteiru_no_Darou_ka_V_[01]_[AniLibria]_[WEBRip_1080p].mkv`,
+        f13 = fname(f12);
 
     //setParams(43);
 
@@ -98,17 +103,28 @@ export const test = async () => {
     //await ffmpeg(f4, postfix, true);
     //await ffmpeg(f6, postfix, true);
     //await ffmpeg(f8, postfix, true);
+    //await ffmpeg(f10, postfix, true);
+    //await ffmpeg(f12, postfix, true);
 
-    //await testScripts(41);
+    //await testScripts(48);
 
     //await scan("F:\\Аниме\\Онгоинги\\!_37_Зима_2025\\JamClub\\Доктор Стоун\\ТВ-4");
     //await scan("F:\\Convert\\files");
+
+    //await checkFrames("I:\\Аниме\\Онгоинги\\!_41_Зима_2026\\Адский режим - Хардкорный геймер отправляется в другой мир");
+    //await checkFrames("D:\\Convert\\files");
+
+    //await ffmetadata(f0);
+    //await ffformat(f0);
+    //await ffinfo(f0);
 
     //await ffmetrics(f1, f0);
     //await ffmetrics(f3, f2);
     //await ffmetrics(f5, f4);
     //await ffmetrics(f7, f6);
     //await ffmetrics(f9, f8);
+    //await ffmetrics(f11, f10);
+    //await ffmetrics(f13, f12);
 
     //await testScriptsMetrics(12);
     //await testScriptsMetrics(2, `-out_scale_m=false`);

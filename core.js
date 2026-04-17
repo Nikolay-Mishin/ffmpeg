@@ -20,12 +20,14 @@ import { baseMI, baseMI1, miList, miOpts } from './mi.js';
 import preset from './presets.js';
 import { res } from './presets.opts.js';
 
+//ffmpeg -i input.mp3 -i input_video.mp4 -map 0 -map_metadata 0 -codec copy output.mp4
+
 const
     opts_copy_v = '-map 0 -c copy',
     opts_copy_a = '-map 0:a -c:a copy',
     opts_copy = `-map 0 -c:v copy -c:a copy -c:s copy`,
     opts_copy_map = opts => {
-        const _opts = opts_copy_v.replace(/(-map 0)/, '$1:v:0 -map 0:a -map 0:s? -map 0:t? -map_chapters 0');
+        const _opts = opts_copy_v.replace(/(-map 0)/, '$1:v:0 -map 0:a -map 0:s? -map 0:t? -map_chapters 0 -map_metadata 0');
         return !opts ? _opts : _opts.replace('-map 0:a', opts);
     },
     opts_a = (encoder = ca, ba = $ba, ar = $ar, ac = $ac) => `-map 0:a -c:a ${encoder} -b:a ${ba}k -ar ${ar} -ac ${ac}`,
@@ -112,7 +114,7 @@ const ffmpegSei = async (i, cmd) => {
     //log(b_max);
     const _cmd = cmd
         .replace(/-i ".+" -map/, '-map')
-        .replace(/-map .+ -map_chapters 0/, '-map 0')
+        .replace(/-map .+ -map_chapters 0 -map_metadata 0/, '-map 0')
         .replace(/-c:v .+ -pix_fmt/, '-c:v libx264 -pix_fmt')
         .replaceAll('yuv420p10le', bit === '8' ? 'yuv420p' : 'yuv420p10')
         .replace(/-bsf:v ".+" -crf/, `${bsf_sei} -crf`)
@@ -220,9 +222,9 @@ const getFFmpeg = async (i) => {
     log(`frames: ${fc}`);
 
     const _vstats = !vstats ? '' : `-vstats_file "${FFreportFile.replace('report', 'report-vstats')}" `;
-    const metadata = !setMetadata ? '' : ' -map_metadata 0 -movflags use_metadata_tags'; // -1
+    const metadata = !setMetadata ? '' : ' -movflags use_metadata_tags'; // -1
     // 1st video, 1st audio (0:a:0), all subtitles, выбирает все вложения (t) из первого входного файла
-    const map = !setMap ? '-map 0' : `-map 0:v:0 ${map_a} -map 0:s? -map 0:t? -map_chapters 0${metadata}`;
+    const map = !setMap ? '-map 0' : `-map 0:v:0 ${map_a} -map 0:s? -map 0:t? -map_chapters 0 -map_metadata 0${metadata}`;
     const cv = `-c:v ${encoder}${!isHevc ? '' : ' -tag:v hvc1'}`;
     const format = `-${_format.replace('s=', ' ')}`;
     const setLslices = w < 1920 || h < 1080;
@@ -287,12 +289,13 @@ const getFFmpeg = async (i) => {
             const re = new RegExp(`(:${p})=\\d+(\\.\\d+)?`);
             //log(re);
             //log(`${p}: ${v}`);
+            if ((p == "min-keyint" || p == "keyint") && v == 0) params = params.replace(re, '');
             if (p == "lookahead-threads" && v > 0) params = params.replace(/(frame-threads=\d+)/, `$1:lookahead-threads=${v}`);
             else if (p != "lookahead-slices") params = params.replace(re, `$1=${v}`);
             if (p == "lookahead-slices" && v > 0) params = params.replace(/(lookahead-slices)=\d+/, `$1=${v}`);
             if (p == "strong-intra-smoothing") params = params.replace(/(b-intra)=\d+/, `$1=${v}`);
             if (p == "sao") params = params.replace(/(selective-sao)=\d+/, `$1=${v > 0 ? 4 : 0}`);
-            if (p == "weight-b" && v > 0) params = `${params}:weight-b=${v}`
+            if (p == "weight-b" && v > 0) params = `${params}:weight-b=${v}`;
             if (p == "limit-tu" && v > 0) params = `${params}:limit-tu=${v}`
                 .replace(/(amp)=\d+/, `$1=1`).replace(/(limit-refs)=\d+/, `$1=2`).replace(/(limit-modes)=\d+/, `$1=1`);
         }
@@ -341,11 +344,19 @@ const getMI = async (i, o, type = 0) => {
     //if (v.b === 0 || a.find(({b}) => b === 0)) await mkvAddTags(v.i);
     const [input, out] = [{ v, baseMI, i }, { v: v1, baseMI: baseMI1, i: o }].map(({ v, baseMI, i }) => setInfo ? v : Object.assign(baseMI, { i }));
     const { w, h, sar } = input;
+    //log(input);
+    //log(out);
+    //log(input.sar);
+    //log(out.sar);
     input.o = o;
     input.type = type;
     input.s = s;
     input.sar = `${parseFloat(sar)}/1`; // Sample Aspect ratio
     input.dar = `(${w}/${h})*(${input.sar})`; // Display Aspect ratio
+    out.sar = `${parseFloat(out.sar)}/1`; // Sample Aspect ratio
+    out.dar = `(${w}/${h})*(${out.sar})`; // Display Aspect ratio
+    //log(input.sar);
+    //log(out.sar);
     if (w > preset.w) input.w = preset.w;
     if (h > preset.h) input.h = preset.h;
     input.a = mi.a;
@@ -359,8 +370,8 @@ const cmdLine = async (i, o) => {
     //log(type);
     //log(parse);
     //log(i);
-    //log(await miOpts(i.i));
     //log(o);
+    //log(await miOpts(i.i));
     const hide_banner = parse > 0;
     const prefix = setFFmpeg || !hide_banner ? '' : '-hide_banner -nostdin ';
     const fps = i.fps = o.fps = getR(fr);
@@ -393,7 +404,7 @@ export const copyAtt = async (i, a, o) => {
     //log(i);
     //log(a);
     //log(o);
-    if (execute) await exec(`ffmpeg -i "${i}" -i "${a}" -map 0:v:0 -map 0:a:0 -map 0:s -map 1:t -map_chapters 0 -c:v copy -c:a copy -c:s copy -y "${o}"`);
+    if (execute) await exec(`ffmpeg -i "${i}" -i "${a}" -map 0:v:0 -map 0:a:0 -map 0:s -map 1:t -map_chapters 0 -map_metadata 0 -c:v copy -c:a copy -c:s copy -y "${o}"`);
 };
 
 /**
@@ -532,11 +543,16 @@ const checkFramesCb = async (f, o, outList, name, report, logFile) => {
         log(f);
         log(o);
         const { i, o: out } = await getMI(f, o);
-        const { i: { fps_mode, fc, fr_o }, out: { fps_mode: fps_modeO, fc: fcO, fr_o: fr_O } } = { i, out };
+        const { i: { fps_mode, fc, fr_o, params: p }, out: { fps_mode: fps_modeO, fc: fcO, fr_o: fr_O, params: p_o } } = { i, out };
+        const { ref, bframes, me, subme, merange, deblock, rd } = p;
+        const { ref: ref_o, bframes: bframes_o, b_pyramid, b_adapt, b_bias, me: me_o, subme: subme_o, me_range, deblock: deblock_o, psy, psy_rd, rc_lookahead, aq } = p_o;
         //log(i);
         //log(out);
         log(`${fps_mode}: ${fc}${!fr_o ? '' : `, FR_O: ${fr_o}`}`);
         log(`${fps_modeO}: ${fcO}${!fr_O ? '' : `, FR_O: ${fr_O}`}`);
+        //log(p);
+        //log(p_o);
+        log(`rc_lookahead: ${rc_lookahead} => ${p['rc-lookahead']}, ref: ${ref_o} => ${ref}, bframes: ${bframes_o} => ${bframes}, b_adapt: ${p['b-adapt']}, b_pyramid: ${b_pyramid} => ${p['b-pyramid'] || 1}, b_bias: ${b_bias} => ${p['bframe-bias']}, me: ${me_o} => ${me}, subme: ${subme_o} => ${subme}, merange: ${me_range} => ${merange},\ndeblock: ${deblock_o} => ${deblock}, rd: ${rd}, psy: ${psy} => ${p['psy-rd']}, psy_rd: ${psy_rd} => ${p['psy-rdoq']}, rdoq-level: ${p['rdoq-level']}, aq: ${aq} => ${p['aq-strength']}, aq-mode: ${p['aq-mode']}`);
     });
 };
 
