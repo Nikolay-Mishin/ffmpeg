@@ -490,23 +490,21 @@ export const getLavfi = (i, o) => {
 
 export const getVBV = (i, def = true) => {
     const { params, b, b_max, b_mode } = i;
-    const paramsList = params?.toArr(' / ') || [],
-        pass2 = (paramsList.find(p => /rc=2pass/.test(p))) ? true : false,
-        bs = (paramsList.find(p => /vbv_bufsize=(\d+)/.test(p)) || '').replace(/vbv_bufsize=(\d+)/, '$1'),
-        maxrate = (paramsList.find(p => /vbv_maxrate=(\d+)/.test(p)) || '').replace(/vbv_maxrate=(\d+)/, '$1');
+    const { rc, vbv_bufsize: bs, vbv_maxrate: maxrate } = params || {},
+        pass2 = rc == '2pass';
     //log(params);
-    //log(paramsList);
-    //log(pass2);
     //log(b);
     //log(b_max);
-    //log(bs === params);
-    //log(maxrate === params);
+    //log(b_mode);
+    //log(pass2);
     //log(bs);
     //log(maxrate);
+    //log(bs === '');
+    //log(maxrate === '');
     return {
         b, pass2,
-        bs: bs === '' ? (def || b_mode === 'vbr' ? b : 0) : getInt(bs),
-        b_max: maxrate === '' ? (def && b_max === 0 ? b : b_max) : getInt(maxrate)
+        bs: !bs ? (def || b_mode === 'vbr' ? b : 0) : getInt(bs),
+        b_max: !maxrate ? (def && b_max === 0 ? b : b_max) : getInt(maxrate)
     };
 };
 
