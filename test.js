@@ -111,13 +111,6 @@ export const test = async () => {
     //await scan("F:\\Аниме\\Онгоинги\\!_37_Зима_2025\\JamClub\\Доктор Стоун\\ТВ-4");
     //await scan("F:\\Convert\\files");
 
-    //await checkFrames("I:\\Аниме\\Онгоинги\\!_41_Зима_2026\\Адский режим - Хардкорный геймер отправляется в другой мир");
-    //await checkFrames("D:\\Convert\\files");
-
-    //await ffmetadata(f0);
-    //await ffformat(f0);
-    //await ffinfo(f0);
-
     //await ffmetrics(f1, f0);
     //await ffmetrics(f3, f2);
     //await ffmetrics(f5, f4);
@@ -130,6 +123,35 @@ export const test = async () => {
     //await testScriptsMetrics(2, `-out_scale_m=false`);
 
     //await testParams2(iList, 31, null, 5, 10, 7, 4, [11, 14], 25, [43, 47], [48, 53], [54, 55], 56, 8, [77, 78], [79, 84], [85, 90], [91, 95], [96, 105], [106, 111], 57, [58, 61], [62, 65], [66, 68], [69, 71], [72, 73], [74, 76], [112, 120], [121, 126], [127, 133], [134, 142], [143, 148], [149, 155], [156, 160]);
+
+    //await ffmetadata(f0);
+    //await ffformat(f0);
+    //await ffinfo(f0);
+
+    //await checkFrames("D:\\Аниме\\Онгоинги\\!_41_Зима_2026\\Адский режим - Хардкорный геймер отправляется в другой мир");
+    //await checkFrames(fd);
+
+    /*
+    D:\Аниме\Онгоинги\!_41_Зима_2026\Адский режим - Хардкорный геймер отправляется в другой мир\Hell_Mode_Yarikomizuki_no_Gamer_wa_Hai_Sette_[08]_[HEVC].mkv
+    rc_lookahead: 30 => 20, ref: 2 => 6, bframes: 2 => 4, b_adapt: 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 6 => 2, merange: 16 => 57,
+    deblock: 1:0:0 => 0:0, rd: 3, psy: 1 => 2.00, psy_rd: 1.00:0.00 => 0.00, rdoq-level: 0, aq: 1:1.00 => 1.00, aq-mode: 2
+
+    D:\Аниме\Онгоинги\!_41_Зима_2026\Адский режим - Хардкорный геймер отправляется в другой мир\Hell_Mode_Yarikomizuki_no_Gamer_wa_Hai_Sette_[09]_[HEVC].mkv
+    rc_lookahead: 40 => 20, ref: 4 => 6, bframes: 5 => 4, b_adapt: 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 7 => 2, merange: 16 => 57,
+    deblock: 1:1:1 => 0:0, rd: 3, psy: 1 => 2.00, psy_rd: 0.40:0.00 => 0.00, rdoq-level: 0, aq: 1:0.60 => 1.00, aq-mode: 2
+
+    D:\Аниме\Онгоинги\!_41_Зима_2026\Адский режим - Хардкорный геймер отправляется в другой мир\Hell_Mode_Yarikomizuki_no_Gamer_wa_Hai_Sette_[10]_[HEVC].mkv
+    rc_lookahead: 30 => 20, ref: 2 => 6, bframes: 2 => 4, b_adapt: 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 6 => 2, merange: 16 => 57,
+    deblock: 1:0:0 => 0:0, rd: 3, psy: 1 => 2.00, psy_rd: 1.00:0.00 => 0.00, rdoq-level: 0, aq: 1:1.00 => 1.00, aq-mode: 2
+
+    F:\Convert\files\Dungeon_ni_Deai_wo_Motomeru_no_wa_Machigatteiru_no_Darou_ka_V_[01]_[AniLibria]_[WEBRip_1080p]_HEVC.mkv
+    rc_lookahead: 30 => 20, ref: 2 => 3, bframes: 2 => 6, b_adapt: 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 6 => 2, merange: 16 => 57,
+    deblock: 1:0:0 => 1:1, rd: 3, psy: 1 => 0.40, psy_rd: 1.00:0.00 => 0.00, rdoq-level: 0, aq: 1:1.00 => 0.40, aq-mode: 2
+
+    F:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv
+    rc_lookahead: 48 => 20, ref: 4 => 6, bframes: 0 => 6, b_adapt: 2, b_pyramid: undefined => 1, b_bias: undefined => 0, me: hex => 1, subme: 8 => 2, merange: 16 => 57,
+    deblock: 1:1:1 => 1:1, rd: 3, psy: 1 => 0.40, psy_rd: 0.40:0.00 => 0.00, rdoq-level: 0, aq: 1:0.60 => 0.40, aq-mode: 2
+    */
 
     const
         p0 = "G:\\Аниме\\Онгоинги\\!_35_Лето_2024\\DreamCast\\Слишком много проигравших героинь!\\[DC] Make Heroine ga Oosugiru - 07_Telegram.mp4",
