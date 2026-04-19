@@ -40,7 +40,7 @@ export const {
     crop: setCrop = false, border: setBorder = false, bsf: setBsf = false, out_scale_m = true, scale_m = true,
     hw = false, nv = false, crf = null, cq = null, qp = null,
     bv = null, preset = null, type = getPresetType(presetType) || getPresetType(preset), profile = null, level: setLvl = true, tier: setTier = false, tune = null,
-    space: setSpace = true, p_space = setSpace, ca: setCa = null, ba: setBa = null, cs = null, s = true, y = true, postfix = '_HEVC', t = 0, // 30
+    space: setSpace = true, p_space = setSpace, ca: setCa = null, ba: setBa = null, cs = null, s = true, y = true, postfix = '_HEVC', t = 120, // 30
     // lookahead_threads=0:min-keyint=23:keyint=250:
     // rc-lookahead=20:rect=0:amp=0:rd=3:psy-rd=1.50:psy-rdoq=1.50:rdoq-level=2:rskip=1:aq-mode=3:aq-strength=0.4:
     // bframes=6:ref=8:me=1:subme=2:merange=57:strong-intra-smoothing=1:b-intra=1:deblock=0:qcomp=0.60:limit-refs=3:limit-modes=0:sao=1:selective-sao=4:early-skip=1

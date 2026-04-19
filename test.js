@@ -107,8 +107,11 @@ export const test = async () => {
     //await ffmpeg(f12, postfix, true);
 
     //await testScripts(52);
-    //await testScripts(63);
-    //await testScripts(67);
+    //await testScripts(62);
+
+    //await testScripts(64);
+    //await testScripts(65);
+    //await testScripts(66);
 
     //await scan("F:\\Аниме\\Онгоинги\\!_37_Зима_2025\\JamClub\\Доктор Стоун\\ТВ-4");
     //await scan(fd);
