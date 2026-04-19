@@ -250,7 +250,7 @@ export const copyReport = async (i, out, map) => {
 };
 
 export const getReportInfo = async (type, copy = true, i = {}) => {
-    const { i: input, o, setFFmpeg, report, reportFile, logFile, logStr, mkvReport, s, ext, aCodecs, aCodecsOut } = i;
+    const { i: input, o, setFFmpeg, report, reportFile, logFile, logStr, mkvReport, s, ext, aCodecs, aCodecsOut, w, h } = i;
     const { ext: ext_p } = preset;
     const fps = `[fps] ${ext.upper()} => ${ext_p.upper()} fps_mode: ${s.fps_mode}, ${s.fps_mode_i} => ${s.fps_mode_o}, ${s.fps_o} => ${s.fps}, keyint: ${s.min_keyint} / ${s.keyint}\n`;
     const isFF = ffTypes.k().includes(type);
@@ -288,6 +288,7 @@ export const getReportInfo = async (type, copy = true, i = {}) => {
             await appendFile(reportFile, !setFFmpeg ? '' : `[o_aCodecs] ${aCodecsOut}\n`);
         }
         if (s) {
+            await appendFile(reportFile, !setFFmpeg ? '' : `[res] ${w}x${h}\n`);
             await appendFile(reportFile, !setFFmpeg ? '' : fps);
             await appendFile(reportFile, !setFFmpeg ? '' : `[i_color] ${getColor(s.color)}\n`);
             await appendFile(reportFile, !setFFmpeg ? '' : `[o_color] ${getColor(s.out_color)}\n`);
