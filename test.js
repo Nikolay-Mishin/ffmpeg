@@ -5,7 +5,7 @@ import { root } from './env.config.js';
 import { addPath, ext, getEnv, rename } from './baseHelpers.js';
 import { i, n, out } from './ffmpeg.config.js';
 import { mi, miOpts, size } from './mi.js';
-import { checkFrames, check_sei, check_v, ffmpeg, scan, getMetrics, reportsError, ffmetrics } from './core.js';
+import { checkFrames, check_sei, check_v, ffmpeg, scan, getMetrics, reportsError, ffmetrics, checkParams } from './core.js';
 import testParams2, {
     _mi, arr, img, mkv, opts, params, parse, report, s, testParams0, testAtt, testCopy, testMatrix, testMetrics, testParams, testSingle,
     testFormat, testColor, testEnv, testCheck, testScripts, testError, testArgs, testDirExist, testFileExist, testMI, testScriptsMetrics
@@ -98,15 +98,15 @@ export const test = async () => {
     //await ffmpeg(f6);
     //await ffmpeg(f8);
 
-    await ffmpeg(f0, postfix, true);
+    //await ffmpeg(f0, postfix, true);
     //await ffmpeg(f2, postfix, true);
     //await ffmpeg(f4, postfix, true);
     //await ffmpeg(f6, postfix, true);
     //await ffmpeg(f8, postfix, true);
     //await ffmpeg(f10, postfix, true);
-    await ffmpeg(f12, postfix, true);
+    //await ffmpeg(f12, postfix, true);
 
-    //await testScripts(48);
+    //await testScripts(50);
 
     //await scan("F:\\Аниме\\Онгоинги\\!_37_Зима_2025\\JamClub\\Доктор Стоун\\ТВ-4");
     //await scan(fd);
@@ -131,26 +131,39 @@ export const test = async () => {
     //await checkFrames("D:\\Аниме\\Онгоинги\\!_41_Зима_2026\\Адский режим - Хардкорный геймер отправляется в другой мир");
     //await checkFrames(fd);
 
+    //await checkParams("D:\\Аниме\\[Топ]\\SAO\\[Фильм] Прогрессив - Скерцо глубокой ночи\\Sword_Art_Online_the_Movie_-Progressive-_Kuraki_Yuuyami_no_Scherzo_[AniLibria_TV]_[BDRip_1080p_HEVC].mkv");
+    //await checkParams("D:\\Аниме\\[Топ]\\Fate\\Прикосновение небес\\III. Весенняя песнь\\Fate_stay_night_Heaven's_Feel_III_Spring_Song_2020_[AniLibria_TV]_[BDRip_1080p_HEVC].mkv");
+
     /*
     D:\Аниме\Онгоинги\!_41_Зима_2026\Адский режим - Хардкорный геймер отправляется в другой мир\Hell_Mode_Yarikomizuki_no_Gamer_wa_Hai_Sette_[08]_[HEVC].mkv
-    rc_lookahead: 30 => 20, ref: 2 => 6, bframes: 2 => 4, b_adapt: 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 6 => 2, merange: 16 => 57,
-    deblock: 1:0:0 => 0:0, rd: 3, psy: 1 => 2.00, psy_rd: 1.00:0.00 => 0.00, rdoq-level: 0, aq: 1:1.00 => 1.00, aq-mode: 2
+    crf: 23.0, rc_lookahead: 30 => 20, ref: 2 => 6, bframes: 2 => 4, b_adapt: 1 => 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 6 => 2, merange: 16 => 57,
+    deblock: 1:0:0 => 0:0, rd: 3, psy: 1 => 2.00, psy_rd: 1.00:0.00 => 0.00, rdoq-level: 0, aq: 1:1.00 => 1.00, aq-mode: 2,
+    strong-intra-smoothing: 1, limit-refs: 1, limit-modes: 0, sao: 1, early-skip: 1
 
     D:\Аниме\Онгоинги\!_41_Зима_2026\Адский режим - Хардкорный геймер отправляется в другой мир\Hell_Mode_Yarikomizuki_no_Gamer_wa_Hai_Sette_[09]_[HEVC].mkv
-    rc_lookahead: 40 => 20, ref: 4 => 6, bframes: 5 => 4, b_adapt: 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 7 => 2, merange: 16 => 57,
-    deblock: 1:1:1 => 0:0, rd: 3, psy: 1 => 2.00, psy_rd: 0.40:0.00 => 0.00, rdoq-level: 0, aq: 1:0.60 => 1.00, aq-mode: 2
-
-    D:\Аниме\Онгоинги\!_41_Зима_2026\Адский режим - Хардкорный геймер отправляется в другой мир\Hell_Mode_Yarikomizuki_no_Gamer_wa_Hai_Sette_[10]_[HEVC].mkv
-    rc_lookahead: 30 => 20, ref: 2 => 6, bframes: 2 => 4, b_adapt: 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 6 => 2, merange: 16 => 57,
-    deblock: 1:0:0 => 0:0, rd: 3, psy: 1 => 2.00, psy_rd: 1.00:0.00 => 0.00, rdoq-level: 0, aq: 1:1.00 => 1.00, aq-mode: 2
+    crf: 23.0, rc_lookahead: 40 => 20, ref: 4 => 6, bframes: 5 => 4, b_adapt: 2 => 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 7 => 2, merange: 16 => 57,
+    deblock: 1:1:1 => 0:0, rd: 3, psy: 1 => 2.00, psy_rd: 0.40:0.00 => 0.00, rdoq-level: 0, aq: 1:0.60 => 1.00, aq-mode: 2,
+    strong-intra-smoothing: 1, limit-refs: 1, limit-modes: 0, sao: 1, early-skip: 1
 
     F:\Convert\files\Dungeon_ni_Deai_wo_Motomeru_no_wa_Machigatteiru_no_Darou_ka_V_[01]_[AniLibria]_[WEBRip_1080p]_HEVC.mkv
-    rc_lookahead: 30 => 20, ref: 2 => 3, bframes: 2 => 6, b_adapt: 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 6 => 2, merange: 16 => 57,
-    deblock: 1:0:0 => 1:1, rd: 3, psy: 1 => 0.40, psy_rd: 1.00:0.00 => 0.00, rdoq-level: 0, aq: 1:1.00 => 0.40, aq-mode: 2
+    crf: 23.0, rc_lookahead: 30 => 20, ref: 2 => 3, bframes: 2 => 6, b_adapt: 1 => 2, b_pyramid: 2 => 1, b_bias: 0 => 0, me: hex => 1, subme: 6 => 2, merange: 16 => 57,
+    deblock: 1:0:0 => 1:1, rd: 3, psy: 1 => 0.40, psy_rd: 1.00:0.00 => 0.00, rdoq-level: 0, aq: 1:1.00 => 0.40, aq-mode: 2,
+    strong-intra-smoothing: 1, limit-refs: 1, limit-modes: 0, sao: 1, early-skip: 1
 
     F:\Convert\files\Nanatsu_no_Maken_ga_Shihai_suru_[02]_[AniLibria_TV]_[WEBRip_1080p]_HEVC.mkv
-    rc_lookahead: 48 => 20, ref: 4 => 6, bframes: 0 => 6, b_adapt: 2, b_pyramid: undefined => 1, b_bias: undefined => 0, me: hex => 1, subme: 8 => 2, merange: 16 => 57,
-    deblock: 1:1:1 => 1:1, rd: 3, psy: 1 => 0.40, psy_rd: 0.40:0.00 => 0.00, rdoq-level: 0, aq: 1:0.60 => 0.40, aq-mode: 2
+    crf: 23.0, rc_lookahead: 48 => 20, ref: 4 => 6, bframes: 0 => 6, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 1, subme: 8 => 2, merange: 16 => 57,
+    deblock: 1:1:1 => 1:1, rd: 3, psy: 1 => 0.40, psy_rd: 0.40:0.00 => 0.00, rdoq-level: 0, aq: 1:0.60 => 0.40, aq-mode: 2,
+    strong-intra-smoothing: 1, limit-refs: 1, limit-modes: 0, sao: 1, early-skip: 1
+
+    D:\Аниме\[Топ]\SAO\[Фильм] Прогрессив - Скерцо глубокой ночи\Sword_Art_Online_the_Movie_-Progressive-_Kuraki_Yuuyami_no_Scherzo_[AniLibria_TV]_[BDRip_1080p_HEVC].mkv
+    crf: 21.0, rc_lookahead: 25, ref: 6, bframes: 6, b_adapt: 2, b_pyramid: 1, b_bias: 0, me: 3, subme: 3, merange: 57,
+    deblock: 1:1, rd: 4, psy: 0.40, psy_rd: 1.00, rdoq-level: 2, aq: 0.40, aq-mode: 2,
+    strong-intra-smoothing: 1, limit-refs: 3, limit-modes: 1, sao: 1, early-skip: 0
+
+    D:\Аниме\[Топ]\Fate\Прикосновение небес\III. Весенняя песнь\Fate_stay_night_Heaven's_Feel_III_Spring_Song_2020_[AniLibria_TV]_[BDRip_1080p_HEVC].mkv
+    crf: 23.0, rc_lookahead: 20, ref: 6, bframes: 4, b_adapt: 2, b_pyramid: 1, b_bias: 0, me: 1, subme: 2, merange: 57,
+    deblock: 0:0, rd: 3, psy: 2.00, psy_rd: 0.00, rdoq-level: 0, aq: 1.00, aq-mode: 2,
+    strong-intra-smoothing: 1, limit-refs: 1, limit-modes: 0, sao: 1, early-skip: 1
     */
 
     const

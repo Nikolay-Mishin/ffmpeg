@@ -138,7 +138,7 @@ const opts = {
             bit: 'BitDepth', //: '10',
             scan: 'ScanType', //: 'Progressive', // AVC
             //params: 'Encoded_Library_Settings', //: '',
-            params: { v: 'Encoded_Library_Settings', fn: v => !v ? v : v.toArr('/').map(s => s.toArr('=')).fromEntries() },
+            params: { v: 'Encoded_Library_Settings', fn: v => !v ? v : v.toArr('/').map(s => { s = s.toArr('='); return s[1] ? s : [s[0], true]; }).fromEntries() },
             default: 'Default', //: 'Yes',
             forced: 'Forced', //: 'No',
             //range: 'colour_range', //: 'Limited',

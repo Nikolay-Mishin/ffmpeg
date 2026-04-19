@@ -522,10 +522,10 @@ export const scan = async (dir, out = '', cb = scanCb, cbOut = scanOutCb, recurs
         recursive = cbOut;
         cbOut = scanOutCb;
     }
-    if (!await isDir(dir)) throw new Error(`Input directory is invalid: ${dir}`);
-    if (!await isDir(out)) throw new Error(`Output directory is invalid: ${out}`);
     //log(dir);
     //log(out);
+    if (!await isDir(dir)) throw new Error(`Input directory is invalid: ${dir}`);
+    if (!await isDir(out)) throw new Error(`Output directory is invalid: ${out}`);
     const isOut = out === dir;
     const files = await getVideos(dir, { recursive });
     const outList = !setMetrics ? [] : (isOut ? files : await getVideos(out, { recursive })).map(({ f }) => f);
@@ -543,16 +543,17 @@ const checkFramesCb = async (f, o, outList, name, report, logFile) => {
         log(f);
         log(o);
         const { i, o: out } = await getMI(f, o);
-        const { i: { fps_mode, fc, fr_o, params: p }, out: { fps_mode: fps_modeO, fc: fcO, fr_o: fr_O, params: p_o } } = { i, out };
-        const { ref, bframes, me, subme, merange, deblock, rd } = p;
-        const { ref: ref_o, bframes: bframes_o, b_pyramid, b_adapt, b_bias, me: me_o, subme: subme_o, me_range, deblock: deblock_o, psy, psy_rd, rc_lookahead, aq } = p_o;
+        const { i: { fps_mode, fc, fr_o, params: p }, out: { fps_mode: fps_modeO, fc: fcO, fr_o: fr_O, params: p_o = {} } } = { i, out };
+        const { crf, ref, bframes, me, subme, merange, deblock, rd } = p;
+        const { crf: crf_o, ref: ref_o, bframes: bframes_o, b_pyramid, b_adapt, b_bias, me: me_o, subme: subme_o, me_range, deblock: deblock_o, psy, psy_rd, rc_lookahead, aq } = p_o;
         //log(i);
         //log(out);
         log(`${fps_mode}: ${fc}${!fr_o ? '' : `, FR_O: ${fr_o}`}`);
         log(`${fps_modeO}: ${fcO}${!fr_O ? '' : `, FR_O: ${fr_O}`}`);
         //log(p);
         //log(p_o);
-        log(`rc_lookahead: ${rc_lookahead} => ${p['rc-lookahead']}, ref: ${ref_o} => ${ref}, bframes: ${bframes_o} => ${bframes}, b_adapt: ${p['b-adapt']}, b_pyramid: ${b_pyramid} => ${p['b-pyramid'] || 1}, b_bias: ${b_bias} => ${p['bframe-bias']}, me: ${me_o} => ${me}, subme: ${subme_o} => ${subme}, merange: ${me_range} => ${merange},\ndeblock: ${deblock_o} => ${deblock}, rd: ${rd}, psy: ${psy} => ${p['psy-rd']}, psy_rd: ${psy_rd} => ${p['psy-rdoq']}, rdoq-level: ${p['rdoq-level']}, aq: ${aq} => ${p['aq-strength']}, aq-mode: ${p['aq-mode']}`);
+        if (ref_o) log(`crf: ${crf_o ? `${crf_o} => ${crf}` : crf}, rc_lookahead: ${rc_lookahead} => ${p['rc-lookahead']}, ref: ${ref_o} => ${ref}, bframes: ${bframes_o} => ${bframes}, b_adapt: ${b_adapt} => ${p['b-adapt']}, b_pyramid: ${b_pyramid} => ${p['b-pyramid'] ? 1 : 0}, b_bias: ${b_bias} => ${p['bframe-bias']}, me: ${me_o} => ${me}, subme: ${subme_o} => ${subme}, merange: ${me_range} => ${merange},\ndeblock: ${deblock_o} => ${deblock}, rd: ${rd}, psy: ${psy} => ${p['psy-rd']}, psy_rd: ${psy_rd} => ${p['psy-rdoq']}, rdoq-level: ${p['rdoq-level']}, aq: ${aq} => ${p['aq-strength']}, aq-mode: ${p['aq-mode']},\nstrong-intra-smoothing: ${p['no-strong-intra-smoothing'] ? 0 : 1}, limit-refs: ${p['limit-refs']}, limit-modes: ${p['no-limit-modes'] ? 0 : 1}, sao: ${p['no-sao'] ? 0 : 1}, early-skip: ${p['no-early-skip'] ? 0 : 1}`);
+        else log(`crf: ${crf}, rc_lookahead: ${p['rc-lookahead']}, ref: ${ref}, bframes: ${bframes}, b_adapt: ${p['b-adapt']}, b_pyramid: ${p['b-pyramid'] ? 1 : 0}, b_bias: ${p['bframe-bias']}, me: ${me}, subme: ${subme}, merange: ${merange},\ndeblock: ${deblock}, rd: ${rd}, psy: ${p['psy-rd']}, psy_rd: ${p['psy-rdoq']}, rdoq-level: ${p['rdoq-level']}, aq: ${p['aq-strength']}, aq-mode: ${p['aq-mode']},\nstrong-intra-smoothing: ${p['no-strong-intra-smoothing'] ? 0 : 1}, limit-refs: ${p['limit-refs']}, limit-modes: ${p['no-limit-modes'] ? 0 : 1}, sao: ${p['no-sao'] ? 0 : 1}, early-skip: ${p['no-early-skip'] ? 0 : 1}`);
     });
 };
 
@@ -560,18 +561,17 @@ const checkFramesCb = async (f, o, outList, name, report, logFile) => {
  * 
  * @param {string} dir
  * @param {string} out
- * @param {Function} cb
  */
-export const checkFrames = async (dir, out = '', cb = checkFramesCb, recursive = true) => {
-    if (isFn(out)) {
-        cb = out;
-        out = dir;
-    }
-    if (isBool(cb)) {
-        recursive = cb;
-        cb = checkFramesCb;
-    }
-    await scan(dir, out, cb, recursive);
+export const checkFrames = async (dir, out = '', recursive = true) => await scan(dir, out, checkFramesCb, recursive);
+
+export const checkParams = async f => {
+    log(f);
+    const { i: { params: p } } = await getMI(f, '');
+    const { cabac, crf, rc_lookahead, ref, bframes, b_pyramid, b_adapt, b_bias, me, subme, merange, me_range, deblock, rd, psy, psy_rd, aq } = p;
+    //log(i);
+    //log(p);
+    if (cabac) log(`crf: ${crf}, rc_lookahead: ${rc_lookahead}, ref: ${ref}, bframes: ${bframes}, b_adapt: ${b_adapt}, b_pyramid: ${b_pyramid}, b_bias: ${b_bias}, me: ${me}, subme: ${subme}, merange: ${me_range},\ndeblock: ${deblock}, rd: ${rd}, psy: ${psy}, psy_rd: ${psy_rd}, aq: ${aq}`);
+    else log(`crf: ${crf}, rc_lookahead: ${p['rc-lookahead']}, ref: ${ref}, bframes: ${bframes}, b_adapt: ${p['b-adapt']}, b_pyramid: ${p['b-pyramid'] ? 1 : 0}, b_bias: ${p['bframe-bias']}, me: ${me}, subme: ${subme}, merange: ${merange},\ndeblock: ${deblock}, rd: ${rd}, psy: ${p['psy-rd']}, psy_rd: ${p['psy-rdoq']}, rdoq-level: ${p['rdoq-level']}, aq: ${p['aq-strength']}, aq-mode: ${p['aq-mode']},\nstrong-intra-smoothing: ${p['no-strong-intra-smoothing'] ? 0 : 1}, limit-refs: ${p['limit-refs']}, limit-modes: ${p['no-limit-modes'] ? 0 : 1}, sao: ${p['no-sao'] ? 0 : 1}, early-skip: ${p['no-early-skip'] ? 0 : 1}`);
 };
 
 export const reportsError = async () => {

@@ -462,10 +462,10 @@ const _testScripts = async (n = 0, s, args) => {
         }
 
         if (n == 48) {
-            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -aq_mode=2 -aq_strength=0.40 -limit_refs=1 -deblock=1 -n=307${a}`);
-            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -aq_strength=0.40 -limit_refs=1 -deblock=1 -n=308${a}`);
-            //await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -aq_strength=0.40 -deblock=1 -n=309${a}`);
-            //await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -aq_strength=0.40 -n=310${a}`);
+            //await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -aq_mode=2 -limit_refs=1 -deblock=1 -n=307${a}`);
+            //await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -limit_refs=1 -deblock=1 -n=308${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -deblock=1 -n=309${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -n=310${a}`);
         }
 
         if (n == 49) {
@@ -493,13 +493,52 @@ const _testScripts = async (n = 0, s, args) => {
             await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -rdoq_level=0 -aq_strength=1.00 -n=329${a}`);
             await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=1.57 -psy_rdoq=0.00 -rdoq_level=0 -aq_strength=1.00 -n=330${a}`);
             await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=1.57 -psy_rdoq=0.00 -rdoq_level=0 -aq_strength=1.00 -limit_refs=1 -n=331${a}`);
-            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -aq_mode=2 -aq_strength=0.40 -limit_refs=1 -deblock=1 -n=332${a}`);
-            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -aq_strength=0.40 -limit_refs=1 -deblock=1 -n=333${a}`);
-            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -aq_strength=0.40 -deblock=1 -n=334${a}`);
-            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -aq_strength=0.40 -n=335${a}`);
         }
 
         if (n == 51) {
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -aq_mode=2 -limit_refs=1 -deblock=1 -n=332${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -limit_refs=1 -deblock=1 -n=333${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -deblock=1 -n=334${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -n=335${a}`);
+        }
+
+        if (n == 52) {
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -aq_mode=2 -limit_refs=1 -deblock=1 -n=336${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -limit_refs=1 -deblock=1 -n=337${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -deblock=1 -n=338${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -n=339${a}`);
+        }
+
+        if (n == 53) {
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=4 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -aq_mode=2 -limit_refs=1 -deblock=1 -n=340${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=4 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -limit_refs=1 -deblock=1 -n=341${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=4 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -deblock=1 -n=342${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=4 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -n=343${a}`);
+        }
+
+        if (n == 54) {
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -bframes=8 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -aq_mode=2 -limit_refs=1 -deblock=1 -n=344${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -bframes=8 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -limit_refs=1 -deblock=1 -n=345${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -bframes=8 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -deblock=1 -n=346${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -bframes=8 -psy_rd=0.40 -psy_rdoq=0.00 -rdoq_level=0 -n=347${a}`);
+        }
+
+        if (n == 55) {
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -n=348${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=4 -n=349${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -bframes=8 -n=350${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -bframes=8 -n=351${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -bframes=8 -limit_refs=1 -n=352${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -bframes=8 -limit_refs=1 -n=353${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -bframes=8 -limit_refs=0 -n=354${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -bframes=8 -limit_refs=0 -n=355${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -bframes= -rdoq_level=08 -limit_refs=1 -n=356${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -bframes=8 -rdoq_level=0 -limit_refs=1 -n=357${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -bframes=8 -rdoq_level=0 -n=358${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -bframes=8 -rdoq_level=0 -n=359${a}`);
+        }
+
+        if (n == -1) {
             await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -n=70${a}`);
             await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -vf_flags=lanczos -n=71${a}`);
             await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -psy_rd=1.57 -n=72${a}`);
