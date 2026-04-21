@@ -74,7 +74,7 @@ export const test = async () => {
 
     const postfix = `_HEVC(${n > 9 ? n : `0${n}`})`,
         fname = f => f.replace(ext(f), `${postfix}.mkv`),
-        fd = "F:\\Convert\\files",
+        fd = "E:\\Convert\\files",
         f0 = `${fd}\\[DC] Make Heroine ga Oosugiru - 07_Telegram.mp4`,
         f1 = fname(f0),
         f2 = `${fd}\\JamClub_Dr_Stone_Science_Future_03_1080p.mp4`,

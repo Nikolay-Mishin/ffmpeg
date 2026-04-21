@@ -734,8 +734,8 @@ const _testScripts = async (n = 0, s, args) => {
         }
 
         if (n == 76) {
-            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -n=492${a}`);
-            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -rc_lookahead=60 -n=493${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -rc_lookahead=60 -n=492${a}`);
+            await run(s, `-c_range=true -vf_range=true -scale_space=true -vf_space=true -space=true -vf_sar=true -vf_dar=true -ref=6 -n=493${a}`);
         }
 
         if (n == -1) {
