@@ -106,12 +106,7 @@ export const test = async () => {
     //await ffmpeg(f10, postfix, true);
     //await ffmpeg(f12, postfix, true);
 
-    //await testScripts(52);
-    //await testScripts(62);
-
-    //await testScripts(64);
-    //await testScripts(65);
-    //await testScripts(66);
+    //await testScripts(76);
 
     //await scan("F:\\Аниме\\Онгоинги\\!_37_Зима_2025\\JamClub\\Доктор Стоун\\ТВ-4");
     //await scan(fd);
@@ -138,6 +133,13 @@ export const test = async () => {
 
     //await checkParams("D:\\Аниме\\[Топ]\\SAO\\[Фильм] Прогрессив - Скерцо глубокой ночи\\Sword_Art_Online_the_Movie_-Progressive-_Kuraki_Yuuyami_no_Scherzo_[AniLibria_TV]_[BDRip_1080p_HEVC].mkv");
     //await checkParams("D:\\Аниме\\[Топ]\\Fate\\Прикосновение небес\\III. Весенняя песнь\\Fate_stay_night_Heaven's_Feel_III_Spring_Song_2020_[AniLibria_TV]_[BDRip_1080p_HEVC].mkv");
+
+    //await checkFrames("I:\\Аниме\\Онгоинги\\!_42_Весна_2026\\Subs\\Чёрная кошка и класс ведьм");
+
+    //await checkParams("I:\\Аниме\\Онгоинги\\!_42_Весна_2026\\Subs\\Чёрная кошка и класс ведьм\\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 01 [1080p CR WEBRip HEVC AAC][MultiSub][A1B48EDD].mkv");
+    //await checkParams("I:\\Аниме\\Онгоинги\\!_42_Весна_2026\\Subs\\Чёрная кошка и класс ведьм\\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 02 [1080p CR WEBRip HEVC AAC][MultiSub][3D7FF210].mkv");
+    //await checkParams("I:\\Аниме\\Онгоинги\\!_42_Весна_2026\\Subs\\Чёрная кошка и класс ведьм\\Kuroneko to Majo no Kyoushitsu - 01 [1080p x265 10bit].mkv");
+    //await checkParams("I:\\Аниме\\Онгоинги\\!_42_Весна_2026\\Subs\\Чёрная кошка и класс ведьм\\Kuroneko to Majo no Kyoushitsu - 02 [1080p x265 10bit].mkv");
 
     /*
     D:\Аниме\Онгоинги\!_41_Зима_2026\Адский режим - Хардкорный геймер отправляется в другой мир\Hell_Mode_Yarikomizuki_no_Gamer_wa_Hai_Sette_[08]_[HEVC].mkv
@@ -169,6 +171,26 @@ export const test = async () => {
     crf: 23.0, rc_lookahead: 20, ref: 6, bframes: 4, b_adapt: 2, b_pyramid: 1, b_bias: 0, me: 1, subme: 2, merange: 57,
     deblock: 0:0, rd: 3, psy: 2.00, psy_rd: 0.00, rdoq-level: 0, aq: 1.00, aq-mode: 2,
     strong-intra-smoothing: 1, limit-refs: 1, limit-modes: 0, sao: 1, early-skip: 1
+
+    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 01 [1080p CR WEB-DL AVC AAC]_HEVC.mkv
+    crf: 18.0, rc_lookahead: 48 => 120, ref: 4 => 5, bframes: 0 => 10, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 5, merange: 16 => 57,
+    deblock: 1:1:1 => -1:-1, rd: 5, psy: 1 => 1.00, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.70, aq-mode: 5,
+    strong-intra-smoothing: 0, limit-refs: 0, limit-modes: 0, sao: 0, early-skip: 0
+
+    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 02 [1080p CR WEB-DL AVC AAC]_HEVC.mkv
+    crf: 18.0, rc_lookahead: 48 => 120, ref: 4 => 5, bframes: 0 => 10, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 5, merange: 16 => 57,
+    deblock: 1:1:1 => -1:-1, rd: 5, psy: 1 => 1.00, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.70, aq-mode: 5,
+    strong-intra-smoothing: 0, limit-refs: 0, limit-modes: 0, sao: 0, early-skip: 0
+
+    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 01 [1080p CR WEB-DL AVC AAC]_HEVC(1).mkv
+    crf: 20.5, rc_lookahead: 48 => 250, ref: 4 => 6, bframes: 0 => 8, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 4, merange: 16 => 57,
+    deblock: 1:1:1 => -1:-1, rd: 4, psy: 1 => 0.50, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.75, aq-mode: 3,
+    strong-intra-smoothing: 1, limit-refs: 0, limit-modes: 1, sao: 1, early-skip: 0
+
+    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 02 [1080p CR WEB-DL AVC AAC]_HEVC(1).mkv
+    crf: 20.5, rc_lookahead: 48 => 15, ref: 4 => 2, bframes: 0 => 4, b_adapt: und => 0, b_pyramid: und => 1, b_bias: und => 0, me: hex => 1, subme: 8 => 2, merange: 16 => 57,
+    deblock: 1:1:1 => 0:0, rd: 2, psy: 1 => 2.00, psy_rd: 0.40:0.00 => 0.00, rdoq-level: 0, aq: 1:0.60 => 1.00, aq-mode: 2,
+    strong-intra-smoothing: 1, limit-refs: 3, limit-modes: 0, sao: 1, early-skip: 1
     */
 
     const
