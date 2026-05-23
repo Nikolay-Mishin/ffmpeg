@@ -74,7 +74,7 @@ export const test = async () => {
 
     const postfix = `_HEVC(${n > 9 ? n : `0${n}`})`,
         fname = f => f.replace(ext(f), `${postfix}.mkv`),
-        fd = "E:\\Convert\\files",
+        fd = "F:\\Convert\\files",
         f0 = `${fd}\\[DC] Make Heroine ga Oosugiru - 07_Telegram.mp4`,
         f1 = fname(f0),
         f2 = `${fd}\\JamClub_Dr_Stone_Science_Future_03_1080p.mp4`,
@@ -98,7 +98,7 @@ export const test = async () => {
     //await ffmpeg(f6);
     //await ffmpeg(f8);
 
-    await ffmpeg(f0, postfix, true);
+    //await ffmpeg(f0, postfix, true);
     //await ffmpeg(f2, postfix, true);
     //await ffmpeg(f4, postfix, true);
     //await ffmpeg(f6, postfix, true);
@@ -106,7 +106,17 @@ export const test = async () => {
     //await ffmpeg(f10, postfix, true);
     //await ffmpeg(f12, postfix, true);
 
-    //await testScripts(76);
+    //await testScripts(77);
+    //await testScripts(78);
+    //await testScripts(79);
+    //await testScripts(80);
+    //await testScripts(81);
+    //await testScripts(82);
+    //await testScripts(83);
+    //await testScripts(84);
+    //await testScripts(85);
+    //await testScripts(86);
+    //await testScripts(87);
 
     //await scan("F:\\Аниме\\Онгоинги\\!_37_Зима_2025\\JamClub\\Доктор Стоун\\ТВ-4");
     //await scan(fd);

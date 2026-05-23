@@ -9,7 +9,7 @@ import {
     setMetrics, setInfo, setMap, setSar, setDar, chroma_loc, setR, setCrop, setBorder, t, s, y, type, setBsf, setVf, vstats, setTier, setLvl,
     execute, FFcmdLog, execS, postfix, setMetadata, propedit, setReport, test, withMetrics, parse,
     ffmpeg_a_root, a_dir, a_ext, ca, ba as $ba, ar as $ar, ac as $ac, rm_tmp, fpsMode, setSpace, ffreportDir, FFreportErr, v_ext, ffmpeg_c_dir, vf_flags, fr as ff_r, vf_fps, ifr,
-    params as p_list
+    params as p_list, crf
 } from './ffmpeg.config.js';
 import {
     ffOpts, getR, range, primaries, trc, space, chroma, setFormat, getCrop, getLavfi, reportPath, setFFReport, getReportInfo, mkvReport, parseReports,
@@ -203,7 +203,7 @@ export const getAmap = async (i, rm_codecs = true) => {
 
 const getFFmpeg = async (i) => {
     const { i: input, o, fc, w, h, sar: sarV, dar: darV, fps, r, fps_mode, tier, space: _space, chroma: _chroma, ffColor, ext } = i;
-    const { w: _w, h: _h, encoder, is264, isHevc, fps: fps_p, fps_mode: _fps_mode, preset: _type, profile, level, crfType, crf, bit, b, pass2, a, ext: ext_p } = preset;
+    const { w: _w, h: _h, encoder, is264, isHevc, fps: fps_p, fps_mode: _fps_mode, preset: _type, profile, level, crfType, crf: crf_p, bit, b, pass2, a, ext: ext_p } = preset;
     const colorspace = setColorspace(i, setFormat(_space, _chroma, bit));
     const { cRange, space: $space, ffColor: _ffColor, format: _format, range: _range, primaries: _primaries, trc: $trc, matrix, chroma: $chroma, c_bsf, c_params } = colorspace;
     let { params } = preset;
@@ -271,7 +271,7 @@ const getFFmpeg = async (i) => {
     const minrate = `-minrate 1M`; // -minrate 1M -x264-params "nal-hrd=cbr"
     const { bs, b_max } = getVBV(i);
     const bv = b === 0;
-    const _crf = bv ? `-${crfType} ${crf}` : `${!pass2 ? '' : '-2pass '}-b:v ${b} -bufsize ${bs} -maxrate ${b_max}`;
+    const _crf = bv ? `-${crfType} ${crf || crf_p}` : `${!pass2 ? '' : '-2pass '}-b:v ${b} -bufsize ${bs} -maxrate ${b_max}`;
     //${b_mode === 'vbr' ? `-b:v ${b} ` : ''}
     const _preset = `-preset ${type || _type}`;
     const _profile = `-profile:v ${profile}`;
