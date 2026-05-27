@@ -98,7 +98,7 @@ export const test = async () => {
     //await ffmpeg(f6);
     //await ffmpeg(f8);
 
-    //await ffmpeg(f0, postfix, true);
+    await ffmpeg(f0, postfix, true);
     //await ffmpeg(f2, postfix, true);
     //await ffmpeg(f4, postfix, true);
     //await ffmpeg(f6, postfix, true);
@@ -106,19 +106,11 @@ export const test = async () => {
     //await ffmpeg(f10, postfix, true);
     //await ffmpeg(f12, postfix, true);
 
-    //await testScripts(77);
-    //await testScripts(78);
-    //await testScripts(79);
-    //await testScripts(80);
-    //await testScripts(81);
-    //await testScripts(82);
-    //await testScripts(83);
     //await testScripts(84);
-    //await testScripts(85);
-    //await testScripts(86);
-    //await testScripts(87);
+    await testScripts(86);
 
-    //await scan("F:\\Аниме\\Онгоинги\\!_37_Зима_2025\\JamClub\\Доктор Стоун\\ТВ-4");
+    //await testScripts(89);
+
     //await scan(fd);
 
     //await ffmetrics(f1, f0);
@@ -183,24 +175,24 @@ export const test = async () => {
     strong-intra-smoothing: 1, limit-refs: 1, limit-modes: 0, sao: 1, early-skip: 1
 
     I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 01 [1080p CR WEB-DL AVC AAC]_HEVC.mkv
-    crf: 18.0, rc_lookahead: 48 => 120, ref: 4 => 5, bframes: 0 => 10, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 5, merange: 16 => 57,
-    deblock: 1:1:1 => -1:-1, rd: 5, psy: 1 => 1.00, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.70, aq-mode: 5,
-    strong-intra-smoothing: 0, limit-refs: 0, limit-modes: 0, sao: 0, early-skip: 0
-
-    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 02 [1080p CR WEB-DL AVC AAC]_HEVC.mkv
-    crf: 18.0, rc_lookahead: 48 => 120, ref: 4 => 5, bframes: 0 => 10, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 5, merange: 16 => 57,
-    deblock: 1:1:1 => -1:-1, rd: 5, psy: 1 => 1.00, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.70, aq-mode: 5,
-    strong-intra-smoothing: 0, limit-refs: 0, limit-modes: 0, sao: 0, early-skip: 0
-
-    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 01 [1080p CR WEB-DL AVC AAC]_HEVC(1).mkv
     crf: 20.5, rc_lookahead: 48 => 250, ref: 4 => 6, bframes: 0 => 8, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 4, merange: 16 => 57,
     deblock: 1:1:1 => -1:-1, rd: 4, psy: 1 => 0.50, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.75, aq-mode: 3,
     strong-intra-smoothing: 1, limit-refs: 0, limit-modes: 1, sao: 1, early-skip: 0
 
-    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 02 [1080p CR WEB-DL AVC AAC]_HEVC(1).mkv
+    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 02 [1080p CR WEB-DL AVC AAC]_HEVC.mkv
     crf: 20.5, rc_lookahead: 48 => 15, ref: 4 => 2, bframes: 0 => 4, b_adapt: und => 0, b_pyramid: und => 1, b_bias: und => 0, me: hex => 1, subme: 8 => 2, merange: 16 => 57,
     deblock: 1:1:1 => 0:0, rd: 2, psy: 1 => 2.00, psy_rd: 0.40:0.00 => 0.00, rdoq-level: 0, aq: 1:0.60 => 1.00, aq-mode: 2,
     strong-intra-smoothing: 1, limit-refs: 3, limit-modes: 0, sao: 1, early-skip: 1
+
+    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 01 [1080p CR WEB-DL AVC AAC]_HEVC(1).mkv
+    crf: 18.0, rc_lookahead: 48 => 120, ref: 4 => 5, bframes: 0 => 10, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 5, merange: 16 => 57,
+    deblock: 1:1:1 => -1:-1, rd: 5, psy: 1 => 1.00, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.70, aq-mode: 5,
+    strong-intra-smoothing: 0, limit-refs: 0, limit-modes: 0, sao: 0, early-skip: 0
+
+    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 02 [1080p CR WEB-DL AVC AAC]_HEVC(1).mkv
+    crf: 18.0, rc_lookahead: 48 => 120, ref: 4 => 5, bframes: 0 => 10, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 5, merange: 16 => 57,
+    deblock: 1:1:1 => -1:-1, rd: 5, psy: 1 => 1.00, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.70, aq-mode: 5,
+    strong-intra-smoothing: 0, limit-refs: 0, limit-modes: 0, sao: 0, early-skip: 0
     */
 
     const
