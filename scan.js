@@ -7,7 +7,7 @@ const mediaInfoOpts = await fileToArr('mediaInfoOpts.txt');
 const mediaInfo = await fileToArr('mediaInfo.txt');
 
 const root = `${rootDir}/MediaInfo`;
-const resultFile = `${rootDir}/.scan.txt`;
+const resultFile = `${root}/.scan.txt`;
 const resultDir = `${root}/out`;
 
 await mkdir(resultDir);

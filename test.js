@@ -106,10 +106,7 @@ export const test = async () => {
     //await ffmpeg(f10, postfix, true);
     //await ffmpeg(f12, postfix, true);
 
-    //await testScripts(84);
-    await testScripts(86);
-
-    //await testScripts(89);
+    await testScripts(90);
 
     //await scan(fd);
 
@@ -185,11 +182,6 @@ export const test = async () => {
     strong-intra-smoothing: 1, limit-refs: 3, limit-modes: 0, sao: 1, early-skip: 1
 
     I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 01 [1080p CR WEB-DL AVC AAC]_HEVC(1).mkv
-    crf: 18.0, rc_lookahead: 48 => 120, ref: 4 => 5, bframes: 0 => 10, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 5, merange: 16 => 57,
-    deblock: 1:1:1 => -1:-1, rd: 5, psy: 1 => 1.00, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.70, aq-mode: 5,
-    strong-intra-smoothing: 0, limit-refs: 0, limit-modes: 0, sao: 0, early-skip: 0
-
-    I:\Аниме\Онгоинги\!_42_Весна_2026\Subs\Чёрная кошка и класс ведьм\[Erai-raws] Kuroneko to Majo no Kyoushitsu - 02 [1080p CR WEB-DL AVC AAC]_HEVC(1).mkv
     crf: 18.0, rc_lookahead: 48 => 120, ref: 4 => 5, bframes: 0 => 10, b_adapt: und => 2, b_pyramid: und => 1, b_bias: und => 0, me: hex => 3, subme: 8 => 5, merange: 16 => 57,
     deblock: 1:1:1 => -1:-1, rd: 5, psy: 1 => 1.00, psy_rd: 0.40:0.00 => 1.00, rdoq-level: 2, aq: 1:0.60 => 0.70, aq-mode: 5,
     strong-intra-smoothing: 0, limit-refs: 0, limit-modes: 0, sao: 0, early-skip: 0
