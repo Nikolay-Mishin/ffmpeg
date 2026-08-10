@@ -108,7 +108,7 @@ export const test = async () => {
 
     //await testScripts(90);
 
-    await scan(fd);
+    //await scan(fd);
 
     //await ffmetrics(f1, f0);
     //await ffmetrics(f3, f2);
