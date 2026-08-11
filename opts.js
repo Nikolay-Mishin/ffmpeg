@@ -354,7 +354,6 @@ export const
         space = space.lower();
         bit = getInt(bit, 8);
         const format = `${!setMetrics ? '' : 'format='}pix_fmts=${space === 'yuv' ? space : ''}${chroma.replace(re, '')}p${bit === 8 ? '' : bit}${bit === 10 ? 'le' : ''}`;
-        //log(format);
         //log(!isNV && bit === 10);
         //log(format.replace('(pix_fmts)=.+', '$1=p010le'));
         return isNV && bit === 10 ? format.replace(/(pix_fmts)=.+/, '$1=p010le') : format;

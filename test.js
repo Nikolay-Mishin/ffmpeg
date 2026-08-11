@@ -105,8 +105,8 @@ export const test = async () => {
     //await ffmpeg(f8, postfix, true);
     //await ffmpeg(f10, postfix, true);
     //await ffmpeg(f12, postfix, true);
-
-    //await testScripts(90);
+    
+    //await testScripts(99);
 
     //await scan(fd);
 
@@ -118,7 +118,7 @@ export const test = async () => {
     //await ffmetrics(f11, f10);
     //await ffmetrics(f13, f12);
 
-    //await testScriptsMetrics(12);
+    //await testScriptsMetrics(91);
     //await testScriptsMetrics(2, `-out_scale_m=false`);
 
     //await testParams2(iList, 31, null, 5, 10, 7, 4, [11, 14], 25, [43, 47], [48, 53], [54, 55], 56, 8, [77, 78], [79, 84], [85, 90], [91, 95], [96, 105], [106, 111], 57, [58, 61], [62, 65], [66, 68], [69, 71], [72, 73], [74, 76], [112, 120], [121, 126], [127, 133], [134, 142], [143, 148], [149, 155], [156, 160]);
