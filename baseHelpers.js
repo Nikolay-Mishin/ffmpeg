@@ -23,7 +23,7 @@ export const
     parseFloat = (str, rnd = 3) => float(float(str).toFixed(rnd)),
     parseInt = (str, ceil = true, rnd = true) => rnd ? (ceil ? Math.ceil(str) : parseFloat(str, 0)) : int(str);
 
-const libFilter = async ({ path, name }) => !exclude.find(dir => path.includes(`${root}\\${libRoot}\\${dir}`)) && await isExe(`${path}\\${name}`, false);
+const libFilter = async ({ parentPath: path, name }) => !exclude.find(dir => path.includes(`${root}\\${libRoot}\\${dir}`)) && await isExe(`${path}\\${name}`, false);
 
 export const
     parseArgs = (argList, sep = /^\-+/) => {
@@ -319,16 +319,17 @@ async function* _getFiles(dir, opts = _opts, filter = _filter) {
     //log(dir);
     const dirents = await getDir(dir, opts);
     //log(dirents);
+    //log(filter);
     const filtered = await getPromises(dirents, filter);
-    const direntsF = dirents.filter((v, i) => filtered[i]).sort((a, b) => compare(a.path, b.path));
+    const direntsF = dirents.filter((v, i) => filtered[i]).sort((a, b) => compare(a.parentPath, b.parentPath));
     //log(filtered);
     //log(direntsF);
     //log(opts);
     for await (const dirent of direntsF) {
-        const { path, name } = dirent;
+        //log(dirent);
+        const { parentPath: path, name } = dirent;
         const f = resolve(path, name);
         const { name: fName, ext } = fileName(f, true, false);
-        //log(dirent);
         //log(await isDir(dirent) && recursive);
         //log({ name: _fileName, ext });
         if (await isDir(dirent) && recursive) {
@@ -356,16 +357,18 @@ export const getFiles = async (dir, cb = cbFiles, opts = _opts, filter = _filter
     //log(dir);
     for await (const { f, dir: _dir, name, fName, ext } of _getFiles(dir, opts, filter)) {
         //log(f);
+        //log(await isDir(f));
         if (await isDir(f)) continue;
         const fDir = dirName(f);
         const file = { f, dir: fDir, name, fName, ext };
+        //log(file);
         files.push(file);
         await cb(file);
     }
     return files;
 };
 
-export const getVideos = async (dir, cb = cbFiles, opts = _opts, filter = async ({ path, name }) => await isVideo(`${path}\\${name}`)) => {
+export const getVideos = async (dir, cb = cbFiles, opts = _opts, filter = async ({ parentPath: path, name }) => await isVideo(`${path}\\${name}`)) => {
     if (!isFn(cb)) {
         opts = cb;
         cb = cbFiles;
