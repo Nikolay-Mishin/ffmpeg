@@ -98,7 +98,7 @@ export const test = async () => {
     //await ffmpeg(f6);
     //await ffmpeg(f8);
 
-    await ffmpeg(f0, postfix, true);
+    //await ffmpeg(f0, postfix, true);
     //await ffmpeg(f2, postfix, true);
     //await ffmpeg(f4, postfix, true);
     //await ffmpeg(f6, postfix, true);
@@ -106,7 +106,7 @@ export const test = async () => {
     //await ffmpeg(f10, postfix, true);
     //await ffmpeg(f12, postfix, true);
 
-    await testScripts(99);
+    //await testScripts(117);
 
     //await scan(fd);
 
