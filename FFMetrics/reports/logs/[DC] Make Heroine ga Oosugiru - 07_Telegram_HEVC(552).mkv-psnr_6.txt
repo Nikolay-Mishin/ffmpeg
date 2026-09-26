@@ -1,0 +1,81 @@
+ffmpeg started on 2026-05-28 at 10:54:40
+Report written to "D:\Convert\FFMetrics\reports\psnr_report-6.txt"
+Log level: 32
+Command line:
+ffmpeg -hide_banner -nostdin -r 24000/1001 -i "F:\\Convert\\files\\[DC] Make Heroine ga Oosugiru - 07_Telegram_HEVC(552).mkv" -r 24000/1001 -i "F:\\Convert\\files\\[DC] Make Heroine ga Oosugiru - 07_Telegram.mp4" -lavfi "[0:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p10le,fps=24000/1001,scale=1920:1080:flags=lanczos:param0=3:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left,setsar=1/1,setdar=(1920/1080)*(1/1),colorspace=format=yuv420p10:range=tv:primaries=bt709:trc=bt709:space=bt709:fast=0[main];[1:v]settb=AVTB,setpts=PTS-STARTPTS,format=pix_fmts=yuv420p,fps=24000/1001,scale=1920:1080:flags=lanczos:param0=3:out_range=limited:out_color_matrix=bt709:out_chroma_loc=left,setsar=1/1,setdar=(1920/1080)*(1/1),colorspace=format=yuv420p:range=tv:primaries=bt709:trc=bt709:space=bt709:fast=0[ref];[main][ref]psnr=eof_action=endall:stats_file='D\\:/Convert/FFMetrics/logs/psnr_logfile-6.txt'" -f null -
+Input #0, matroska,webm, from 'F:\Convert\files\[DC] Make Heroine ga Oosugiru - 07_Telegram_HEVC(552).mkv':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    ENCODER         : Lavf61.7.100
+  Duration: 00:02:00.04, start: -0.021000, bitrate: 2751 kb/s
+  Stream #0:0: Video: hevc (Main 10), yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        HANDLER_NAME    : VideoHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 libx265
+        BPS             : 2555704
+        DURATION        : 00:01:59.994708333
+        NUMBER_OF_FRAMES: 2877
+        NUMBER_OF_BYTES : 38333658
+        _STATISTICS_WRITING_APP: mkvpropedit v94.0 ('Initiate') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2026-05-27 14:52:40
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+  Stream #0:1: Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        ENCODER         : Lavc61.19.100 aac
+        BPS             : 192376
+        DURATION        : 00:02:00.021000000
+        NUMBER_OF_FRAMES: 5627
+        NUMBER_OF_BYTES : 2886148
+        _STATISTICS_WRITING_APP: mkvpropedit v94.0 ('Initiate') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2026-05-27 14:52:40
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from 'F:\Convert\files\[DC] Make Heroine ga Oosugiru - 07_Telegram.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.16.100
+  Duration: 00:24:06.74, start: 0.000000, bitrate: 3764 kb/s
+  Stream #1:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 3616 kb/s, 23.98 fps, 23.98 tbr, 24k tbn (default)
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc60.31.102 h264_qsv
+  Stream #1:1[0x2](und): Audio: aac (HE-AACv2) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 144 kb/s (default)
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 (hevc) -> settb:default
+  Stream #1:0 (h264) -> settb:default
+  psnr:default -> Stream #0:0 (wrapped_avframe)
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Output #0, null, to 'pipe:':
+  Metadata:
+    COMPATIBLE_BRANDS: isomiso2avc1mp41
+    MAJOR_BRAND     : isom
+    MINOR_VERSION   : 512
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p10le(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 23.98 fps, 23.98 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 wrapped_avframe
+  Stream #0:1: Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+      Metadata:
+        HANDLER_NAME    : SoundHandler
+        VENDOR_ID       : [0][0][0][0]
+        _STATISTICS_TAGS: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+        BPS             : 192376
+        DURATION        : 00:02:00.021000000
+        NUMBER_OF_FRAMES: 5627
+        NUMBER_OF_BYTES : 2886148
+        _STATISTICS_WRITING_APP: mkvpropedit v94.0 ('Initiate') 64-bit
+        _STATISTICS_WRITING_DATE_UTC: 2026-05-27 14:52:40
+        encoder         : Lavc61.19.100 pcm_s16le
+frame=  127 fps=0.0 q=-0.0 size=N/A time=00:00:05.29 bitrate=N/A speed=10.3x    frame=  314 fps=306 q=-0.0 size=N/A time=00:00:13.09 bitrate=N/A speed=12.7x    frame=  506 fps=329 q=-0.0 size=N/A time=00:00:21.10 bitrate=N/A speed=13.7x    frame=  707 fps=345 q=-0.0 size=N/A time=00:00:29.48 bitrate=N/A speed=14.4x    frame=  892 fps=346 q=-0.0 size=N/A time=00:00:37.20 bitrate=N/A speed=14.4x    frame= 1035 fps=335 q=-0.0 size=N/A time=00:00:43.16 bitrate=N/A speed=  14x    frame= 1202 fps=334 q=-0.0 size=N/A time=00:00:50.13 bitrate=N/A speed=13.9x    frame= 1361 fps=331 q=-0.0 size=N/A time=00:00:56.76 bitrate=N/A speed=13.8x    frame= 1521 fps=328 q=-0.0 size=N/A time=00:01:03.43 bitrate=N/A speed=13.7x    frame= 1663 fps=323 q=-0.0 size=N/A time=00:01:09.36 bitrate=N/A speed=13.5x    frame= 1830 fps=323 q=-0.0 size=N/A time=00:01:16.32 bitrate=N/A speed=13.5x    frame= 2000 fps=323 q=-0.0 size=N/A time=00:01:23.41 bitrate=N/A speed=13.5x    frame= 2118 fps=316 q=-0.0 size=N/A time=00:01:28.33 bitrate=N/A speed=13.2x    frame= 2269 fps=314 q=-0.0 size=N/A time=00:01:34.63 bitrate=N/A speed=13.1x    frame= 2423 fps=313 q=-0.0 size=N/A time=00:01:41.05 bitrate=N/A speed=  13x    frame= 2558 fps=310 q=-0.0 size=N/A time=00:01:46.68 bitrate=N/A speed=12.9x    frame= 2723 fps=310 q=-0.0 size=N/A time=00:01:53.57 bitrate=N/A speed=12.9x    [Parsed_psnr_16 @ 0000021e4ab84e40] PSNR y:45.955248 u:47.924359 v:48.158169 average:46.545424 min:37.702480 max:inf
+[out#0/null @ 0000021e3de4dec0] video:1236KiB audio:22508KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2877 fps=312 q=-0.0 Lsize=N/A time=00:01:59.99 bitrate=N/A speed=  13x    
