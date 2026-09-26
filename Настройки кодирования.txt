@@ -56,6 +56,17 @@ ffmpeg -i input.mp4 -vf "scale=1280:-1:flags=lanczos" output_lanczos.mp4
 
 -------------------------------------------------
 
+* slow
+rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=8:b-adapt=2:me=2:ref=6:subq=8:merange=57:direct=auto:deblock=1,1
+* slower
+rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=8:b-adapt=2:me=2:ref=8:subq=9:merange=57:direct=auto:analyse=all:trellis=2:deblock=1,1
+* veryslow
+rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=8:b-adapt=2:me=2:ref=16:subq=10:merange=24:direct=auto:analyse=all:trellis=2:deblock=1,1
+* placebo
+rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=16:b-adapt=2:me=tesa:ref=16:subq=10:merange=24:direct=auto:analyse=all:trellis=2:no-fast-pskip:deblock=1,1
+
+-------------------------------------------------
+
 -tune
 
 x265 поддерживает следующие -tuneпараметры: psnr, ssim, grain, zerolatency, fastdecode
@@ -68,6 +79,19 @@ fastdecode – позволяет ускорить декодирование з
 zerolatency – хорошо подходит для быстрого кодирования и потоковой передачи с малой задержкой
 psnr – игнорируйте это, так как оно используется только для разработки кодеков
 ssim – игнорируйте это, так как оно используется только для разработки кодеков
+
+-------------------------------------------------
+
+Основные схемы субдискретизации (компромисс между качеством и размером)
+- YUV 4:2:0: Цветность (U и V) сжимается в 4 раза по сравнению с яркостью (Y). 
+На 4 пикселя приходится всего 2 значения цвета.
+Лучшее применение: Стандарт для интернета, YouTube, цифрового телевидения (H.264, HEVC). 
+Человеческий глаз почти не замечает потери цвета, а файл весит вдвое меньше RGB.
+- YUV 4:2:2: Цветность урезается только по горизонтали (в 2 раза).
+Лучшее применение: Профессиональное вещание, телепроизводство и камеры высокого уровня. 
+Идеально подходит для хромакея (зеленого экрана).
+YUV 4:4:4: Без сжатия цвета — каждый пиксель имеет свои координаты яркости и цветности (полное качество).
+Лучшее применение: Компьютерная графика, работа с текстом в видео, цветокоррекция высшего уровня и кинопроизводство.
 
 -------------------------------------------------
 
@@ -1560,17 +1584,6 @@ ffmpeg \
         -c:a aac -b:a 192k -ar 48000 \
         -c:s copy \
         -y "G:\Аниме\Онгоинги\!_35_Лето_2024\DreamCast-1\Аля иногда кокетничает со мной по-русски\[DC] Roshidere - 01_Telegram_HEVC(6).mkv"
-
--------------------------------------------------
-
-* slow
-rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=8:b-adapt=2:me=2:ref=6:subq=8:merange=57:direct=auto:deblock=1,1
-* slower
-rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=8:b-adapt=2:me=2:ref=8:subq=9:merange=57:direct=auto:analyse=all:trellis=2:deblock=1,1
-* veryslow
-rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=8:b-adapt=2:me=2:ref=16:subq=10:merange=24:direct=auto:analyse=all:trellis=2:deblock=1,1
-* placebo
-rc-lookahead=60:psy-rd=0.40:aq-strength=0.6:bframes=16:b-adapt=2:me=tesa:ref=16:subq=10:merange=24:direct=auto:analyse=all:trellis=2:no-fast-pskip:deblock=1,1
 
 -------------------------------------------------
 
